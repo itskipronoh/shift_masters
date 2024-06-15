@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import * as React from 'react';
 import { useState } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Pressable, TextInput} from 'react-native';
 const SignInCustomer = ({navigation}) => {
@@ -13,7 +13,7 @@ const SignInCustomer = ({navigation}) => {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
-      router.push('(home)/Home');
+      navigation.replace('Customer Drawer');
       // Perform sign-in logic here
     }
   };
@@ -24,7 +24,9 @@ const SignInCustomer = ({navigation}) => {
     setIsValidEmail(emailRegex.test(text));
     setEmail(text);
   };
-
+  const goBack = () => {
+    navigation.goBack();
+  };
   return (
       <KeyboardAvoidingView
       style={styles.container}
@@ -35,13 +37,13 @@ const SignInCustomer = ({navigation}) => {
         source={require('../../assets/HOUSE-MOVERS-LOGO.png')}/>
       <View style={styles.container2}>
       <TouchableOpacity
-        style={[ styles.segmentButton, styles.activeSegmentButton,]} >
-        
+        style={[ styles.segmentButton, styles.activeSegmentButton,]}
+        onPress={() => navigation.replace('Customer Sign In')}>
         <Text style={[styles.segmentButtonText,styles.activeSegmentButtonText]}>Sign In</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.segmentButton}
-        onPress={() => router.push('/signUpAsCustomer')}>
+        onPress={() => navigation.replace('Customer Sign Up')}>
         <Text style={styles.segmentButtonText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
@@ -91,10 +93,10 @@ const SignInCustomer = ({navigation}) => {
         ]} onPress={handleSignIn}>
           <Text style={styles.signInButtonText}>Sign In</Text>
         </Pressable>
-        <TouchableOpacity style={styles.buttonForgotPassword} onPress={() => router.replace('forgotPassword')}>
+        <TouchableOpacity style={styles.buttonForgotPassword} onPress={() => {navigation.navigate('Forgot Password');}}>
         <Text style={styles.buttonForgotPassword}> Forgot Password? </Text> 
         </TouchableOpacity>
-        <Text style={styles.ss}> Dont have account? <Text style = {styles.ff} onPress={() => router.push('signUpAsCustomer')}>Create a New Account!</Text>
+        <Text style={styles.ss}> Dont have account? <Text style = {styles.ff} onPress={() => navigation.replace('Customer Sign Up')}>Create a New Account!</Text>
         </Text>
         
       </ScrollView>
