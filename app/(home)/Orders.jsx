@@ -1,12 +1,12 @@
-import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
 
-const Orders = ({navigate}) => {
-  const navigation = useNavigation();
+const Orders = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.messageText}>Orders Screen is in Development Phase</Text>
+      <Text style={styles.messageText}>
+        Orders Screen is in Development Phase
+      </Text>
     </View>
   );
 };
@@ -14,15 +14,15 @@ const Orders = ({navigate}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 20,
   },
   messageText: {
     fontSize: 20,
-    textAlign: 'center',
-    fontWeight:"bold",
+    textAlign: "center",
+    fontWeight: "bold",
     marginBottom: 30,
   },
 });

@@ -6,6 +6,7 @@ import {Marker} from 'react-native-maps';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { IconButton } from 'react-native-paper';
+import { router } from 'expo-router';
 
 const SetPickupLocationScreen = () => {
   const [pickupLocation, setPickupLocation] = useState(' ');
@@ -33,7 +34,7 @@ const SetPickupLocationScreen = () => {
       locationType,
       otherCategory,
     });
-    navigation.navigate("Set Destination Location");
+    router.push("SetDestinationLocation");
   };
 
   const handleGoBack = () => {

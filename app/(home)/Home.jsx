@@ -5,11 +5,8 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { router } from "expo-router";
 const Home = () => {
-  const Stack = createNativeStackNavigator();
-
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require("../../assets/z.png")} />
@@ -44,7 +41,6 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    //justifyContent: 'center',
     padding: 0,
     flex: 1,
     height: "50%",
@@ -77,7 +73,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 80,
     borderRadius: 15,
-    //elevation: 3,
     backgroundColor: "#BF9000",
     marginTop: 10,
     marginBottom: 10,
@@ -86,7 +81,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
-    //letterSpacing: 0.25,
     color: "black",
   },
   button2: {
@@ -95,7 +89,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 116,
     borderRadius: 15,
-    //elevation: 3,
     backgroundColor: "#BF9000",
     marginTop: 10,
     marginBottom: 10,
@@ -104,7 +97,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
-    //letterSpacing: 0.25,
     color: "black",
   },
   button3: {
@@ -113,7 +105,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 45,
     borderRadius: 15,
-    //elevation: 3,
     backgroundColor: "#BF9000",
     marginTop: 10,
     marginBottom: 10,
