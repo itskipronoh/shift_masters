@@ -6,7 +6,7 @@ const SignOut = ({ navigate }) => {
   const handleSignOut = () => {
     // Perform sign out functionality here
     // Example: navigate to the sign-in screen or clear user session
-    router.push("(_auth)/SignInAsCustomer");
+    router.push("(auth)/signInAsCustomer");
   };
   return (
     <View style={styles.container}>
@@ -20,7 +20,7 @@ const SignOut = ({ navigate }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.cancelButton}
-          onPress={() => router.push("Home")}
+          onPress={() => router.push("(home)/Home")}
         >
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
