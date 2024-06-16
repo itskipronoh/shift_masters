@@ -13,7 +13,7 @@ const SignInCustomer = ({navigation}) => {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
-      navigation.replace('Customer Drawer');
+      router.push('(home)/Home');
       // Perform sign-in logic here
     }
   };

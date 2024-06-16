@@ -9,11 +9,13 @@ import TrackOrder from './TrackOrder';
 import ProfileAccount from "./ProfileAccount"; 
 import ViewOrderDetails from './ViewOrderDetails';
 import SignOut from './SignOut';
+
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Drawer } from 'expo-router/drawer';
 export default function DrawerContainer(navigation) {
-  const Drawer = createDrawerNavigator();
   const showHiddenScreen = false;
   return (
-      <Drawer.Navigator screenOptions={{ drawerPosition: 'left' }} initialRouteName="HOME">
+      <Drawer screenOptions={{ drawerPosition: 'left' }} initialRouteName="HOME">
         <Drawer.Screen name='Profile Account' component={ProfileAccount} options={{
           title:"Profile Account",
           gestureEnabled: true,
@@ -84,49 +86,6 @@ export default function DrawerContainer(navigation) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },}}/>
-      </Drawer.Navigator>
+      </Drawer>
   );
 }
-// {showHiddenScreen && (
-//           <Drawer.Screen name='Track Order' component={TrackOrder} options={{
-//             title: 'Tracking Your Order',
-//           gestureEnabled: true,
-//           gestureDirection: 'horizontal',
-//           headerTitleAlign: "center",
-//           headerStyle: {
-//             backgroundColor: '#BF9000',
-//           },
-//           headerTintColor: '#000000',
-//           headerTitleStyle: {
-//             fontWeight: 'bold',
-//           },
-//            headerRight: () => (
-//               <TouchableOpacity onPress={() => navigation.replace('Orders')} style={{marginRight: 10}}>
-//                 <Text style={{color: '#000000'}}>Go Back</Text>
-//               </TouchableOpacity>
-//             ),}}/>)}
-//           {showHiddenScreen && (
-//           <Drawer.Screen name='View Order Details' component={ViewOrderDetails} options={{
-//             title: 'View Order Details',
-//           gestureEnabled: true,
-//           gestureDirection: 'horizontal',
-//           headerTitleAlign: "center",
-//           headerStyle: {
-//             backgroundColor: '#BF9000',
-//           },
-//           headerTintColor: '#000000',
-//           headerTitleStyle: {   
-//             fontWeight: 'bold',
-//           },}}/>)}
-//           <Drawer.Screen name='Chats' component={Chats} options={{
-//           title:"Chats",
-//           gestureEnabled: true,
-//           gestureDirection: 'horizontal',
-//           headerTitleAlign: "center",
-//           headerStyle: {
-//             backgroundColor: '#BF9000',
-//           },
-//           headerTintColor: '#000000',
-//           headerTitleStyle: {
-//             fontWeight: 'bold',
-//           },}}/>

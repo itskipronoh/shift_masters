@@ -1,10 +1,12 @@
-import React, { useState,useEffect } from 'react';
-import { StyleSheet, View, Text, TextInput,Platform, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, TextInput, Platform, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+// import MapView, { Marker } from 'react-native-maps';
 import MapView from 'react-native-maps';
 import {Marker} from 'react-native-maps';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { IconButton } from 'react-native-paper';
+import { router } from 'expo-router';
 
 const SetPickupLocationScreen = () => {
   const [pickupLocation, setPickupLocation] = useState(' ');
@@ -27,17 +29,17 @@ const SetPickupLocationScreen = () => {
   const handleConfirmPickupLocation = () => {
     // Perform necessary actions when the user confirms the pickup location
     // For example, navigate to the Set Destination screen or save the pickup location
-    console.log('Confirm Destination Location', {
+    console.log('Confirmed Pickup Location:', {
       pickupLocation,
       locationType,
       otherCategory,
     });
-    navigation.navigate("Required Order Details");
+    router.push("SetDestinationLocation");
   };
 
   const handleGoBack = () => {
-    navigation.navigate('Set Pickup Location');
-  }; 
+    navigation.navigate('HOME');
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -59,17 +61,17 @@ const SetPickupLocationScreen = () => {
   return (
     <View style={styles.container}>
       <MapView style={styles.map} initialRegion={{ latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
-      provider={Platform.OS === 'android' ? 'google' : 'google'}>
+        provider={Platform.OS === 'android' ? 'google' : 'google'}>
         <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
       </MapView>
 
       <KeyboardAvoidingView style={styles.viewContainer} behavior="padding">
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Text style={styles.heading}>Where do you wanna Move?</Text>
+          <Text style={styles.heading}>Set Pickup Location</Text>
 
           <TextInput
             style={styles.input}
-            placeholder="Enter Destination Location"
+            placeholder="Enter Pickup Location"
             placeholderTextColor="black"
             keyboardType="default"
             clearButtonMode={'always'}
@@ -77,7 +79,7 @@ const SetPickupLocationScreen = () => {
             onChangeText={handlePickupLocationChange}
           />
 
-          <Text style={styles.subHeading}>Location Type Moving To?</Text>
+          <Text style={styles.subHeading}>Location Type Moving From?</Text>
           <TouchableOpacity
             style={[styles.locationTypeOption, locationType === 'House' && styles.selectedOption]}
             onPress={() => handleLocationTypeChange('House')}
@@ -122,7 +124,7 @@ const SetPickupLocationScreen = () => {
           )}
 
           <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmPickupLocation}>
-            <Text style={styles.buttonText}>Order LAO!!!</Text>
+            <Text style={styles.buttonText}>Confirm Pickup Location</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -143,8 +145,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: -10,
     backgroundColor: '#bf9000',
-    borderTopLeftRadius:15,
-    borderTopRightRadius:15,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginLeft: 10,
   },
-  inputotheroption:{
+  inputotheroption: {
     backgroundColor: 'white',
     borderRadius: 8,
     padding: 10,
