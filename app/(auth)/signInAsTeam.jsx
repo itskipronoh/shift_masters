@@ -40,7 +40,7 @@ const SignInTeam = ({navigation}) => {
       //     console.log(data);
       //   }
       // )
-      navigation.replace('Team Drawer');
+      router.push('(team)');
     }
   };
 

@@ -1,10 +1,6 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet, Image, Pressable, TextInput} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-const Home = ({navigation}) => {
-  const Stack = createNativeStackNavigator();
+import { router } from 'expo-router';
+import { Text, View, StyleSheet, Image, Pressable, TextInput} from 'react-native';
+const Home = () => {
   return (
     <View style={styles.container}>
       <Image
@@ -15,13 +11,13 @@ const Home = ({navigation}) => {
       <Pressable style={({pressed}) => [
               styles.button3,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Order Details for Labour');}}>
+      ]} onPress={() => {router.push('LabourOrders');}}>
         <Text style={styles.textbutton3}> Orders Details for Labour </Text> 
       </Pressable>
        <Pressable style={({pressed}) => [
               styles.button4,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Order Details for Driver');}}>
+      ]} onPress={() => {router.push('(driver)/DriverOrders');}}>
         <Text style={styles.textbutton4}> Orders Details for Driver </Text> 
       </Pressable>
       </View>
@@ -59,42 +55,42 @@ const styles = StyleSheet.create({
     borderTopLeftRadius:25,
     borderTopRightRadius:25,
   },
-  //  button1:{
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   paddingVertical: 10,
-  //   paddingHorizontal: 80,
-  //   borderRadius: 15,
-  //   //elevation: 3,
-  //   backgroundColor:'#BF9000',
-  //   marginTop:10,
-  //   marginBottom:10,
-  // },
-  // textbutton1:{
-  //   fontSize: 16,
-  //   lineHeight: 21,
-  //   fontWeight: 'bold',
-  //   letterSpacing: 0.25,
-  //   color: 'black',
-  // },
-  // button2:{
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   paddingVertical: 10,
-  //   paddingHorizontal: 70,
-  //   borderRadius: 15,
-  //   elevation: 3,
-  //   backgroundColor:'#BF9000',
-  //   marginTop:10,
-  //   marginBottom:10,
-  // },
-  // textbutton2:{
-  //   fontSize: 16,
-  //   lineHeight: 21,
-  //   fontWeight: 'bold',
-  //   letterSpacing: 0.25,
-  //   color: 'black',
-  // },
+   button1:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 80,
+    borderRadius: 15,
+    //elevation: 3,
+    backgroundColor:'#BF9000',
+    marginTop:10,
+    marginBottom:10,
+  },
+  textbutton1:{
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',
+  },
+  button2:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 70,
+    borderRadius: 15,
+    elevation: 3,
+    backgroundColor:'#BF9000',
+    marginTop:10,
+    marginBottom:10,
+  },
+  textbutton2:{
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'black',
+  },
   button3:{
     alignItems: 'center',
     justifyContent: 'center',
