@@ -1,10 +1,9 @@
+import { router } from 'expo-router';
 import * as React from 'react';
-import { useState } from 'react';
+
 import { TouchableOpacity, Text, View, StyleSheet, Image, Pressable, TextInput} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-const Home = ({navigation}) => {
-  const Stack = createNativeStackNavigator();
+
+const Home = () => {
   return (
     <View style={styles.container}>
       <Image
@@ -15,20 +14,20 @@ const Home = ({navigation}) => {
       <Pressable style={({pressed}) => [
               styles.button1,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Vehicle Data');}}>
+      ]} onPress={() => {router.push('VehicleData');}}>
         <Text style={styles.textbutton1}> Vehicle Data </Text> 
 
       </Pressable>
      <Pressable style={({pressed}) => [
               styles.button2,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Employee Data');}}>
+      ]} onPress={() => {router.push('EmployeeData');}}>
         <Text style={styles.textbutton2}> Employee Data </Text> 
       </Pressable>
        <Pressable style={({pressed}) => [
               styles.button3,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Orders');}}>
+      ]} onPress={() => {router.push('Orders');}}>
         <Text style={styles.textbutton3}> Orders </Text> 
       </Pressable>
       </View>
