@@ -1,22 +1,12 @@
-import * as React from 'react';
-import { Text, View,Button, StyleSheet,TouchableOpacity } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import HOME from "./Home";
-import VehicleData from "./VehicleData";  
-import EmployeeData from "./EmployeeData";
-import Orders from './Orders'; 
-import TrackOrder from './TrackOrder';
-import ProfileAccount from "./ProfileAccount"; 
-import ViewOrderDetails from './ViewOrderDetails';
-import SignOut from './SignOut';
 
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
-export default function DrawerContainer(navigation) {
-  const showHiddenScreen = false;
-  return (
+export default function TeamLayout() {
+  // const showHiddenScreen = false;
+  const showHiddenScreen = true;
+    return (
       <Drawer screenOptions={{ drawerPosition: 'left' }} initialRouteName="HOME">
-        <Drawer.Screen name='Profile Account' component={ProfileAccount} options={{
+        <Drawer.Screen name='ProfileAccount'
+         options={{
           title:"Profile Account",
           gestureEnabled: true,
           gestureDirection: 'horizontal',
@@ -28,7 +18,8 @@ export default function DrawerContainer(navigation) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },}}/>
-        <Drawer.Screen name='HOME' component={HOME} options={{
+        <Drawer.Screen name='index' 
+        options={{
           title:"Home",
           headerTitleAlign: "center",
           headerStyle: {
@@ -38,7 +29,8 @@ export default function DrawerContainer(navigation) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },}}/>
-          <Drawer.Screen name='Vehicle Data' component={VehicleData} options={{
+          <Drawer.Screen name='VehicleData' 
+          options={{
           title:"Vehicle Data",
           gestureEnabled: true,
           gestureDirection: 'horizontal',
@@ -50,7 +42,8 @@ export default function DrawerContainer(navigation) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },}}/>
-          <Drawer.Screen name='Employee Data' component={EmployeeData} options={{
+          <Drawer.Screen name='EmployeeData' 
+          options={{
           title:"Employee Data",
           gestureEnabled: true,
           gestureDirection: 'horizontal',
@@ -62,7 +55,8 @@ export default function DrawerContainer(navigation) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },}}/>
-          <Drawer.Screen name='Orders' component={Orders} options={{
+          <Drawer.Screen name='Orders' 
+          options={{
           title:"Orders",
           gestureEnabled: true,
           gestureDirection: 'horizontal',
@@ -74,7 +68,8 @@ export default function DrawerContainer(navigation) {
           headerTitleStyle: {
             fontWeight: 'bold',
           },}}/>
-         <Drawer.Screen name='Team SignOut' component={SignOut} options={{
+         <Drawer.Screen name='SignOut' 
+         options={{
           title:"Sign Out",
           gestureEnabled: true,
           gestureDirection: 'horizontal',

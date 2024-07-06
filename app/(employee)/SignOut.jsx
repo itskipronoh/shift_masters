@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { router } from 'expo-router';
 
 const SignOut = ({navigate}) => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const handleSignOut = () => {
     // Perform sign out functionality here
     // Example: navigate to the sign-in screen or clear user session
-    navigation.navigate('Team Sign In');
+    router.push('signInAsEmployee');
   };
   return (
     <View style={styles.container}>
@@ -17,7 +18,7 @@ const SignOut = ({navigate}) => {
         <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('HOME')}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => router.push('Home')}>
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
       </View>

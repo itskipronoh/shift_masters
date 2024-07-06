@@ -5,11 +5,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons'; // Import icons from Expo vector icons library
 import { AntDesign } from '@expo/vector-icons';
-import PendingOrders from './PendingOrdersLabour';
-import CompletedOrders from './CompletedOrdersLabour';
-import ViewOrderDetails from './ViewOrderDetails';
-import TrackingOrder from './TrackingOrder';
-const LabourOrders = () => {
+import PendingOrders from '../../pages/employee/PendingOrdersDriver';
+import CompletedOrders from '../../pages/employee/CompletedOrdersDriver';
+import ViewOrderDetails from '../../pages/employee/ViewOrderDetails';
+import TrackingOrder from '../../pages/employee/TrackingOrder';
+const DriverOrders = () => {
   //const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
@@ -63,4 +63,4 @@ const LabourOrders = () => {
 };
 
 
-export default LabourOrders;
+export default DriverOrders;

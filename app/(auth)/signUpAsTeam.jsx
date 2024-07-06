@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Pressable, TextInput} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { router } from 'expo-router';
-const SignUpTeam = ({navigation}) => {
+const SignUpTeam = () => {
   const [name,onChangeName] = useState('');
   const [email, onChangeEmail] = useState('');
   const [cnic,onChangeCnic] = useState(''); 
@@ -89,12 +89,12 @@ const SignUpTeam = ({navigation}) => {
       <View style={styles.container2}>
       <TouchableOpacity
         style={styles.segmentButton}
-        onPress={() => navigation.replace('Team Sign In')}>
+        onPress={() => router.push('signInAsTeam')}>
         <Text style={styles.segmentButtonText}>Sign In</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[ styles.segmentButton, styles.activeSegmentButton,]}
-        onPress={() => navigation.replace('Team Sign Up')}>
+        onPress={() => router.push('signUpAsTeam')}>
         <Text style={[ styles.segmentButtonText,styles.activeSegmentButtonText]}>Sign Up</Text>
       </TouchableOpacity>
     </View>

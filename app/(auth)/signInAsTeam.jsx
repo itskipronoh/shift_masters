@@ -40,7 +40,7 @@ const SignInTeam = ({navigation}) => {
       //     console.log(data);
       //   }
       // )
-      navigation.replace('Team Drawer');
+      router.push('(team)/Home');
     }
   };
 
@@ -51,7 +51,7 @@ const SignInTeam = ({navigation}) => {
     setEmail(text);
   };
   const goBack = () => {
-    navigation.goBack();s
+   router.back();
   };
   return (
       <KeyboardAvoidingView

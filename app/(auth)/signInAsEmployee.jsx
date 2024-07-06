@@ -14,7 +14,7 @@ const SignInEmployee = ({navigation}) => {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
-      navigation.replace('Employee Drawer');
+      router.push('/(employee)/Home');
       // Perform sign-in logic here
 
     }

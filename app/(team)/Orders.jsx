@@ -4,12 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import OrdersRequest from './OrdersRequests';
-import PendingOrders from './PendingOrders';
-import CompletedOrders from './OrdersCompleted';
-import TrackingOrder from './TrackOrder';
-import OrderDetails from './ViewOrderDetails';
-import Chats from './Chats';
+import OrdersRequest from '../../pages/team/OrdersRequests';
+import PendingOrders from '../../pages/team/PendingOrders';
+import CompletedOrders from '../../pages/team/OrdersCompleted';
+import TrackingOrder from '../../pages/team/TrackOrder';
+import OrderDetails from '../../pages/team/ViewOrderDetails';
+import Chats from '../../pages/team/Chats';
 
 const Tab = createBottomTabNavigator();
 

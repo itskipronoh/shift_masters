@@ -1,10 +1,6 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet, Image, Pressable, TextInput} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-const Home = ({navigation}) => {
-  const Stack = createNativeStackNavigator();
+import { router } from 'expo-router';
+import { Text, View, StyleSheet, Image, Pressable, TextInput} from 'react-native';
+const Home = () => {
   return (
     <View style={styles.container}>
       <Image
@@ -13,23 +9,16 @@ const Home = ({navigation}) => {
       />
       <View style={styles.container2}>
       <Pressable style={({pressed}) => [
-              styles.button1,
-              pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Vehicle Data');}}>
-        <Text style={styles.textbutton1}> Vehicle Data </Text> 
-
-      </Pressable>
-     <Pressable style={({pressed}) => [
-              styles.button2,
-              pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Employee Data');}}>
-        <Text style={styles.textbutton2}> Employee Data </Text> 
-      </Pressable>
-       <Pressable style={({pressed}) => [
               styles.button3,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {navigation.navigate('Orders');}}>
-        <Text style={styles.textbutton3}> Orders </Text> 
+      ]} onPress={() => {router.push('LabourOrders');}}>
+        <Text style={styles.textbutton3}> Orders Details for Labour </Text> 
+      </Pressable>
+       <Pressable style={({pressed}) => [
+              styles.button4,
+              pressed && {opacity: 1.8, backgroundColor:'#987200'},
+      ]} onPress={() => {router.push('(driver)/DriverOrders');}}>
+        <Text style={styles.textbutton4}> Orders Details for Driver </Text> 
       </Pressable>
       </View>
     </View>
@@ -106,17 +95,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 10,
-    paddingHorizontal: 103,
-    borderRadius: 15,
-    elevation: 3,
+    paddingHorizontal: 50,
+    borderRadius: 12,
     backgroundColor:'#BF9000',
-    marginTop:10,
   },
   textbutton3:{
     fontSize: 16,
-    lineHeight: 21,
+    //lineHeight: 21,
     fontWeight: 'bold',
-    letterSpacing: 0.25,
+    //letterSpacing: 0.25,
+    color: 'black',
+  },
+  button4:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 53,
+    borderRadius: 12,
+    backgroundColor:'#BF9000',
+    marginTop:30,
+  },
+  textbutton4:{
+    fontSize: 16,
+    //lineHeight: 21,
+    fontWeight: 'bold',
+    //letterSpacing: 0.25,
     color: 'black',
   },
 
