@@ -40,7 +40,7 @@ const SignInTeam = ({navigation}) => {
       //     console.log(data);
       //   }
       // )
-      router.push('(team)/Home');
+      router.push('(team)');
     }
   };
 

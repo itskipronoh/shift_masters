@@ -8,7 +8,7 @@ import CompletedOrders from "../../pages/employee/CompletedOrdersLabour";
 import ViewOrderDetails from "../../pages/employee/ViewOrderDetails";
 import TrackingOrder from "../../pages/employee/TrackingOrder";
 const LabourOrders = () => {
-  //const navigation = useNavigation();
+  // const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
   return (

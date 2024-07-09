@@ -17,7 +17,7 @@ const Home = () => {
        <Pressable style={({pressed}) => [
               styles.button4,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {router.push('(driver)/DriverOrders');}}>
+      ]} onPress={() => {router.push('DriverOrders');}}>
         <Text style={styles.textbutton4}> Orders Details for Driver </Text> 
       </Pressable>
       </View>
