@@ -60,11 +60,17 @@ const SetPickupLocationScreen = () => {
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} initialRegion={{ latitude: 37.78825, longitude: -122.4324, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }}
-        provider={Platform.OS === 'android' ? 'google' : 'google'}>
-        <Marker coordinate={{ latitude: 37.78825, longitude: -122.4324 }} />
-      </MapView>
-
+     <MapView 
+    style={styles.map} 
+    initialRegion={{ 
+        latitude: -1.286389, // Latitude for Nairobi, Kenya
+        longitude: 36.817223, // Longitude for Nairobi, Kenya
+        latitudeDelta: 0.0922, 
+        longitudeDelta: 0.0421 
+    }} 
+    provider={Platform.OS === 'android' ? 'google' : 'google'}>
+    <Marker coordinate={{ latitude: -1.286389, longitude: 36.817223 }} />
+</MapView>
       <KeyboardAvoidingView style={styles.viewContainer} behavior="padding">
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Text style={styles.heading}>Set Pickup Location</Text>
