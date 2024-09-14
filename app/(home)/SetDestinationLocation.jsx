@@ -147,7 +147,7 @@ const SetPickupLocationScreen = () => {
             style={styles.confirmButton}
             onPress={handleConfirmPickupLocation}
           >
-            <Text style={styles.buttonText}>Order LAO!!!</Text>
+            <Text style={styles.buttonText}>Order NOW!!!</Text>
           </TouchableOpacity>
         </ScrollView>
       </KeyboardAvoidingView>
