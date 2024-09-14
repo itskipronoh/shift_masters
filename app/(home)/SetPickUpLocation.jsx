@@ -63,8 +63,8 @@ const SetPickupLocationScreen = () => {
      <MapView 
     style={styles.map} 
     initialRegion={{ 
-        latitude: -1.286389, // Latitude for Nairobi, Kenya
-        longitude: 36.817223, // Longitude for Nairobi, Kenya
+        latitude: -1.286389,
+        longitude: 36.817223, 
         latitudeDelta: 0.0922, 
         longitudeDelta: 0.0421 
     }} 
