@@ -13,4 +13,4 @@ Database: MongoDB for data persistence.
 APIs: Google Map API for location tracking and routing.
 Languages: JavaScript for the application, Python for NLP and sentiment analysis.
 ## NLP Sentiment Analysis
-To ensure the satisfaction of our users, we leverage NLP (Natural Language Processing) for sentiment analysis on feedback received. This helps us to understand our users' needs better and continually enhance the quality of our service.
+To ensure the satisfaction of users, I leverage NLP (Natural Language Processing) for sentiment analysis on feedback received. This helps us to understand our users' needs better and continually enhance the quality of our service.
