@@ -36,8 +36,8 @@ const teamsData = [
   },
   {
     name: "Team F",
-    wage: 1999,
-    rating: 4.0,
+    wage: 1700,
+    rating: 3.8,
   },
   // ... and so on for the other teams
 ];
