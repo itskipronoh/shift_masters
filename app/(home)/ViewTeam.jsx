@@ -35,8 +35,7 @@ const HouseMoversScreen = () => {
   };
 
   const makePhoneCall = () => {
-    const phoneNumber = "1234567890"; // Replace with the desired phone number
-    // Check if the Linking API is supported on the device
+    const phoneNumber = "0113515227"; 
     Linking.canOpenURL(`tel:${phoneNumber}`).then((supported) => {
       if (supported) {
         // Open the phone dialer with the specified phone number
