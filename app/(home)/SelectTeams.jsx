@@ -73,7 +73,7 @@ const TeamScreen = () => {
         <View style={styles.teamInfoContainer}>
           <Text style={styles.teamName}>{team.name}</Text>
           <Text style={styles.teamWage}>
-            Average Wage/Hour: Rps/.
+            Average Wage/Hour: KSHs/.
             <Text style={styles.teamWageAmount}>{team.wage}</Text>
           </Text>
           <Text style={styles.teamRating}>
