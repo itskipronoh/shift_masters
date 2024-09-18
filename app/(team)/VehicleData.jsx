@@ -163,7 +163,7 @@ const VehicleData = () => {
             onChangeText={setVehicleName}
             clearButtonMode="always"
             keyboardType="default"
-            placeholder='Enter Vehicle Name i.e; FUSO FIGHTER'
+            placeholder='Enter Vehicle Name i.e; Truck'
             placeholderTextColor="black"
           />
         </View>
@@ -175,7 +175,7 @@ const VehicleData = () => {
             onChangeText={setVehicleModel}
             clearButtonMode="always"
             keyboardType="numeric"
-            placeholder='Enter Moder Year i.e; (1995)'
+            placeholder='Enter Moder Year i.e; (2024)'
             placeholderTextColor="black"
           />
         </View>
@@ -199,7 +199,7 @@ const VehicleData = () => {
             onChangeText={setVehicleRegisterNumber}
             clearButtonMode="always"
             keyboardType="default"
-            placeholder='Enter Vehicle Reg.# i.e; LHR-1234'
+            placeholder='Enter Vehicle Reg i.e; KDM 1234'
             placeholderTextColor="black"
           />
         </View>
