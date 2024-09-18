@@ -54,7 +54,7 @@ const HouseMoversScreen = () => {
         <View style={styles.contentContainer}>
           <Text style={styles.text}>
             Our delivery staff is experienced and more expert to deliver your
-            office belongings to every location in and out of Lahore. We will
+            office belongings to every location in and out of Nairobi. We will
             deliver your office belongings conveniently and accurately through
             the best routes to avoid traffic problems and roadblocks. Instead of
             using the old-fashioned traditional procedures, Big Boy Movers is
