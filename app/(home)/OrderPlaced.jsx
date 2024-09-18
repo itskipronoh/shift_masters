@@ -57,7 +57,7 @@ const Home = () => {
             pressed && { opacity: 1.8, backgroundColor: "#987200" },
           ]}
           onPress={() => {
-            router.push("Home");
+            router.push("(home)/Home");
           }}
         >
           <Text style={styles.textbutton3}> Return To Home Page </Text>
