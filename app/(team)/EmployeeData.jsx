@@ -187,7 +187,7 @@ const EmployeeData = (navigation) => {
   //   }
  // };
   const handleAddEmployee = () => {
-    if( name === '' || phone === '' || (phone.length < 11) || (phone.length > 13) ||cnic === '' || ((cnic.length < 13) || (cnic.length > 13))) {
+    if( name === '' || phone === '' || (phone.length < 8) || (phone.length > 12) ||cnic === '' || ((cnic.length < 6) || (cnic.length > 9))) {
         alert('Please Fill All the Fields Correctly');
       } else {
         const newEmployee = {
@@ -195,7 +195,7 @@ const EmployeeData = (navigation) => {
           name: name,
           phone: phone,
           cnic: cnic,
-          image: imageUri
+          //image: imageUri
         };
         setEmployeeList([...employeeList, newEmployee]);
         setName('');
@@ -335,7 +335,7 @@ const EmployeeData = (navigation) => {
           />
           <TextInput
             style={styles.input}
-            placeholder="CNIC without dashes e.g:(3250215963863)"
+            placeholder="ID without dashes (32502159)"
             placeholderTextColor="black"
             keyboardType="numeric"
             value={cnic}
@@ -343,7 +343,7 @@ const EmployeeData = (navigation) => {
           />
           <TextInput
             style={styles.input}
-            placeholder="Roll of Employee i.e: (Driver or Labour)"
+            placeholder="Role of Employee i.e: (Driver or Labour)"
             placeholderTextColor="black"
             keyboardType="default"
             value={roll}
@@ -359,8 +359,8 @@ const EmployeeData = (navigation) => {
             <View style={styles.employeeCard} key={index}>
               <Text style={styles.employeeName}>Name: {employee.name}</Text>
               <Text style={styles.employeePhone}>Phone#: {employee.phone}</Text>
-              <Text style={styles.employeeCnic}>CNIC: {employee.cnic}</Text>
-              <Text style={styles.employeeroll}>Roll: {employee.roll}</Text>
+              <Text style={styles.employeeCnic}>ID: {employee.cnic}</Text>
+              <Text style={styles.employeeroll}>Role: {employee.roll}</Text>
               <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteEmployee(employee)}>
                   <Text style={styles.buttonText}>Delete</Text>
