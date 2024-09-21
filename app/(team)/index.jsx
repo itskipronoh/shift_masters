@@ -27,7 +27,7 @@ const Home = () => {
        <Pressable style={({pressed}) => [
               styles.button3,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-      ]} onPress={() => {router.push('Orders');}}>
+      ]} onPress={() => {router.push('(team)/Orders');}}>
         <Text style={styles.textbutton3}> Orders </Text> 
       </Pressable>
       </View>
