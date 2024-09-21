@@ -11,12 +11,12 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 const ProfileAccount = () => {
-  const [ownerName, setOwnerName] = useState('John Doe');
+  const [ownerName, setOwnerName] = useState('Martin Wanjuru');
   const [teamName, setTeamName] = useState('Team A');
-  const [email, setEmail] = useState('johndoe@example.com');
-  const [phoneNumber, setPhoneNumber] = useState('12345678900');
-  const [cnic, setCnic] = useState('1234567891234');
-  const [password, setPassword] = useState('password12345');
+  const [email, setEmail] = useState('wanjuru@gmail.com');
+  const [phoneNumber, setPhoneNumber] = useState('0789008874');
+  const [cnic, setCnic] = useState('34567891');
+  const [password, setPassword] = useState('password1234');
   const [averageWage, setAverageWage] = useState('');
   const [description, setDescription] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -40,11 +40,11 @@ const ProfileAccount = () => {
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       alert('Please enter a valid email address.');
       return;
-    } else if (cnic.length !== 13) {
-      alert('Please enter a valid 13 digit CNIC number without dashes (-).');
+    } else if (cnic.length !== 8) {
+      alert('Please enter a valid 8 digit ID number without dashes (-).');
       return;
-    } else if (phoneNumber.length !== 11) {
-      alert('Please enter a valid 11 digit mobile number.');
+    } else if (phoneNumber.length !== 10) {
+      alert('Please enter a valid 10 digit mobile number.');
       return;
     } else if (password.length < 8) {
       alert('Password should be at least 8 characters long.');
@@ -119,7 +119,7 @@ const ProfileAccount = () => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>CNIC:</Text>
+          <Text style={styles.label}>ID:</Text>
           <Text style={styles.value}>{cnic}</Text>
         </View>
         <View style={styles.inputContainer}>
@@ -147,7 +147,7 @@ const ProfileAccount = () => {
             <Text style={styles.value}>{hidePassword()}</Text>
           )}
           <View style={styles.inputContainer}>
-          <Text style={styles.label}>Average Wage per Hour (in Rupees):</Text>
+          <Text style={styles.label}>Average Wage per Hour (in KSHs):</Text>
           {isEditMode ? (
             <TextInput
               style={styles.input}
