@@ -11,10 +11,10 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 const ProfileAccount = (navigation) => {
-  const [Name, setName] = useState('John Doe');
+  const [Name, setName] = useState('Martin Wanjuru');
   const [EmployeeId, setEmployeeId] = useState('HM67L9');
-  const [phoneNumber, setPhoneNumber] = useState('12345678900');
-  const [cnic, setCnic] = useState('1234567891234');
+  const [phoneNumber, setPhoneNumber] = useState('0789008874');
+  const [cnic, setCnic] = useState('34567891');
   const [password, setPassword] = useState('password12345');
   const [showPassword, setShowPassword] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -25,20 +25,20 @@ const ProfileAccount = (navigation) => {
       alert('All fields are required.');
       return;
     }
-    else if((cnic.length < 13) || (cnic.length > 13)){
+    else if((cnic.length < 6) || (cnic.length > 8)){
       alert('Please enter a valid 13 digit cnic number without dashes (-)');
       return;
     }
-    else if(cnic.length!==13)
+    else if(cnic.length!==8)
     {
-      alert('Please enter a valid 13 digit cnic number without dashes (-)');
+      alert('Please enter a valid 8 digit id number without dashes (-)');
       return;
     }
-    else if(phoneNumber.length<11){
+    else if(phoneNumber.length<8){
       alert('Please enter a valid 11 digits mobile number');
       return;
     }
-    else if(phoneNumber.length>13){
+    else if(phoneNumber.length>10){
       alert('Please enter a valid 11 digits mobile number');
       return;
     }
@@ -91,7 +91,7 @@ const ProfileAccount = (navigation) => {
           )}
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>CNIC:</Text>
+          <Text style={styles.label}>ID:</Text>
           <Text style={styles.value}>{cnic}</Text>
         </View>
         <View style={styles.inputContainer}>
