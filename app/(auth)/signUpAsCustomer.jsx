@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Pressable, TextInput} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
 import { router } from 'expo-router';
+
+const role = 'customer';  
 const SignUpCustomer = ({navigation}) => {
   const [name,onChangeName] = useState('');
   const [email, onChangeEmail] = useState('');
@@ -10,7 +11,7 @@ const SignUpCustomer = ({navigation}) => {
   const [password, onChangePassword] = useState(''); 
   const [cnfrmpassword, onChangeCnfrmPassword] = useState('');
   const [error, setError] = useState('');
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!name || !email || !number || !password || !cnfrmpassword) {
       setError('All fields are required.');
       return;
@@ -19,15 +20,15 @@ const SignUpCustomer = ({navigation}) => {
       setError('Please enter a valid email address.');
       return;
     }
-    else if(number.length<11){
-      setError('Please enter a valid 11 digits mobile number');
+    else if(number.length<10){
+      setError('Please enter a valid 10 digits mobile number');
       return;
     }
-    else if(number.length>13){
-      setError('Please enter a valid 11 digits mobile number');
+    else if(number.length>14){
+      setError('Please enter a valid 10 digits mobile number');
       return;
     }
-    else if (password.length < 8) {
+    else if (password.length < 6) {
       setError('Password should be at least 8 characters long!');
       return;
     }
@@ -35,8 +36,37 @@ const SignUpCustomer = ({navigation}) => {
       setError('Passwords do not match.');
       return;
     }
-    // Perform signUp logic here
-    // ...
+   
+
+  try {
+    const response = await fetch('https://rrf38mr7-5000.uks1.devtunnels.ms/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        phone: number,
+        password: password,
+        role: role,
+      }),
+    });
+
+    const data = await response.json();
+    console.log('Data:', data);
+
+    if (data.error) {
+      setError(data.error);
+      console.error('Error:', data.error);
+    } else {
+      router.push('signInAsCustomer');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+
   };
   return (
       <KeyboardAvoidingView
