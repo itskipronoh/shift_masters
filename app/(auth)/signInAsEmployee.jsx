@@ -9,13 +9,39 @@ const SignInEmployee = ({navigation}) => {
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     if (empId === '' || password === '') {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
       router.push('/(employee)/Home');
       // Perform sign-in logic here
+      try {
+        const response = await fetch(
+          'https://rrf38mr7-5000.uks1.devtunnels.ms/auth/login',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              empId: empId,
+              password: password,
+            }),
+          },
+        );
+
+        const data = await response.json();
+        console.log('Data:', data);
+
+        if (data.error) {
+          setShowErrorMessage(true);
+        } else {
+          router.push('/home');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
 
     }
   };
