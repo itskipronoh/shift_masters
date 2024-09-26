@@ -47,36 +47,37 @@ const SignUpTeam = () => {
       return;
     }
     
-    // console.log(name,email, cnic, number, password, cnfrmpassword, error);
+  
+    console.log(name,email, cnic, number, password, cnfrmpassword, error);
 
-    // const fdata = {
-    //   Company_Name:name ,
-    //   Leader_Name: name,
-    //   Leader_Email: email,
-    //   Leader_CNIC: cnic,
-    //   Password: password
-    // };
-    //Company_Name,Leader_Name,Leader_Email,Leader_CNIC,Password
-    // console.log(fdata);
-    // fetch('http://127.0.0.1:3000/signupteam',{
-    //   method: 'POST',
-    //   headers: {
-    //     'content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(fdata),
-    // })
-    // .then(response => response.json()).then(
-    //   data=> {
-    //     if(data.error) {
-    //       setError(data.error);
-    //     }
-    //     else{
-    //       alert('account created successfully');
-    //       navigation.replace('Team Sign In');
-    //     }
-    //     console.log(data);
-    //   }
-    // )
+    const fdata = {
+      Company_Name:name ,
+      Leader_Name: name,
+      Leader_Email: email,
+      Leader_CNIC: cnic,
+      Password: password
+    };
+    Company_Name,Leader_Name,Leader_Email,Leader_CNIC,Password
+    console.log(fdata);
+    fetch('https://rrf38mr7-5000.uks1.devtunnels.ms/auth/register',{
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(fdata),
+    })
+    .then(response => response.json()).then(
+      data=> {
+        if(data.error) {
+          setError(data.error);
+        }
+        else{
+          alert('account created successfully');
+          navigation.replace('Team Sign In');
+        }
+        console.log(data);
+      }
+    )
   };
   return (
       <KeyboardAvoidingView
