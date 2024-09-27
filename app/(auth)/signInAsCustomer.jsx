@@ -12,7 +12,7 @@ import {
   Pressable,
   TextInput,
 } from "react-native";
-
+const role = 'customer';  
 const SignInCustomer = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,6 +38,7 @@ const SignInCustomer = ({ navigation }) => {
             body: JSON.stringify({
               email: email,
               password: password,
+              role: role,
             }),
           }
         );
