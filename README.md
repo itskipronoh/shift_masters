@@ -7,7 +7,7 @@ Transportation: Schedule and manage the transportation of your belongings.
 Destination Setup: Plan the arrangement of items in your new home.
 Real-time Transporter Tracking: Keep an eye on your belongings with live updates on the transporter's location.
 Tech Stack
-Front-end: React Native Expo for the mobile application interface.
+Front end: React Native Expo for the mobile application interface.
 Back-end: Node.js and Express.js for server-side operations.
 Database: MongoDB for data persistence.
 APIs: Google Map API for location tracking and routing.
