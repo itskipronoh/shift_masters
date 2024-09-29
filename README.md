@@ -1,5 +1,5 @@
 ## Overview
-Shift Masters is a robust mobile application developed using React Native, designed to simplify the process of hiring individuals and moving teams for a seamless household relocation experience. The application employs AI-powered sentiment analysis to ensure the quality of service is continuously improved based on user feedback.
+Shift Masters is a robust mobile application developed using React Native, designed to simplify the process of hiring individuals and moving teams for a seamless household relocation experience. The application employs AI powered sentiment analysis to ensure the quality of service is continuously improved based on user feedback.
 
 ## Features:
 Item Packing: Organize and list items with ease.
