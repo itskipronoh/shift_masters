@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "shiftMasters",
+    "name": "Shift Masters",
     "slug": "shiftMasters",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.chebutul.shiftMasters"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d932e141-c340-4391-842e-7a17b7391156"
+      }
     }
   }
 }
