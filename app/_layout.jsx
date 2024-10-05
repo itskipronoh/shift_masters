@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme } from "@/hooks/useColorScheme";
+import GlobalProvider from "@/context/GlobalProvider";
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -26,6 +28,7 @@ export default function RootLayout() {
   }
 
   return (
+    <GlobalProvider>
     <GestureHandlerRootView style={{ flex: 1 }}>
     <Stack>
       <Stack.Screen
@@ -48,5 +51,6 @@ export default function RootLayout() {
       <Stack.Screen name="(employee)" options={{ headerShown: false }} />
     </Stack>
     </GestureHandlerRootView>
+    </GlobalProvider>
   );
 }
