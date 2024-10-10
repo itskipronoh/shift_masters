@@ -12,13 +12,17 @@ import {
   Pressable,
   TextInput,
 } from "react-native";
-const role = 'customer';  
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { useToast } from "react-native-toast-notifications";
+
 const SignInCustomer = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const { endpoint, getSession, startSession } = useGlobalContext();
+  const toast = useToast();
 
   const handleSignIn = async () => {
     if (email === "" || password === "") {
@@ -26,22 +30,17 @@ const SignInCustomer = ({ navigation }) => {
     } else {
       setShowErrorMessage(false);
       router.push("(home)/Home");
-      // Perform sign-in logic here
       try {
-        const response = await fetch(
-          "https://rrf38mr7-5000.uks1.devtunnels.ms/auth/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: email,
-              password: password,
-              role: role,
-            }),
-          }
-        );
+        const response = await fetch(`${endpoint}auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
 
         const data = await response.json();
         console.log("Data:", data);
@@ -49,7 +48,16 @@ const SignInCustomer = ({ navigation }) => {
         if (data.error) {
           setShowErrorMessage(true);
         } else {
+          startSession(data);
+          getSession();
           router.push("/home");
+          toast.show("Logged in successfully", {
+            type: "success",
+            placement: "top",
+            duration: 2500,
+            offset: 30,
+            animationType: "zoom-in",
+          });
         }
       } catch (error) {
         console.error("Error:", error);

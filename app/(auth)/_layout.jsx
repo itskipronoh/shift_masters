@@ -1,8 +1,17 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Stack, router } from "expo-router";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const AuthLayout = () => {
+  const { User } = useGlobalContext();
+
+  React.useEffect(() => {
+    if (User) {
+      router.replace("/(home)/Home");
+    }
+  }, [User]);
+
   return (
     <>
       <Stack>
