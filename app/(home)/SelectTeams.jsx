@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   ScrollView,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { IconButton } from "react-native-paper";
+import { useLocalSearchParams } from "expo-router";
 const teamsData = [
   {
     name: "Team A",
@@ -46,6 +46,7 @@ const TeamScreen = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [showOrderButton, setShowOrderButton] = useState(false);
   const [blurOtherLists, setBlurOtherLists] = useState(false);
+  const { pickupLocation, destLocationType, destOtherCat, DestinationLocation, locationType, otherCategory, items } = useLocalSearchParams();
 
   const handleSelectTeam = (team) => {
     if (selectedTeam === team) {
@@ -93,9 +94,6 @@ const TeamScreen = () => {
       </TouchableOpacity>
     ));
   };
-  const handleGoBack = () => {
-    router.push("RequiredOrderDetails");
-  };
 
   return (
     <View style={styles.container}>
@@ -106,7 +104,7 @@ const TeamScreen = () => {
         <TouchableOpacity
           style={styles.orderButton}
           onPress={() => {
-            router.push("OrderPlaced");
+            router.push("OrderPlaced"); //TODO place order te o the selected team
           }}
         >
           <Text style={styles.orderButtonText}>Make Order</Text>

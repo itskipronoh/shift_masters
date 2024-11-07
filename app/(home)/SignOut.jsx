@@ -1,12 +1,14 @@
 import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
-const SignOut = ({ navigate }) => {
-  const handleSignOut = () => {
-    // Perform sign out functionality here
-    // Example: navigate to the sign-in screen or clear user session
-    router.push("(auth)/signInAsCustomer");
+const SignOut = () => {
+  const { endSession } = useGlobalContext();
+
+  const handleSignOut = async () => {
+    await endSession();
+     router.push('(auth)/signInAsCustomer');
   };
   return (
     <View style={styles.container}>

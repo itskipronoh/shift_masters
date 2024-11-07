@@ -13,7 +13,7 @@ import {
 const EmployeeData = (navigation) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [cnic, setCnic] = useState('');
+  const [id, setid] = useState('');
   const [roll, setroll] = useState('');
   const [employeeList, setEmployeeList] = useState([]);
 
@@ -30,7 +30,7 @@ const EmployeeData = (navigation) => {
   //       roll: driver.D_roll,
   //       name: driver.D_name,
   //       phone: driver.D_phone,
-  //       cnic: driver.D_cnic,
+  //       id: driver.D_id,
   //     }));
 
   //     const labourList = data.labour.map((labour) => ({
@@ -38,7 +38,7 @@ const EmployeeData = (navigation) => {
   //       roll: labour.L_roll,
   //       name: labour.L_name,
   //       phone: labour.L_phone,
-  //       cnic: labour.L_cnic,
+  //       id: labour.L_id,
   //     }));
 
   //     const newTeaList = [...driverList, ...labourList];
@@ -53,8 +53,8 @@ const EmployeeData = (navigation) => {
     setPhone(value);
   };
 
-  const handleCnicChange = (value) => {
-    setCnic(value);
+  const handleidChange = (value) => {
+    setid(value);
   };
   const handlerollChange = (value) => {
     setroll(value);
@@ -62,8 +62,8 @@ const EmployeeData = (navigation) => {
 
   
   //const handleAddEmployee = () => {
-  // if(name === '' || phone === '' || (phone.length < 11) || (phone.length > 13) ||cnic === '' || ((cnic.length < 13) || (cnic.length > 13) || roll === '')) {
-  //     console.log(name, phone, cnic, roll);
+  // if(name === '' || phone === '' || (phone.length < 11) || (phone.length > 13) ||id === '' || ((id.length < 13) || (id.length > 13) || roll === '')) {
+  //     console.log(name, phone, id, roll);
   //     alert('Please Fill All the Fields Correctly');
   //   } else {
   //     if (roll === 'driver' || roll === 'Driver') {
@@ -71,7 +71,7 @@ const EmployeeData = (navigation) => {
   //           roll: roll,
   //           Driver_name: name,
   //           Driver_phone: phone,
-  //           Driver_cnic: cnic,
+  //           Driver_id: id,
   //         };
   //         console.log(fdata);
   //         fetch('http://127.0.0.1:3000/addteam', {
@@ -100,7 +100,7 @@ const EmployeeData = (navigation) => {
   //                     roll: driver.D_roll,
   //                     name: driver.D_name,
   //                     phone: driver.D_phone,
-  //                     cnic: driver.D_cnic,
+  //                     id: driver.D_id,
   //                   }));
     
   //                   const labourList = data.labour.map(labour => ({
@@ -108,7 +108,7 @@ const EmployeeData = (navigation) => {
   //                     roll: labour.L_roll,
   //                     name: labour.L_name,
   //                     phone: labour.L_phone,
-  //                     cnic: labour.L_cnic,
+  //                     id: labour.L_id,
   //                   }));
     
   //                   const newTeaList = [...driverList, ...labourList];
@@ -127,7 +127,7 @@ const EmployeeData = (navigation) => {
   //           roll: roll,
   //           labour_name: name,
   //           labour_phone: phone,
-  //           labour_cnic: cnic,
+  //           labour_id: id,
   //         };
   //         console.log(fdata);
   //         fetch('http://127.0.0.1:3000/addteam', {
@@ -156,7 +156,7 @@ const EmployeeData = (navigation) => {
   //                     roll: driver.D_roll,
   //                     name: driver.D_name,
   //                     phone: driver.D_phone,
-  //                     cnic: driver.D_cnic,
+  //                     id: driver.D_id,
   //                   }));
     
   //                   const labourList = data.labour.map(labour => ({
@@ -164,7 +164,7 @@ const EmployeeData = (navigation) => {
   //                     roll: labour.L_roll,
   //                     name: labour.L_name,
   //                     phone: labour.L_phone,
-  //                     cnic: labour.L_cnic,
+  //                     id: labour.L_id,
   //                   }));
     
   //                   const newTeaList = [...driverList, ...labourList];
@@ -181,26 +181,26 @@ const EmployeeData = (navigation) => {
   //       }
   //     setName('');
   //     setPhone('');
-  //     setCnic('');
+  //     setid('');
   //     setroll('');
   //     alert('Employee Details Added Successfully');
   //   }
  // };
   const handleAddEmployee = () => {
-    if( name === '' || phone === '' || (phone.length < 8) || (phone.length > 12) ||cnic === '' || ((cnic.length < 6) || (cnic.length > 9))) {
+    if( name === '' || phone === '' || (phone.length < 8) || (phone.length > 12) ||id === '' || ((id.length < 6) || (id.length > 9))) {
         alert('Please Fill All the Fields Correctly');
       } else {
         const newEmployee = {
           id: employeeList.length + 1,
           name: name,
           phone: phone,
-          cnic: cnic,
+          id: id,
           //image: imageUri
         };
         setEmployeeList([...employeeList, newEmployee]);
         setName('');
         setPhone('');
-        setCnic('');
+        setid('');
         // setImage(null);
         //setImageUri('');
         alert('Employee Details Added Successfully');
@@ -212,7 +212,7 @@ const EmployeeData = (navigation) => {
     //   const sdata =
     //   {
     //     roll: employee.roll,
-    //     Driver_cnic: employee.cnic
+    //     Driver_id: employee.id
     //   }
     //   fetch(`http://127.0.0.1:3000/deleteteam`, {
     //     method: 'DELETE',
@@ -236,7 +236,7 @@ const EmployeeData = (navigation) => {
     //             roll: driver.D_roll,
     //             name: driver.D_name,
     //             phone: driver.D_phone,
-    //             cnic: driver.D_cnic,
+    //             id: driver.D_id,
     //           }));
   
     //           const labourList = data.labour.map(labour => ({
@@ -244,7 +244,7 @@ const EmployeeData = (navigation) => {
     //             roll: labour.L_roll,
     //             name: labour.L_name,
     //             phone: labour.L_phone,
-    //             cnic: labour.L_cnic,
+    //             id: labour.L_id,
     //           }));
   
     //           const newTeaList = [...driverList, ...labourList];
@@ -261,7 +261,7 @@ const EmployeeData = (navigation) => {
     //   const sdata =
     //   {
     //     roll: employee.roll,
-    //     labour_cnic: employee.cnic
+    //     labour_id: employee.id
     //   }
     //   fetch(`http://127.0.0.1:3000/deleteteam`, {
     //     method: 'DELETE',
@@ -284,7 +284,7 @@ const EmployeeData = (navigation) => {
     //             roll: driver.D_roll,
     //             name: driver.D_name,
     //             phone: driver.D_phone,
-    //             cnic: driver.D_cnic,
+    //             id: driver.D_id,
     //           }));
   
     //           const labourList = data.labour.map(labour => ({
@@ -292,7 +292,7 @@ const EmployeeData = (navigation) => {
     //             roll: labour.L_roll,
     //             name: labour.L_name,
     //             phone: labour.L_phone,
-    //             cnic: labour.L_cnic,
+    //             id: labour.L_id,
     //           }));
   
     //           const newTeaList = [...driverList, ...labourList];
@@ -338,8 +338,8 @@ const EmployeeData = (navigation) => {
             placeholder="ID without dashes (32502159)"
             placeholderTextColor="black"
             keyboardType="numeric"
-            value={cnic}
-            onChangeText={handleCnicChange}
+            value={id}
+            onChangeText={handleidChange}
           />
           <TextInput
             style={styles.input}
@@ -359,7 +359,7 @@ const EmployeeData = (navigation) => {
             <View style={styles.employeeCard} key={index}>
               <Text style={styles.employeeName}>Name: {employee.name}</Text>
               <Text style={styles.employeePhone}>Phone#: {employee.phone}</Text>
-              <Text style={styles.employeeCnic}>ID: {employee.cnic}</Text>
+              <Text style={styles.employeeid}>ID: {employee.id}</Text>
               <Text style={styles.employeeroll}>Role: {employee.roll}</Text>
               <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteEmployee(employee)}>
@@ -439,7 +439,7 @@ employeePhone: {
 fontSize: 16,
 marginBottom: 5
 },
-employeeCnic: {
+employeeid: {
 fontSize: 16,
 marginBottom: 10
 },

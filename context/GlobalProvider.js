@@ -29,6 +29,15 @@ export default function GlobalProvider({ children }) {
     }
   }
 
+  async function endSession() {
+    try {
+      await AsyncStorage.removeItem("user");
+      setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getSession();
   }, []);
@@ -43,6 +52,7 @@ export default function GlobalProvider({ children }) {
         session,
         startSession,
         endpoint,
+        endSession,
       }}
     >
       {children}

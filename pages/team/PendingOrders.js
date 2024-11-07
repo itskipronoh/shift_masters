@@ -55,7 +55,7 @@ const PendingOrdersScreen = () => {
               </Text>
             </View>
             <Text style={styles.addressText}>
-              Estimated Fare: <Text style={[styles.fareAmountText, { color: 'red' }]}>{order.fareAmount}/.Rupees</Text>
+              Estimated Fare: <Text style={[styles.fareAmountText, { color: 'red' }]}>{order.fareAmount}/.KSHs</Text>
             </Text>
             <Text style={styles.addressText}>
               Status: <Text style={[styles.fareAmountText, { color: 'white' }]}>{order.orderStatus}</Text>

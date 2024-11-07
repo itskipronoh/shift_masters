@@ -8,23 +8,27 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { useToast } from "react-native-toast-notifications";
 
 const ViewOrdersDetails = ({ route }) => {
   const [orders, setOrders] = useState({});
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [cnic, setCnic] = useState('');
+  const [id, setid] = useState('');
   const [roll, setroll] = useState('');
   const [driverList, setDriverList] = useState([]);
   const [labourList, setLabourList] = useState([]);
   const [selectedDriver, setSelectedDriver] = useState(null); 
   const [selectedLabours, setSelectedLabours] = useState([]);
   const navigation = useNavigation();
+  const { endpoint } = useGlobalContext();
+  const toast = useToast();
 
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:3000/viewteam', {
+        const response = await fetch(`${endpoint}/viewteam`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -36,14 +40,14 @@ const ViewOrdersDetails = ({ route }) => {
           roll: driver.D_roll,
           name: driver.D_name,
           phone: driver.D_phone,
-          cnic: driver.D_cnic,
+          id: driver.D_id,
         }));
         const labourList = data.labour.map((labour) => ({
           id: labour._id,
           roll: labour.L_roll,
           name: labour.L_name,
           phone: labour.L_phone,
-          cnic: labour.L_cnic,
+          id: labour.L_id,
         }));
         setDriverList(driverList);
         setLabourList(labourList);
@@ -58,7 +62,7 @@ const ViewOrdersDetails = ({ route }) => {
           id: route.params.orderId,
         };
 
-        const response = await fetch('http://127.0.0.1:3000/vieworders', {
+        const response = await fetch(`${endpoint}/vieworders`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -111,7 +115,7 @@ const ViewOrdersDetails = ({ route }) => {
     };
   
     // Send the data to the server using a POST request
-    fetch('http://127.0.0.1:3000/updateOrder', {
+    fetch(`${endpoint}/updateOrder`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -190,7 +194,7 @@ const ViewOrdersDetails = ({ route }) => {
               <View style={styles.employeeCard} key={driver.id}>
                 <Text style={styles.employeeName}>Name: {driver.name}</Text>
                 <Text style={styles.employeePhone}>Phone#: {driver.phone}</Text>
-                <Text style={styles.employeeCnic}>CNIC: {driver.cnic}</Text>
+                <Text style={styles.employeeid}>id: {driver.id}</Text>
                 <Text style={styles.employeeroll}>Roll: {driver.roll}</Text>
                 <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity
@@ -222,7 +226,7 @@ const ViewOrdersDetails = ({ route }) => {
               <View style={styles.employeeCard} key={labour.id}>
                 <Text style={styles.employeeName}>Name: {labour.name}</Text>
                 <Text style={styles.employeePhone}>Phone#: {labour.phone}</Text>
-                <Text style={styles.employeeCnic}>CNIC: {labour.cnic}</Text>
+                <Text style={styles.employeeid}>id: {labour.id}</Text>
                 <Text style={styles.employeeroll}>Roll: {labour.roll}</Text>
                 <View style={{ flexDirection: 'row' }}>
                   <TouchableOpacity
@@ -318,7 +322,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   employeePhone: {},
-  employeeCnic: {},
+  employeeid: {},
   employeeroll: {},
   deleteButton: {
     backgroundColor: 'red',

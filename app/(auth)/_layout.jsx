@@ -6,11 +6,11 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const AuthLayout = () => {
   const { User } = useGlobalContext();
 
-  React.useEffect(() => {
-    if (User) {
-      router.replace("/(home)/Home");
-    }
-  }, [User]);
+  // React.useEffect(() => {
+  //   if (User) {
+  //     router.replace("/(home)/Home");
+  //   }
+  // }, [User]);
 
   return (
     <>

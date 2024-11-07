@@ -9,13 +9,21 @@ import {
   Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { IconButton } from "react-native-paper";
 import { router } from "expo-router";
-
+import { useLocalSearchParams } from "expo-router";
 const ItemDetailsScreen = () => {
   const [items, setItems] = useState([
     { name: "", description: "", quantity: 1 },
   ]);
+
+  const {
+    pickupLocation,
+    destLocationType,
+    destOtherCat,
+    DestinationLocation,
+    locationType,
+    otherCategory,
+  } = useLocalSearchParams();
 
   const addItem = () => {
     setItems([...items, { name: "", description: "", quantity: 1 }]);
@@ -45,10 +53,6 @@ const ItemDetailsScreen = () => {
   };
 
   const handleNextButton = () => {
-    // if(items.name != ''){
-    //         Alert.alert('Insufficient Item Details', 'Please Enter at least name of item above');
-    //         return;
-    // }
     if (items.length < 2) {
       Alert.alert(
         "Insufficient Item Details",
@@ -56,13 +60,18 @@ const ItemDetailsScreen = () => {
       );
       return;
     }
-    router.push("SelectTeams");
-    // Perform desired action when the Next button is pressed
-    //Alert.alert('Next Button Pressed');
-  };
-
-  const handleGoBack = () => {
-    router.push("SetDestinationLocation");
+    router.push({
+      pathname: "/(home)/SelectTeams",
+      params: {
+        pickupLocation,
+        destLocationType,
+        destOtherCat,
+        DestinationLocation,
+        locationType,
+        otherCategory,
+        items,
+      },
+    });
   };
 
   return (

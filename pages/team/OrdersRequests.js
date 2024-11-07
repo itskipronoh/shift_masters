@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Linking } from 'react-native';
+// import { Linking } from 'react-native';
+import { Linking, Alert } from 'react-native';
+import { useGlobalContext } from "../../context/GlobalProvider";
+import { router } from "expo-router";
 
 const OrdersRequestComponent = () => {
   const orders = [
@@ -20,6 +23,72 @@ const OrdersRequestComponent = () => {
     // Add more orders as needed
   ];
 const navigation = useNavigation();
+const { endpoint } = useGlobalContext();
+
+const handleAcceptOrder = async (order) => {
+  try {
+    const response = await fetch(`${endpoint}/updateOrderStatus`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderId: order.orderId,
+        status: 'accepted',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to accept the order');
+    }
+
+    const responseData = await response.json();
+    console.log('Order accepted:', responseData);
+    // Optional: Refresh orders or update state to reflect the change
+  } catch (error) {
+    console.error('Error accepting order:', error);
+    alert('Could not accept the order. Please try again.');
+  }
+};
+
+const handleCancelOrder = async (order) => {
+  try {
+    const response = await fetch(`${endpoint}/updateOrderStatus`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderId: order.orderId,
+        status: 'canceled',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to cancel the order');
+    }
+
+    const responseData = await response.json();
+    console.log('Order canceled:', responseData);
+    // Optional: Refresh orders or update state to reflect the change
+  } catch (error) {
+    console.error('Error canceling order:', error);
+    alert('Could not cancel the order. Please try again.');
+  }
+};
+
+const makePhoneCall = (phoneNumber) => {
+  if (!phoneNumber) {
+    Alert.alert("Phone number not available");
+    return;
+  }
+
+  const url = `tel:${phoneNumber}`;
+  Linking.openURL(url).catch((error) => {
+    console.error('Error making phone call:', error);
+    Alert.alert("Unable to make the call. Please check your device settings.");
+  });
+};
 
   return (
     <View style={styles.container}>
@@ -40,7 +109,7 @@ const navigation = useNavigation();
               </Text>
             </View>
             <Text style={styles.addressText}>
-              Estimated Fare: <Text style={[styles.fareAmountText, { color: 'red' }]}>{order.fareAmount}/.Rupees</Text>
+              Estimated Fare: <Text style={[styles.fareAmountText, { color: 'red' }]}>{order.fareAmount}/.KSHs</Text>
             </Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.button} onPress={() => handleAcceptOrder(order)}>
@@ -49,7 +118,7 @@ const navigation = useNavigation();
               <TouchableOpacity style={styles.button} onPress={() => handleCancelOrder(order)}>
                 <Text style={styles.buttonText}>Cancel Order</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Details')}>
+              <TouchableOpacity style={styles.button} onPress={() => router.push('ViewOrderDetails')}>
                 <Text style={styles.buttonText}>View Order Details</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button} onPress={() => {makePhoneCall}}>

@@ -153,200 +153,136 @@ const VehicleData = () => {
   //   }
   // };
 
-  // Real one
-  // fetch(`${endpoint}/viewvehical`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // })
-  // .then((response) => response.json())
-  // .then((data) => {
-  //   const jsonArray = Array.from(Object.values(data));
-  //   const newVehicleList = jsonArray.map((item) => ({
-  //     // id: item.id,
-  //     vehicleName: item.V_name,
-  //     vehicleModel: item.V_model,
-  //     vehicleManufacturer: item.V_manufacturer,
-  //     vehicleRegisterNumber: item.V_number,
-  //     loadingCapacity: item.V_capacity,
-  //     vehicleCategory: item.V_category,
-  //   }));
-  //   setVehicleList(newVehicleList);
-  // });
+  fetch(`${endpoint}/viewvehical`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    const jsonArray = Array.from(Object.values(data));
+    const newVehicleList = jsonArray.map((item) => ({
+      // id: item.id,
+      vehicleName: item.V_name,
+      vehicleModel: item.V_model,
+      vehicleManufacturer: item.V_manufacturer,
+      vehicleRegisterNumber: item.V_number,
+      loadingCapacity: item.V_capacity,
+      vehicleCategory: item.V_category,
+    }));
+    setVehicleList(newVehicleList);
+  });
 
 
-  // const addVehicle = () => {
-  //   if (
-  //     vehicleName === '' ||
-  //     vehicleModel === '' ||
-  //     vehicleManufacturer === '' ||
-  //     vehicleRegisterNumber === '' ||
-  //     loadingCapacity === '' ||
-  //     vehicleCategory === '' 
+  const addVehicle = () => {
+    if (
+      vehicleName === '' ||
+      vehicleModel === '' ||
+      vehicleManufacturer === '' ||
+      vehicleRegisterNumber === '' ||
+      loadingCapacity === '' ||
+      vehicleCategory === '' 
 
-  //   ) {
-  //     alert('Please enter data in all fields.');
-  //     return;
-  //   }
-  //   else{
-  //     const fdata = {
-  //       V_name: vehicleName ,
-  //       V_model: vehicleModel ,
-  //       V_manufacturer: vehicleManufacturer ,
-  //       V_number: vehicleRegisterNumber ,
-  //       V_capacity: loadingCapacity ,
-  //       V_category: vehicleCategory
-  //     }
+    ) {
+      alert('Please enter data in all fields.');
+      return;
+    }
+    else{
+      const fdata = {
+        V_name: vehicleName ,
+        V_model: vehicleModel ,
+        V_manufacturer: vehicleManufacturer ,
+        V_number: vehicleRegisterNumber ,
+        V_capacity: loadingCapacity ,
+        V_category: vehicleCategory
+      }
 
-  //     fetch(`${endpoint}/addvehical`,{
-  //       method: 'POST',
-  //       headers: { 
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body : JSON.stringify(fdata)
-  //     })
-  //     .then(response => response.json()).then(
-  //       data=> {
-  //         if(data.error) {
-  //           console.log(data.error);
-  //         }
-  //         console.log(data);
-  //         fetch('${endpoint}/viewvehical', {
-  //           method: 'GET',
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           },
-  //         })
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           const jsonArray = Array.from(Object.values(data));
-  //           const newVehicleList = jsonArray.map((item) => ({
-  //             // id: item.id,
-  //             vehicleName: item.V_name,
-  //             vehicleModel: item.V_model,
-  //             vehicleManufacturer: item.V_manufacturer,
-  //             vehicleRegisterNumber: item.V_number,
-  //             loadingCapacity: item.V_capacity,
-  //             vehicleCategory: item.V_category,
-  //           }));
-  //           setVehicleList(newVehicleList);
-  //         });
-  //       }
-  //     )
+      fetch(`${endpoint}/addvehical`,{
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+        },
+        body : JSON.stringify(fdata)
+      })
+      .then(response => response.json()).then(
+        data=> {
+          if(data.error) {
+            console.log(data.error);
+          }
+          console.log(data);
+          fetch('${endpoint}/viewvehical', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            const jsonArray = Array.from(Object.values(data));
+            const newVehicleList = jsonArray.map((item) => ({
+              // id: item.id,
+              vehicleName: item.V_name,
+              vehicleModel: item.V_model,
+              vehicleManufacturer: item.V_manufacturer,
+              vehicleRegisterNumber: item.V_number,
+              loadingCapacity: item.V_capacity,
+              vehicleCategory: item.V_category,
+            }));
+            setVehicleList(newVehicleList);
+          });
+        }
+      )
       
-  //   }
-  // };
-
-  // const deleteVehicle = (id) => {
-  //     const fdata = {
-  //       V_number : id,
-  //     }
-  
-  //     fetch(`${endpoint}/deletevehical`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body : JSON.stringify(fdata)
-  //     })
-  //       .then(() => {
-
-  //         fetch(`${endpoint}/viewvehical`, {
-  //           method: 'GET',
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           },
-  //         })
-  //           .then((response) => response.json())
-  //           .then((data) => {
-  //             const jsonArray = Array.from(Object.values(data));
-  //             const newVehicleList = jsonArray.map((item) => ({
-  //               // id: item.id,
-  //               vehicleName: item.V_name,
-  //               vehicleModel: item.V_model,
-  //               vehicleManufacturer: item.V_manufacturer,
-  //               vehicleRegisterNumber: item.V_number,
-  //               loadingCapacity: item.V_capacity,
-  //               vehicleCategory: item.V_category,
-  //             }));
-  //             setVehicleList(newVehicleList);
-  //           });
-
-  //       })
-  //       .catch(error => {
-  //         console.error('Error deleting vehicle:', error);
-  //       });
-
-  // };
-  
-  // const handleDeleteVehicle = (id) => {
-  //   setVehicleList(vehicleList);
-  // };
-  
-
-
-  const fetchVehicles = async () => {
-    try {
-        const response = await fetch(`${endpoint}/vehicles`);
-        if (!response.ok) throw new Error('Failed to fetch vehicles');
-        const data = await response.json();
-        setVehicles(data);
-    } catch (error) {
-        toast.error('Error fetching vehicles');
     }
-};
+  };
 
-useEffect(() => {
-    fetchVehicles();
-}, []);
+  const deleteVehicle = (id) => {
+      const fdata = {
+        V_number : id,
+      }
+  
+      fetch(`${endpoint}/deletevehical`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body : JSON.stringify(fdata)
+      })
+        .then(() => {
 
-// Create a new vehicle
-const createVehicle = async () => {
-    try {
-        const response = await fetch(`${endpoint}/vehicles/create`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
+          fetch(`${endpoint}/viewvehical`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const jsonArray = Array.from(Object.values(data));
+              const newVehicleList = jsonArray.map((item) => ({
+                // id: item.id,
+                vehicleName: item.V_name,
+                vehicleModel: item.V_model,
+                vehicleManufacturer: item.V_manufacturer,
+                vehicleRegisterNumber: item.V_number,
+                loadingCapacity: item.V_capacity,
+                vehicleCategory: item.V_category,
+              }));
+              setVehicleList(newVehicleList);
+            });
+
+        })
+        .catch(error => {
+          console.error('Error deleting vehicle:', error);
         });
-        if (!response.ok) throw new Error('Failed to create vehicle');
-        const newVehicle = await response.json();
-        setVehicles([...vehicles, newVehicle]);
-        toast.success('Vehicle added successfully!');
-        setFormData({ name: '', modelYear: '', manufacturer: '', registerNumberPlate: '', loadingCapacity: '', categoryType: '' });
-    } catch (error) {
-        toast.error(error.message);
-    }
-};
 
-// Update vehicle
-const updateVehicle = async (id) => {
-    try {
-        const response = await fetch(`${endpoint}/vehicles/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
-        if (!response.ok) throw new Error('Failed to update vehicle');
-        const updatedVehicle = await response.json();
-        setVehicles(vehicles.map((v) => (v._id === id ? updatedVehicle : v)));
-        toast.success('Vehicle updated successfully!');
-    } catch (error) {
-        toast.error(error.message);
-    }
-};
-
-// Delete vehicle
-const deleteVehicle = async (id) => {
-    try {
-        const response = await fetch(`${endpoint}/vehicles/${id}`, { method: 'DELETE' });
-        if (!response.ok) throw new Error('Failed to delete vehicle');
-        setVehicles(vehicles.filter((v) => v._id !== id));
-        toast.success('Vehicle deleted successfully!');
-    } catch (error) {
-        toast.error(error.message);
-    }
-};
+  };
+  
+  const handleDeleteVehicle = (id) => {
+    setVehicleList(vehicleList);
+  };
+  
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
@@ -421,7 +357,7 @@ const deleteVehicle = async (id) => {
             placeholderTextColor="black"
           />
         </View>
-        <TouchableOpacity style={styles.buttonContainer} onPress={createVehicle}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={addVehicle}>
           <Text style = {styles.addButtontext}>Add Vehicle </Text>
         </TouchableOpacity>
         <Text style={styles.heading}>Vehicle List:</Text>

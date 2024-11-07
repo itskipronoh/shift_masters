@@ -50,7 +50,7 @@ const SignInCustomer = ({ navigation }) => {
         } else {
           startSession(data);
           getSession();
-          router.push("/home");
+          router.push("(home)/Home");
           toast.show("Logged in successfully", {
             type: "success",
             placement: "top",

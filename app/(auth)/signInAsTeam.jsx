@@ -2,7 +2,12 @@ import { router } from 'expo-router';
 import * as React from 'react';
 import { useState } from 'react';
 import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Pressable, TextInput} from 'react-native';
-const SignInTeam = ({navigation}) => {
+import { useToast } from 'react-native-toast-notifications';
+import { useGlobalContext } from '../../context/GlobalProvider';
+
+const SignInTeam = () => {
+  const toast = useToast();
+  const { endpoint, getSession, startSession } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -10,37 +15,45 @@ const SignInTeam = ({navigation}) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [error, setError] = useState('');
 
- 
 
-  const handleSignIn = () => {
-    if (email === '' || password === '') {
-      setError('Empty Feilds');
-    } 
-    else {
-      // const fdata = {
-      //   Leader_Email: email,
-      //   Password: password
-      // }
-      // fetch('http://127.0.0.1:3000/loginteam',{
-      //   method: 'POST',
-      //   headers: { 
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body : JSON.stringify(fdata)
-      // })
-      // .then(response => response.json()).then(
-      //   data=> {
-      //     if(data.error) {
-      //       console.log(data.error);
-      //     }
-      //     else if (data.login === true) {
-      //       // console.log('')
-      //       navigation.replace('Team Drawer');
-      //     }
-      //     console.log(data);
-      //   }
-      // )
-      router.push('(team)');
+   const handleSignIn = async () => {
+    if (email === "" || password === "") {
+      setShowErrorMessage(true);
+    } else {
+      setShowErrorMessage(false);
+      router.push("(home)/Home");
+      try {
+        const response = await fetch(`${endpoint}auth/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+
+        const data = await response.json();
+        console.log("Data:", data);
+
+        if (data.error) {
+          setShowErrorMessage(true);
+        } else {
+          startSession(data);
+          getSession();
+          router.replace("(team)/");
+          toast.show("Logged in successfully", {
+            type: "success",
+            placement: "top",
+            duration: 2500,
+            offset: 30,
+            animationType: "zoom-in",
+          });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 

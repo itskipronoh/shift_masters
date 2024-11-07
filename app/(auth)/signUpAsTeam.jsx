@@ -48,8 +48,6 @@ const SignUpTeam = () => {
       return;
     }
 
-    const fdata = {};
-
     try {
       const response = await fetch(`${endpoint}auth/register`, {
         method: "POST",

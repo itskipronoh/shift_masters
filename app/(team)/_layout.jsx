@@ -4,7 +4,7 @@ export default function TeamLayout() {
   // const showHiddenScreen = false;
   const showHiddenScreen = true;
     return (
-      <Drawer screenOptions={{ drawerPosition: 'left' }} initialRouteName="HOME">
+      <Drawer screenOptions={{ drawerPosition: 'left' }} initialRouteName="index">
         <Drawer.Screen name='ProfileAccount'
          options={{
           title:"Profile Account",

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
-  Platform,
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
@@ -12,16 +11,24 @@ import {
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { IconButton } from "react-native-paper";
 import { useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
+import { locations } from "../../data";
 
-const SetPickupLocationScreen = () => {
+const SetDestinationLocationScreen = () => {
   const router = useRouter();
-  const [pickupLocation, setPickupLocation] = useState(" ");
+  const [DestinationLocation, setDestinationLocation] = useState(" ");
   const [locationType, setLocationType] = useState(" ");
   const [otherCategory, setOtherCategory] = useState(" ");
-  const handlePickupLocationChange = (text) => {
-    setPickupLocation(text);
+
+  const {
+    pickupLocation,
+    locationType: destLocationType,
+    otherCategory: destOtherCat,
+  } = useLocalSearchParams();
+
+  const handleDestinationLocationChange = (text) => {
+    setDestinationLocation(text);
   };
 
   const handleLocationTypeChange = (value) => {
@@ -32,30 +39,46 @@ const SetPickupLocationScreen = () => {
     setOtherCategory(text);
   };
 
-  const handleConfirmPickupLocation = () => {
-    // Perform necessary actions when the user confirms the pickup location
-    // For example, navigate to the Set Destination screen or save the pickup location
-    console.log("Confirm Destination Location", {
-      pickupLocation,
-      locationType,
-      otherCategory,
+  const handleConfirmDestinationLocation = () => {
+    router.push({
+      pathname: "/(home)/RequiredOrderDetails",
+      params: {
+        pickupLocation: pickupLocation,
+        destLocationType: destLocationType,
+        destOtherCat: destOtherCat,
+        DestinationLocation,
+        locationType,
+        otherCategory,
+      },
     });
-    router.push("RequiredOrderDetails");
   };
 
   return (
     <View style={styles.container}>
-    <MapView 
-    style={styles.map} 
-    initialRegion={{ 
-        latitude: -1.286389, 
-        longitude: 36.817223,  
-        latitudeDelta: 0.0922, 
-        longitudeDelta: 0.0421 
-    }} 
-    provider={Platform.OS === 'android' ? 'google' : 'google'}>
-    <Marker coordinate={{ latitude: -1.286389, longitude: 36.817223 }} />
-</MapView>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: -1.286389,
+          longitude: 36.817223,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        {locations.map((location, index) => {
+          return (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}
+              title={location.title}
+              description={location.description}
+              onPress={() => setDestinationLocation(location.title)}
+            />
+          );
+        })}
+      </MapView>
 
       <KeyboardAvoidingView style={styles.viewContainer} behavior="padding">
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -67,8 +90,8 @@ const SetPickupLocationScreen = () => {
             placeholderTextColor="black"
             keyboardType="default"
             clearButtonMode={"always"}
-            value={pickupLocation}
-            onChangeText={handlePickupLocationChange}
+            value={DestinationLocation}
+            onChangeText={handleDestinationLocationChange}
           />
 
           <Text style={styles.subHeading}>Location Type Moving To?</Text>
@@ -145,7 +168,7 @@ const SetPickupLocationScreen = () => {
 
           <TouchableOpacity
             style={styles.confirmButton}
-            onPress={handleConfirmPickupLocation}
+            onPress={handleConfirmDestinationLocation}
           >
             <Text style={styles.buttonText}>Order NOW!!!</Text>
           </TouchableOpacity>
@@ -243,4 +266,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SetPickupLocationScreen;
+export default SetDestinationLocationScreen;
