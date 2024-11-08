@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { useToast } from 'react-native-toast-notifications';
+import {  signInAsCustomer } from '../../api';
 
 const SignInCustomer = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -21,46 +22,20 @@ const SignInCustomer = ({ navigation }) => {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const { endpoint, getSession, startSession } = useGlobalContext();
+  const {  startSession } = useGlobalContext();
   const toast = useToast();
 
   const handleSignIn = async () => {
     if (email === '' || password === '') {
       setShowErrorMessage(true);
     } else {
-      setShowErrorMessage(false);
-      router.push('(home)/Home');
-      try {
-        const response = await fetch(`${endpoint}auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        });
-
-        const data = await response.json();
-        console.log('Data:', data);
-
-        if (data.error) {
-          setShowErrorMessage(true);
-        } else {
-          startSession(data);
-          getSession();
-          router.push('(home)/Home');
-          toast.show('Logged in successfully', {
-            type: 'success',
-            placement: 'top',
-            duration: 2500,
-            offset: 30,
-            animationType: 'zoom-in',
-          });
-        }
-      } catch (error) {
-        console.error('Error:', error);
+      const res = await signInAsCustomer(email, password);
+      console.log(res);
+      if (res.error) {
+        toast.show(res.error, { type: 'danger' });
+      } else {
+        startSession(res);
+        router.push('/(home)/Home');
       }
     }
   };

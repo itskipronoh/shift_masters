@@ -6,10 +6,10 @@ export default function GlobalProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [User, setUser] = useState(null);
   const [session, setSession] = useState(null);
-  // const endpoint = `https://rrf38mr7-5000.uks1.devtunnels.ms/`;
-  const endpoint = ` https://8q36q111-5000.euw.devtunnels.ms/`;
+  const endpoint = `https://8q36q111-5000.euw.devtunnels.ms`;
+  const [orderDetails, setOrderDetails] = useState(null);
 
-  // console.log('user session',User)
+  console.log('current user', User);
 
   async function startSession(user) {
     try {
@@ -51,9 +51,10 @@ export default function GlobalProvider({ children }) {
         startSession,
         User,
         session,
-        startSession,
         endpoint,
         endSession,
+        orderDetails,
+        setOrderDetails,
       }}
     >
       {children}

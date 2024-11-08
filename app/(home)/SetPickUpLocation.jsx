@@ -15,34 +15,34 @@ import { useNavigation } from '@react-navigation/native';
 import { IconButton } from 'react-native-paper';
 import { router } from 'expo-router';
 import { locations } from '../../data';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SetPickupLocationScreen = () => {
   const [pickupLocation, setPickupLocation] = useState(' ');
-  const [locationType, setLocationType] = useState(' ');
-  const [otherCategory, setOtherCategory] = useState(' ');
+  const [pickupLocationType, setpickupLocationType] = useState(' ');
+  const [PickupOtherCategory, setPickupOtherCategory] = useState(' ');
   const navigation = useNavigation();
+  const { orderDetails, setOrderDetails } = useGlobalContext();
 
   const handlePickupLocationChange = (text) => {
     setPickupLocation(text);
   };
 
-  const handleLocationTypeChange = (value) => {
-    setLocationType(value);
+  const handlepickupLocationTypeChange = (value) => {
+    setpickupLocationType(value);
   };
 
-  const handleOtherCategoryChange = (text) => {
-    setOtherCategory(text);
+  const handlePickupOtherCategoryChange = (text) => {
+    setPickupOtherCategory(text);
   };
 
   const handleConfirmPickupLocation = () => {
-    router.push({
-      pathname: '/(home)/SetDestinationLocation',
-      params: {
-        pickupLocation,
-        locationType,
-        otherCategory,
-      },
+    setOrderDetails({
+      pickupLocation,
+      pickupLocationType,
+      PickupOtherCategory,
     });
+    router.push('/(home)/SetDestinationLocation');
   };
 
   const handleGoBack = () => {
@@ -109,72 +109,72 @@ const SetPickupLocationScreen = () => {
           <Text style={styles.subHeading}>Location Type Moving From?</Text>
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'House' && styles.selectedOption,
+              styles.pickupLocationTypeOption,
+              pickupLocationType === 'House' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('House')}
+            onPress={() => handlepickupLocationTypeChange('House')}
           >
             <MaterialCommunityIcons
               name='home'
               size={24}
-              color={locationType === 'House' ? 'white' : 'black'}
+              color={pickupLocationType === 'House' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>House</Text>
+            <Text style={styles.pickupLocationTypeText}>House</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'Apartment' && styles.selectedOption,
+              styles.pickupLocationTypeOption,
+              pickupLocationType === 'Apartment' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('Apartment')}
+            onPress={() => handlepickupLocationTypeChange('Apartment')}
           >
             <MaterialCommunityIcons
               name='office-building'
               size={24}
-              color={locationType === 'Apartment' ? 'white' : 'black'}
+              color={pickupLocationType === 'Apartment' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>Apartment</Text>
+            <Text style={styles.pickupLocationTypeText}>Apartment</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'Office' && styles.selectedOption,
+              styles.pickupLocationTypeOption,
+              pickupLocationType === 'Office' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('Office')}
+            onPress={() => handlepickupLocationTypeChange('Office')}
           >
             <MaterialCommunityIcons
               name='briefcase'
               size={24}
-              color={locationType === 'Office' ? 'white' : 'black'}
+              color={pickupLocationType === 'Office' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>Office</Text>
+            <Text style={styles.pickupLocationTypeText}>Office</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'Other' && styles.selectedOption,
+              styles.pickupLocationTypeOption,
+              pickupLocationType === 'Other' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('Other')}
+            onPress={() => handlepickupLocationTypeChange('Other')}
           >
             <MaterialCommunityIcons
               name='dots-horizontal'
               size={24}
-              color={locationType === 'Other' ? 'white' : 'black'}
+              color={pickupLocationType === 'Other' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>Other</Text>
+            <Text style={styles.pickupLocationTypeText}>Other</Text>
           </TouchableOpacity>
 
-          {locationType === 'Other' && (
+          {pickupLocationType === 'Other' && (
             <TextInput
               style={styles.inputotheroption}
               placeholder='Enter Category Name'
               placeholderTextColor='black'
               keyboardType='default'
               clearButtonMode={'always'}
-              value={otherCategory}
-              onChangeText={handleOtherCategoryChange}
+              value={PickupOtherCategory}
+              onChangeText={handlePickupOtherCategoryChange}
             />
           )}
 
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 5,
   },
-  locationTypeOption: {
+  pickupLocationTypeOption: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   selectedOption: {
     backgroundColor: '#7EC8E3',
   },
-  locationTypeText: {
+  pickupLocationTypeText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'black',

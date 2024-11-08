@@ -152,3 +152,38 @@ export const locations = [
       'National park with views of Mt. Kilimanjaro and abundant wildlife',
   },
 ];
+
+
+export const teamsData = [
+  {
+    name: 'Team A',
+    wage: 2000,
+    rating: 4.5,
+  },
+  {
+    name: 'Team B',
+    wage: 2500,
+    rating: 4.7,
+  },
+  {
+    name: 'Team C',
+    wage: 2500,
+    rating: 4.7,
+  },
+  {
+    name: 'Team D',
+    wage: 1550,
+    rating: 3.8,
+  },
+  {
+    name: 'Team E',
+    wage: 1800,
+    rating: 3.9,
+  },
+  {
+    name: 'Team F',
+    wage: 1700,
+    rating: 3.8,
+  },
+  // ... and so on for the other teams
+];

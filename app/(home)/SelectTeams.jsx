@@ -7,54 +7,15 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-const teamsData = [
-  {
-    name: 'Team A',
-    wage: 2000,
-    rating: 4.5,
-  },
-  {
-    name: 'Team B',
-    wage: 2500,
-    rating: 4.7,
-  },
-  {
-    name: 'Team C',
-    wage: 2500,
-    rating: 4.7,
-  },
-  {
-    name: 'Team D',
-    wage: 1550,
-    rating: 3.8,
-  },
-  {
-    name: 'Team E',
-    wage: 1800,
-    rating: 3.9,
-  },
-  {
-    name: 'Team F',
-    wage: 1700,
-    rating: 3.8,
-  },
-  // ... and so on for the other teams
-];
+import { teamsData } from '../../data';
+import { useGlobalContext } from '../../context/GlobalProvider';
+import { makeOrder } from '../../api';
 
 const TeamScreen = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [showOrderButton, setShowOrderButton] = useState(false);
   const [blurOtherLists, setBlurOtherLists] = useState(false);
-  const {
-    pickupLocation,
-    destLocationType,
-    destOtherCat,
-    DestinationLocation,
-    locationType,
-    otherCategory,
-    items,
-  } = useLocalSearchParams();
+  const { orderDetails, setOrderDetails, User } = useGlobalContext();
 
   const handleSelectTeam = (team) => {
     if (selectedTeam === team) {
@@ -66,6 +27,16 @@ const TeamScreen = () => {
       setShowOrderButton(true);
       setBlurOtherLists(true);
     }
+  };
+
+  const handleSubmit = async () => {
+    setOrderDetails({ ...orderDetails, selectedTeam });
+
+    const res = await makeOrder(orderDetails, User.token);
+
+    // TODO: Handle the response from the server
+
+    router.push('(home)/OrderPlaced');
   };
 
   const renderTeams = () => {
@@ -93,7 +64,7 @@ const TeamScreen = () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              router.push('ViewTeam');
+              router.push('(home)/ViewTeam');
             }}
           >
             <Text style={styles.buttonText}>View</Text>
@@ -111,9 +82,7 @@ const TeamScreen = () => {
       {showOrderButton && (
         <TouchableOpacity
           style={styles.orderButton}
-          onPress={() => {
-            router.push('OrderPlaced'); //TODO place order te o the selected team
-          }}
+          onPress={() => handleSubmit()}
         >
           <Text style={styles.orderButtonText}>Make Order</Text>
         </TouchableOpacity>

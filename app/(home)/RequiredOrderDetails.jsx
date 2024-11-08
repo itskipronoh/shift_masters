@@ -10,20 +10,13 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { useLocalSearchParams } from 'expo-router';
+import { useGlobalContext } from '../../context/GlobalProvider';
 const ItemDetailsScreen = () => {
   const [items, setItems] = useState([
     { name: '', description: '', quantity: 1 },
   ]);
-
-  const {
-    pickupLocation,
-    destLocationType,
-    destOtherCat,
-    DestinationLocation,
-    locationType,
-    otherCategory,
-  } = useLocalSearchParams();
+  const { orderDetails, setOrderDetails } = useGlobalContext();
+  console.log(orderDetails);
 
   const addItem = () => {
     setItems([...items, { name: '', description: '', quantity: 1 }]);
@@ -60,18 +53,8 @@ const ItemDetailsScreen = () => {
       );
       return;
     }
-    router.push({
-      pathname: '/(home)/SelectTeams',
-      params: {
-        pickupLocation,
-        destLocationType,
-        destOtherCat,
-        DestinationLocation,
-        locationType,
-        otherCategory,
-        items,
-      },
-    });
+    setOrderDetails({ ...orderDetails, items });
+    router.push('/(home)/SelectTeams');
   };
 
   return (

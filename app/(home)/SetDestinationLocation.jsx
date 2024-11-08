@@ -12,45 +12,37 @@ import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRouter } from 'expo-router';
-import { useLocalSearchParams } from 'expo-router';
 import { locations } from '../../data';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SetDestinationLocationScreen = () => {
   const router = useRouter();
   const [DestinationLocation, setDestinationLocation] = useState(' ');
-  const [locationType, setLocationType] = useState(' ');
-  const [otherCategory, setOtherCategory] = useState(' ');
-
-  const {
-    pickupLocation,
-    locationType: destLocationType,
-    otherCategory: destOtherCat,
-  } = useLocalSearchParams();
+  const [DestinationLocationType, setDestinationLocationType] = useState(' ');
+  const [DestinationOtherCategory, setDestinationOtherCategory] = useState(' ');
+  const { orderDetails, setOrderDetails } = useGlobalContext();
 
   const handleDestinationLocationChange = (text) => {
     setDestinationLocation(text);
   };
 
-  const handleLocationTypeChange = (value) => {
-    setLocationType(value);
+  const handleDestinationLocationTypeChange = (value) => {
+    setDestinationLocationType(value);
   };
 
-  const handleOtherCategoryChange = (text) => {
-    setOtherCategory(text);
+  const handleDestinationOtherCategoryChange = (text) => {
+    setDestinationOtherCategory(text);
   };
 
   const handleConfirmDestinationLocation = () => {
-    router.push({
-      pathname: '/(home)/RequiredOrderDetails',
-      params: {
-        pickupLocation: pickupLocation,
-        destLocationType: destLocationType,
-        destOtherCat: destOtherCat,
-        DestinationLocation,
-        locationType,
-        otherCategory,
-      },
+    setOrderDetails({
+      ...orderDetails,
+      DestinationLocationType,
+      DestinationOtherCategory,
+      DestinationLocation,
     });
+
+    router.push('/(home)/RequiredOrderDetails');
   };
 
   return (
@@ -97,72 +89,74 @@ const SetDestinationLocationScreen = () => {
           <Text style={styles.subHeading}>Location Type Moving To?</Text>
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'House' && styles.selectedOption,
+              styles.DestinationLocationTypeOption,
+              DestinationLocationType === 'House' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('House')}
+            onPress={() => handleDestinationLocationTypeChange('House')}
           >
             <MaterialCommunityIcons
               name='home'
               size={24}
-              color={locationType === 'House' ? 'white' : 'black'}
+              color={DestinationLocationType === 'House' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>House</Text>
+            <Text style={styles.DestinationLocationTypeText}>House</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'Apartment' && styles.selectedOption,
+              styles.DestinationLocationTypeOption,
+              DestinationLocationType === 'Apartment' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('Apartment')}
+            onPress={() => handleDestinationLocationTypeChange('Apartment')}
           >
             <MaterialCommunityIcons
               name='office-building'
               size={24}
-              color={locationType === 'Apartment' ? 'white' : 'black'}
+              color={
+                DestinationLocationType === 'Apartment' ? 'white' : 'black'
+              }
             />
-            <Text style={styles.locationTypeText}>Apartment</Text>
+            <Text style={styles.DestinationLocationTypeText}>Apartment</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'Office' && styles.selectedOption,
+              styles.DestinationLocationTypeOption,
+              DestinationLocationType === 'Office' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('Office')}
+            onPress={() => handleDestinationLocationTypeChange('Office')}
           >
             <MaterialCommunityIcons
               name='briefcase'
               size={24}
-              color={locationType === 'Office' ? 'white' : 'black'}
+              color={DestinationLocationType === 'Office' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>Office</Text>
+            <Text style={styles.DestinationLocationTypeText}>Office</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[
-              styles.locationTypeOption,
-              locationType === 'Other' && styles.selectedOption,
+              styles.DestinationLocationTypeOption,
+              DestinationLocationType === 'Other' && styles.selectedOption,
             ]}
-            onPress={() => handleLocationTypeChange('Other')}
+            onPress={() => handleDestinationLocationTypeChange('Other')}
           >
             <MaterialCommunityIcons
               name='dots-horizontal'
               size={24}
-              color={locationType === 'Other' ? 'white' : 'black'}
+              color={DestinationLocationType === 'Other' ? 'white' : 'black'}
             />
-            <Text style={styles.locationTypeText}>Other</Text>
+            <Text style={styles.DestinationLocationTypeText}>Other</Text>
           </TouchableOpacity>
 
-          {locationType === 'Other' && (
+          {DestinationLocationType === 'Other' && (
             <TextInput
               style={styles.inputotheroption}
               placeholder='Enter Category Name'
               placeholderTextColor='black'
               keyboardType='default'
               clearButtonMode={'always'}
-              value={otherCategory}
-              onChangeText={handleOtherCategoryChange}
+              value={DestinationOtherCategory}
+              onChangeText={handleDestinationOtherCategoryChange}
             />
           )}
 
@@ -216,7 +210,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 5,
   },
-  locationTypeOption: {
+  DestinationLocationTypeOption: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -228,7 +222,7 @@ const styles = StyleSheet.create({
   selectedOption: {
     backgroundColor: '#7EC8E3',
   },
-  locationTypeText: {
+  DestinationLocationTypeText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'black',

@@ -1,21 +1,10 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  Pressable,
-  TextInput,
-} from 'react-native';
-import { IconButton } from 'react-native-paper';
-import { router } from 'expo-router';
+import { Text, View, StyleSheet, Image, Pressable } from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const Home = () => {
-  const handleGoBack = () => {
-    router.back();
-  };
+  const { orderDetails } = useGlobalContext();
 
   return (
     <View style={styles.container}>
@@ -24,8 +13,8 @@ const Home = () => {
         <View style={styles.heading}>
           <Text style={styles.textheading}>
             ORDER PLACED!!! {'\n'}
-            {'\n'} Your OrderID is<Text style={styles.orderId}> 355KJL975</Text>{' '}
-            {'\n'}
+            {'\n'} Your OrderID is
+            <Text style={styles.orderId}> {orderDetails?._id}</Text> {'\n'}
             {'\n'}{' '}
             <Text style={styles.message}>
               Team Owner or Driver will make contact with you shortly! Thanks!!!
