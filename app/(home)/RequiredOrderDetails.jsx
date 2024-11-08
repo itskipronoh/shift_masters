@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -7,13 +7,13 @@ import {
   ScrollView,
   StyleSheet,
   Alert,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { useLocalSearchParams } from "expo-router";
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 const ItemDetailsScreen = () => {
   const [items, setItems] = useState([
-    { name: "", description: "", quantity: 1 },
+    { name: '', description: '', quantity: 1 },
   ]);
 
   const {
@@ -26,7 +26,7 @@ const ItemDetailsScreen = () => {
   } = useLocalSearchParams();
 
   const addItem = () => {
-    setItems([...items, { name: "", description: "", quantity: 1 }]);
+    setItems([...items, { name: '', description: '', quantity: 1 }]);
   };
   const removeItem = (index) => {
     const updatedItems = [...items];
@@ -55,13 +55,13 @@ const ItemDetailsScreen = () => {
   const handleNextButton = () => {
     if (items.length < 2) {
       Alert.alert(
-        "Insufficient Item Details",
-        "Please enter at least two item details"
+        'Insufficient Item Details',
+        'Please enter at least two item details'
       );
       return;
     }
     router.push({
-      pathname: "/(home)/SelectTeams",
+      pathname: '/(home)/SelectTeams',
       params: {
         pickupLocation,
         destLocationType,
@@ -82,19 +82,19 @@ const ItemDetailsScreen = () => {
             <Text style={styles.heading}>Item {index + 1}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Item Name"
-              placeholderTextColor="gray"
-              keyboardType="default"
-              clearButtonMode={"always"}
+              placeholder='Item Name'
+              placeholderTextColor='gray'
+              keyboardType='default'
+              clearButtonMode={'always'}
               value={item.name}
               onChangeText={(text) => updateItemName(index, text)}
             />
             <TextInput
               style={styles.inputdescription}
-              placeholder="Description or Condition"
-              placeholderTextColor="gray"
-              keyboardType="default"
-              clearButtonMode={"always"}
+              placeholder='Description or Condition'
+              placeholderTextColor='gray'
+              keyboardType='default'
+              clearButtonMode={'always'}
               multiline={true}
               numberOfLines={10}
               maxLength={200}
@@ -106,20 +106,20 @@ const ItemDetailsScreen = () => {
               <TouchableOpacity
                 onPress={() => updateItemQuantity(index, item.quantity - 1)}
               >
-                <Ionicons name="remove" size={24} color="white" />
+                <Ionicons name='remove' size={24} color='white' />
               </TouchableOpacity>
               <Text style={styles.quantity}>{item.quantity}</Text>
               <TouchableOpacity
                 onPress={() => updateItemQuantity(index, item.quantity + 1)}
               >
-                <Ionicons name="add" size={24} color="white" />
+                <Ionicons name='add' size={24} color='white' />
               </TouchableOpacity>
             </View>
             <TouchableOpacity
               onPress={() => removeItem(index)}
               style={styles.deleteButton}
             >
-              <Ionicons name="trash" size={24} color="white" />
+              <Ionicons name='trash' size={24} color='white' />
             </TouchableOpacity>
           </View>
         ))}
@@ -137,98 +137,98 @@ const ItemDetailsScreen = () => {
 const styles = StyleSheet.create({
   container2: {
     flexGrow: 1,
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     padding: 16,
   },
   container1: {
     flexGrow: 1,
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     padding: 16,
   },
   itemContainer: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     marginBottom: 5,
     padding: 10,
     borderRadius: 8,
   },
   heading: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "red",
+    fontWeight: 'bold',
+    color: 'red',
     marginBottom: 8,
   },
   input: {
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: 'black',
+    color: 'white',
     marginBottom: 8,
-    borderColor: "#bf9000",
+    borderColor: '#bf9000',
     borderWidth: 1,
     borderRadius: 8,
     padding: 8,
   },
   inputdescription: {
-    backgroundColor: "black",
-    borderColor: "#bf9000",
+    backgroundColor: 'black',
+    borderColor: '#bf9000',
     borderWidth: 1,
     borderRadius: 8,
     padding: 8,
     height: 70,
-    color: "white",
+    color: 'white',
   },
   quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 0,
     marginTop: 7,
   },
   label: {
-    color: "white",
+    color: 'white',
     marginRight: 8,
   },
   quantity: {
-    color: "#00FFFF",
-    fontWeight: "bold",
+    color: '#00FFFF',
+    fontWeight: 'bold',
     fontSize: 18,
     marginHorizontal: 8,
   },
   deleteButton: {
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
     marginBottom: 0,
   },
   addButton: {
-    backgroundColor: "black",
-    alignItems: "center",
+    backgroundColor: 'black',
+    alignItems: 'center',
     padding: 16,
     borderRadius: 8,
     marginBottom: 28,
   },
   nextButton: {
-    position: "absolute",
-    backgroundColor: "black",
-    alignItems: "center",
+    position: 'absolute',
+    backgroundColor: 'black',
+    alignItems: 'center',
     padding: 16,
     borderRadius: 8,
     bottom: 10, // Adjust this value to set the vertical position of the button
     left: 17.5, // Adjust this value to set the horizontal position of the button
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 125,
   },
   buttonText: {
-    color: "#bf9000",
+    color: '#bf9000',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   titleContainer: {
-    flexDirection: "coloumn",
-    alignItems: "center",
+    flexDirection: 'coloumn',
+    alignItems: 'center',
     marginRight: 10,
     marginBottom: 5,
   },
   titleText: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#8B0000",
+    fontWeight: 'bold',
+    color: '#8B0000',
   },
 });
 

@@ -1,24 +1,29 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
-import {useGlobalContext} from '../../context/GlobalProvider';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SignOut = () => {
   const { endSession } = useGlobalContext();
 
   const handleSignOut = async () => {
     await endSession();
-     router.push('(auth)/signInAsTeam');
+    router.push('(auth)/signInAsTeam');
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.messageText}>Do you really want to sign out from House Movers?</Text>
+      <Text style={styles.messageText}>
+        Do you really want to sign out from House Movers?
+      </Text>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.cancelButton} onPress={() => router.push('(team)')}>
+        <TouchableOpacity
+          style={styles.cancelButton}
+          onPress={() => router.push('(team)')}
+        >
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 20,
     textAlign: 'center',
-    fontWeight:"bold",
+    fontWeight: 'bold',
     marginBottom: 30,
   },
   buttonContainer: {

@@ -1,87 +1,87 @@
-import * as React from "react";
-import { Drawer } from "expo-router/drawer";
+import * as React from 'react';
+import { Drawer } from 'expo-router/drawer';
 export default function EmployeeLayout() {
   const showHiddenScreen = true;
   return (
-    <Drawer screenOptions={{ drawerPosition: "left" }} initialRouteName="Home">
+    <Drawer screenOptions={{ drawerPosition: 'left' }} initialRouteName='Home'>
       <Drawer.Screen
-        name="ProfileAccount"
+        name='ProfileAccount'
         options={{
-          title: "Profile Account",
-          headerTitleAlign: "center",
+          title: 'Profile Account',
+          headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: "#BF9000",
+            backgroundColor: '#BF9000',
           },
-          headerTintColor: "#000000",
+          headerTintColor: '#000000',
           headerTitleStyle: {
-            fontWeight: "bold",
+            fontWeight: 'bold',
           },
         }}
       />
       <Drawer.Screen
-        name="Home"
+        name='Home'
         options={{
-          title: "Home",
-          headerTitleAlign: "center",
+          title: 'Home',
+          headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: "#BF9000",
+            backgroundColor: '#BF9000',
           },
-          headerTintColor: "#000000",
+          headerTintColor: '#000000',
           headerTitleStyle: {
-            fontWeight: "bold",
+            fontWeight: 'bold',
           },
         }}
       />
       {showHiddenScreen && (
         <Drawer.Screen
-          name="LabourOrders"
+          name='LabourOrders'
           options={{
-            title: "Orders Details for Labour",
+            title: 'Orders Details for Labour',
             gestureEnabled: true,
-            gestureDirection: "horizontal",
-            headerTitleAlign: "center",
+            gestureDirection: 'horizontal',
+            headerTitleAlign: 'center',
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTintColor: "#000000",
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
           }}
         />
       )}
       {showHiddenScreen && (
         <Drawer.Screen
-          name="DriverOrders"
+          name='DriverOrders'
           options={{
-            title: "Orders Details for Driver",
+            title: 'Orders Details for Driver',
             gestureEnabled: true,
-            gestureDirection: "horizontal",
-            headerTitleAlign: "center",
+            gestureDirection: 'horizontal',
+            headerTitleAlign: 'center',
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
 
-            headerTintColor: "#000000",
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
           }}
         />
       )}
       <Drawer.Screen
-        name="SignOut"
+        name='SignOut'
         options={{
-          title: "Sign Out",
+          title: 'Sign Out',
           gestureEnabled: true,
-          gestureDirection: "horizontal",
-          headerTitleAlign: "center",
+          gestureDirection: 'horizontal',
+          headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: "#BF9000",
+            backgroundColor: '#BF9000',
           },
-          headerTintColor: "#000000",
+          headerTintColor: '#000000',
           headerTitleStyle: {
-            fontWeight: "bold",
+            fontWeight: 'bold',
           },
         }}
       />

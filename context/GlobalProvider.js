@@ -1,26 +1,27 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createContext, useContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const GlobalContext = createContext();
 
 export default function GlobalProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [User, setUser] = useState(null);
   const [session, setSession] = useState(null);
-  const endpoint = `https://rrf38mr7-5000.uks1.devtunnels.ms/`;
+  // const endpoint = `https://rrf38mr7-5000.uks1.devtunnels.ms/`;
+  const endpoint = ` https://8q36q111-5000.euw.devtunnels.ms/`;
 
   // console.log('user session',User)
 
   async function startSession(user) {
     try {
       const userData = JSON.stringify(user);
-      await AsyncStorage.setItem("user", userData);
+      await AsyncStorage.setItem('user', userData);
     } catch (e) {
-      console.error("error storing users", e);
+      console.error('error storing users', e);
     }
   }
 
   async function getSession() {
-    const user = await AsyncStorage.getItem("user");
+    const user = await AsyncStorage.getItem('user');
 
     if (user) {
       setUser(JSON.parse(user));
@@ -31,7 +32,7 @@ export default function GlobalProvider({ children }) {
 
   async function endSession() {
     try {
-      await AsyncStorage.removeItem("user");
+      await AsyncStorage.removeItem('user');
       setUser(null);
     } catch (error) {
       console.log(error);

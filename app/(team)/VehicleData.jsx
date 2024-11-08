@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, Button, ScrollView, KeyboardAvoidingView,TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  ScrollView,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
-import { useGlobalContext } from "../../context/GlobalProvider";
+import { useGlobalContext } from '../../context/GlobalProvider';
 const VehicleData = () => {
   const [vehicleName, setVehicleName] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
@@ -45,7 +54,7 @@ const VehicleData = () => {
   //     });
   //   }
   // };
-  
+
   // // Function to add a new vehicle
   // const addVehicle = async () => {
   //   if (!vehicleName || !vehicleModel || !vehicleManufacturer || !vehicleRegisterNumber || !loadingCapacity || !vehicleCategory) {
@@ -74,7 +83,7 @@ const VehicleData = () => {
   //         categoryType: vehicleCategory,
   //       }),
   //     });
-  
+
   //     const data = await response.json();
   //     if (data.error) {
   //       setError(data.error);
@@ -108,7 +117,7 @@ const VehicleData = () => {
   //     });
   //   }
   // };
-  
+
   // // Function to delete a vehicle by ID
   // const deleteVehicle = async (id) => {
   //   try {
@@ -119,7 +128,7 @@ const VehicleData = () => {
   //       },
   //       body: JSON.stringify({ registerNumberPlate: id }), // assuming 'registerNumberPlate' is unique
   //     });
-  
+
   //     if (response.ok) {
   //       toast.show("Vehicle deleted successfully", {
   //         type: "success",
@@ -175,7 +184,6 @@ const VehicleData = () => {
   //   setVehicleList(newVehicleList);
   // });
 
-
   // const addVehicle = () => {
   //   if (
   //     vehicleName === '' ||
@@ -183,7 +191,7 @@ const VehicleData = () => {
   //     vehicleManufacturer === '' ||
   //     vehicleRegisterNumber === '' ||
   //     loadingCapacity === '' ||
-  //     vehicleCategory === '' 
+  //     vehicleCategory === ''
 
   //   ) {
   //     alert('Please enter data in all fields.');
@@ -201,7 +209,7 @@ const VehicleData = () => {
 
   //     fetch(`${endpoint}/addvehical`,{
   //       method: 'POST',
-  //       headers: { 
+  //       headers: {
   //         'Content-Type': 'application/json',
   //       },
   //       body : JSON.stringify(fdata)
@@ -234,7 +242,7 @@ const VehicleData = () => {
   //         });
   //       }
   //     )
-      
+
   //   }
   // };
 
@@ -242,7 +250,7 @@ const VehicleData = () => {
   //     const fdata = {
   //       V_number : id,
   //     }
-  
+
   //     fetch(`${endpoint}/deletevehical`, {
   //       method: 'DELETE',
   //       headers: {
@@ -279,77 +287,84 @@ const VehicleData = () => {
   //       });
 
   // };
-  
+
   // const handleDeleteVehicle = (id) => {
   //   setVehicleList(vehicleList);
   // };
-  
-
 
   const fetchVehicles = async () => {
     try {
-        const response = await fetch(`${endpoint}/vehicles`);
-        if (!response.ok) throw new Error('Failed to fetch vehicles');
-        const data = await response.json();
-        setVehicles(data);
+      const response = await fetch(`${endpoint}/vehicles`);
+      if (!response.ok) throw new Error('Failed to fetch vehicles');
+      const data = await response.json();
+      setVehicles(data);
     } catch (error) {
-        toast.error('Error fetching vehicles');
+      toast.error('Error fetching vehicles');
     }
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     fetchVehicles();
-}, []);
+  }, []);
 
-// Create a new vehicle
-const createVehicle = async () => {
+  // Create a new vehicle
+  const createVehicle = async () => {
     try {
-        const response = await fetch(`${endpoint}/vehicles/create`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
-        if (!response.ok) throw new Error('Failed to create vehicle');
-        const newVehicle = await response.json();
-        setVehicles([...vehicles, newVehicle]);
-        toast.success('Vehicle added successfully!');
-        setFormData({ name: '', modelYear: '', manufacturer: '', registerNumberPlate: '', loadingCapacity: '', categoryType: '' });
+      const response = await fetch(`${endpoint}/vehicles/create`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error('Failed to create vehicle');
+      const newVehicle = await response.json();
+      setVehicles([...vehicles, newVehicle]);
+      toast.success('Vehicle added successfully!');
+      setFormData({
+        name: '',
+        modelYear: '',
+        manufacturer: '',
+        registerNumberPlate: '',
+        loadingCapacity: '',
+        categoryType: '',
+      });
     } catch (error) {
-        toast.error(error.message);
+      toast.error(error.message);
     }
-};
+  };
 
-// Update vehicle
-const updateVehicle = async (id) => {
+  // Update vehicle
+  const updateVehicle = async (id) => {
     try {
-        const response = await fetch(`${endpoint}/vehicles/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
-        if (!response.ok) throw new Error('Failed to update vehicle');
-        const updatedVehicle = await response.json();
-        setVehicles(vehicles.map((v) => (v._id === id ? updatedVehicle : v)));
-        toast.success('Vehicle updated successfully!');
+      const response = await fetch(`${endpoint}/vehicles/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error('Failed to update vehicle');
+      const updatedVehicle = await response.json();
+      setVehicles(vehicles.map((v) => (v._id === id ? updatedVehicle : v)));
+      toast.success('Vehicle updated successfully!');
     } catch (error) {
-        toast.error(error.message);
+      toast.error(error.message);
     }
-};
+  };
 
-// Delete vehicle
-const deleteVehicle = async (id) => {
+  // Delete vehicle
+  const deleteVehicle = async (id) => {
     try {
-        const response = await fetch(`${endpoint}/vehicles/${id}`, { method: 'DELETE' });
-        if (!response.ok) throw new Error('Failed to delete vehicle');
-        setVehicles(vehicles.filter((v) => v._id !== id));
-        toast.success('Vehicle deleted successfully!');
+      const response = await fetch(`${endpoint}/vehicles/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete vehicle');
+      setVehicles(vehicles.filter((v) => v._id !== id));
+      toast.success('Vehicle deleted successfully!');
     } catch (error) {
-        toast.error(error.message);
+      toast.error(error.message);
     }
-};
+  };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Vehicle Name:</Text>
@@ -357,10 +372,10 @@ const deleteVehicle = async (id) => {
             style={styles.input}
             value={vehicleName}
             onChangeText={setVehicleName}
-            clearButtonMode="always"
-            keyboardType="default"
+            clearButtonMode='always'
+            keyboardType='default'
             placeholder='Enter Vehicle Name i.e; Truck'
-            placeholderTextColor="black"
+            placeholderTextColor='black'
           />
         </View>
         <View style={styles.inputContainer}>
@@ -369,10 +384,10 @@ const deleteVehicle = async (id) => {
             style={styles.input}
             value={vehicleModel}
             onChangeText={setVehicleModel}
-            clearButtonMode="always"
-            keyboardType="numeric"
+            clearButtonMode='always'
+            keyboardType='numeric'
             placeholder='Enter Moder Year i.e; (2024)'
-            placeholderTextColor="black"
+            placeholderTextColor='black'
           />
         </View>
         <View style={styles.inputContainer}>
@@ -381,10 +396,10 @@ const deleteVehicle = async (id) => {
             style={styles.input}
             value={vehicleManufacturer}
             onChangeText={setVehicleManufacturer}
-            clearButtonMode="always"
-            keyboardType="default"
+            clearButtonMode='always'
+            keyboardType='default'
             placeholder='Enter Manufacturer i.e; Mitsubishi'
-            placeholderTextColor="black"
+            placeholderTextColor='black'
           />
         </View>
         <View style={styles.inputContainer}>
@@ -393,22 +408,24 @@ const deleteVehicle = async (id) => {
             style={styles.input}
             value={vehicleRegisterNumber}
             onChangeText={setVehicleRegisterNumber}
-            clearButtonMode="always"
-            keyboardType="default"
+            clearButtonMode='always'
+            keyboardType='default'
             placeholder='Enter Vehicle Reg i.e; KDM 1234'
-            placeholderTextColor="black"
+            placeholderTextColor='black'
           />
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.label}>Loading Capacity in Kilogrammes/Tonnes:</Text>
+          <Text style={styles.label}>
+            Loading Capacity in Kilogrammes/Tonnes:
+          </Text>
           <TextInput
             style={styles.input}
             value={loadingCapacity}
             onChangeText={setLoadingCapacity}
-            clearButtonMode="always"
-            keyboardType="default"
+            clearButtonMode='always'
+            keyboardType='default'
             placeholder='Enter Loading Capacity i.e; 1000 kgs'
-            placeholderTextColor="black"
+            placeholderTextColor='black'
           />
         </View>
         <View style={styles.inputContainer}>
@@ -418,28 +435,34 @@ const deleteVehicle = async (id) => {
             value={vehicleCategory}
             onChangeText={setVehicleCategory}
             placeholder='Enter Type(Truck/Pickup/Rickshaw/Container)'
-            placeholderTextColor="black"
+            placeholderTextColor='black'
           />
         </View>
-        <TouchableOpacity style={styles.buttonContainer} onPress={createVehicle}>
-          <Text style = {styles.addButtontext}>Add Vehicle </Text>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={createVehicle}
+        >
+          <Text style={styles.addButtontext}>Add Vehicle </Text>
         </TouchableOpacity>
         <Text style={styles.heading}>Vehicle List:</Text>
-        {vehicleList.map(vehicle => (
-        <View style={styles.vehicleItem} key={vehicle.id}>
-          <Text>{`Name: ${vehicle.vehicleName}`}</Text>
-          <Text>{`Model: ${vehicle.vehicleModel}`}</Text>
-          <Text>{`Manufacturer: ${vehicle.vehicleManufacturer}`}</Text>
-          <Text>{`Register Number: ${vehicle.vehicleRegisterNumber}`}</Text>
-          <Text>{`Loading Capacity: ${vehicle.loadingCapacity}`}</Text>
-          <Text>{`Category: ${vehicle.vehicleCategory}`}</Text>
-          <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={styles.buttonContainerdelete} onPress={() => deleteVehicle(vehicle.vehicleRegisterNumber)}>
-            <Text style={styles.deleteButtontext}>Delete</Text>
-          </TouchableOpacity>
+        {vehicleList.map((vehicle) => (
+          <View style={styles.vehicleItem} key={vehicle.id}>
+            <Text>{`Name: ${vehicle.vehicleName}`}</Text>
+            <Text>{`Model: ${vehicle.vehicleModel}`}</Text>
+            <Text>{`Manufacturer: ${vehicle.vehicleManufacturer}`}</Text>
+            <Text>{`Register Number: ${vehicle.vehicleRegisterNumber}`}</Text>
+            <Text>{`Loading Capacity: ${vehicle.loadingCapacity}`}</Text>
+            <Text>{`Category: ${vehicle.vehicleCategory}`}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <TouchableOpacity
+                style={styles.buttonContainerdelete}
+                onPress={() => deleteVehicle(vehicle.vehicleRegisterNumber)}
+              >
+                <Text style={styles.deleteButtontext}>Delete</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      ))}
+        ))}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -460,7 +483,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: 'black',
-    fontWeight:'bold',
+    fontWeight: 'bold',
     marginBottom: 5,
   },
   input: {
@@ -473,46 +496,46 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: 'black',
-    padding: 10, 
+    padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     marginTop: 10,
     marginBottom: 20,
   },
-  addButtontext:{
+  addButtontext: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#BF9000'
+    color: '#BF9000',
   },
   editButton: {
     backgroundColor: '#007cc3',
-    width:100,
+    width: 100,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     padding: 5,
     borderRadius: 5,
     marginTop: 10,
-    marginRight:5,
+    marginRight: 5,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black'
+    color: 'black',
   },
-  buttonContainerdelete:{
+  buttonContainerdelete: {
     backgroundColor: 'red',
-    width:100,
+    width: 100,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     marginTop: 10,
     padding: 5,
-    borderRadius: 5
+    borderRadius: 5,
   },
-  deleteButtontext: { 
+  deleteButtontext: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black'
+    color: 'black',
   },
   heading: {
     color: 'black',

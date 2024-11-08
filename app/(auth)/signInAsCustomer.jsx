@@ -1,5 +1,5 @@
-import { router } from "expo-router";
-import { useState } from "react";
+import { router } from 'expo-router';
+import { useState } from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -11,13 +11,13 @@ import {
   Platform,
   Pressable,
   TextInput,
-} from "react-native";
-import { useGlobalContext } from "../../context/GlobalProvider";
-import { useToast } from "react-native-toast-notifications";
+} from 'react-native';
+import { useGlobalContext } from '../../context/GlobalProvider';
+import { useToast } from 'react-native-toast-notifications';
 
 const SignInCustomer = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -25,16 +25,16 @@ const SignInCustomer = ({ navigation }) => {
   const toast = useToast();
 
   const handleSignIn = async () => {
-    if (email === "" || password === "") {
+    if (email === '' || password === '') {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
-      router.push("(home)/Home");
+      router.push('(home)/Home');
       try {
         const response = await fetch(`${endpoint}auth/login`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             email: email,
@@ -43,24 +43,24 @@ const SignInCustomer = ({ navigation }) => {
         });
 
         const data = await response.json();
-        console.log("Data:", data);
+        console.log('Data:', data);
 
         if (data.error) {
           setShowErrorMessage(true);
         } else {
           startSession(data);
           getSession();
-          router.push("(home)/Home");
-          toast.show("Logged in successfully", {
-            type: "success",
-            placement: "top",
+          router.push('(home)/Home');
+          toast.show('Logged in successfully', {
+            type: 'success',
+            placement: 'top',
             duration: 2500,
             offset: 30,
-            animationType: "zoom-in",
+            animationType: 'zoom-in',
           });
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
       }
     }
   };
@@ -75,12 +75,12 @@ const SignInCustomer = ({ navigation }) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
           style={styles.logo}
-          source={require("../../assets/HOUSE-MOVERS-LOGO.png")}
+          source={require('../../assets/HOUSE-MOVERS-LOGO.png')}
         />
         <View style={styles.container2}>
           <TouchableOpacity
@@ -94,7 +94,7 @@ const SignInCustomer = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.segmentButton}
-            onPress={() => router.push("/signUpAsCustomer")}
+            onPress={() => router.push('/signUpAsCustomer')}
           >
             <Text style={styles.segmentButtonText}>Sign Up</Text>
           </TouchableOpacity>
@@ -103,10 +103,10 @@ const SignInCustomer = ({ navigation }) => {
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, !isValidEmail && styles.invalidInput]}
-            placeholder="Email"
-            placeholderTextColor="black"
-            keyboardType="email-address"
-            clearButtonMode={"always"}
+            placeholder='Email'
+            placeholderTextColor='black'
+            keyboardType='email-address'
+            clearButtonMode={'always'}
             onChangeText={validateEmail}
             value={email}
           />
@@ -116,9 +116,9 @@ const SignInCustomer = ({ navigation }) => {
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, !isPasswordEntered && styles.invalidInput]}
-            placeholder="Password"
-            placeholderTextColor="black"
-            clearButtonMode={"always"}
+            placeholder='Password'
+            placeholderTextColor='black'
+            clearButtonMode={'always'}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
             value={password}
@@ -137,7 +137,7 @@ const SignInCustomer = ({ navigation }) => {
         <Pressable
           style={({ pressed }) => [
             styles.signInButton,
-            pressed && { opacity: 1.8, backgroundColor: "#987200" },
+            pressed && { opacity: 1.8, backgroundColor: '#987200' },
           ]}
           onPress={handleSignIn}
         >
@@ -146,16 +146,16 @@ const SignInCustomer = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.buttonForgotPassword}
-          onPress={() => router.replace("forgotPassword")}
+          onPress={() => router.replace('forgotPassword')}
         >
           <Text style={styles.buttonForgotPassword}> Forgot Password? </Text>
         </TouchableOpacity>
 
         <Text style={styles.ss}>
-          Don’t have an account?{" "}
+          Don’t have an account?{' '}
           <Text
             style={styles.ff}
-            onPress={() => router.push("signUpAsCustomer")}
+            onPress={() => router.push('signUpAsCustomer')}
           >
             Create a New Account!
           </Text>
@@ -169,57 +169,57 @@ export default SignInCustomer;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 20,
   },
   logo: {
-    resizeMode: "cover",
-    alignItems: "center",
-    justifyContent: "center",
+    resizeMode: 'cover',
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 150,
     width: 280,
     marginBottom: 85,
     marginLeft: 8,
   },
   container2: {
-    flexDirection: "row",
-    backgroundColor: "#bf9000",
-    borderColor: "#000000",
+    flexDirection: 'row',
+    backgroundColor: '#bf9000',
+    borderColor: '#000000',
     borderWidth: 1,
-    overflow: "hidden",
+    overflow: 'hidden',
     width: 300,
     borderRadius: 25,
     marginHorizontal: 1,
     marginTop: -35,
     marginBottom: 30,
-    fontWeight: "bold",
-    alignItems: "center",
-    justifyContent: "center",
+    fontWeight: 'bold',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   segmentButton: {
     flex: 1,
     paddingVertical: 12,
-    alignItems: "center",
+    alignItems: 'center',
   },
   activeSegmentButton: {
-    backgroundColor: "#000000",
+    backgroundColor: '#000000',
     borderRadius: 20,
   },
   segmentButtonText: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 16,
   },
   activeSegmentButtonText: {
-    color: "#bf9000",
+    color: '#bf9000',
   },
   inputContainer: {
     marginBottom: 10,
@@ -228,55 +228,55 @@ const styles = StyleSheet.create({
     height: 40,
     width: 300,
     borderRadius: 15,
-    borderColor: "#000000",
-    color: "black",
+    borderColor: '#000000',
+    color: 'black',
     margin: 12,
     borderWidth: 1,
     marginTop: 10,
     padding: 10,
   },
   invalidInput: {
-    borderColor: "#bf9000",
+    borderColor: '#bf9000',
   },
   errorText: {
-    color: "#bf9000",
+    color: '#bf9000',
     marginTop: 5,
   },
   errorMessage: {
-    color: "red",
+    color: 'red',
     marginTop: 10,
   },
   signInButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "#000000",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#000000',
     borderWidth: 1,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderRadius: 15,
     width: 300,
-    backgroundColor: "#BF9000",
+    backgroundColor: '#BF9000',
     marginTop: 10,
   },
   signInButtonText: {
-    color: "#000000",
-    fontWeight: "bold",
+    color: '#000000',
+    fontWeight: 'bold',
   },
   ss: {
-    color: "black",
+    color: 'black',
     marginTop: 10,
   },
   ff: {
-    color: "red",
-    textAlign: "center",
-    fontWeight: "bold",
-    textDecorationLine: "underline",
+    color: 'red',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
     fontSize: 14,
   },
   buttonForgotPassword: {
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-    color: "blue",
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    color: 'blue',
     marginTop: 7.5,
     marginBottom: 10,
   },

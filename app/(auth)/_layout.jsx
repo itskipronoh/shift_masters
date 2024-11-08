@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
-import { Stack, router } from "expo-router";
-import { useGlobalContext } from "../../context/GlobalProvider";
+import { View, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { Stack, router } from 'expo-router';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const AuthLayout = () => {
   const { User } = useGlobalContext();
@@ -16,127 +16,127 @@ const AuthLayout = () => {
     <>
       <Stack>
         <Stack.Screen
-          name="index"
+          name='index'
           options={{
-            title: "Sign In As",
+            title: 'Sign In As',
             headerStyle: {
-              backgroundColor: "#BF9000",
-              textAlign: "center",
+              backgroundColor: '#BF9000',
+              textAlign: 'center',
             },
-            headerTintColor: "#000000",
-            headerTitleAlign: "center",
+            headerTintColor: '#000000',
+            headerTitleAlign: 'center',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
           }}
         />
 
         <Stack.Screen
-          name="signInAsCustomer"
+          name='signInAsCustomer'
           options={({ navigation }) => ({
-            title: "Customer Sign In",
+            title: 'Customer Sign In',
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTitleAlign: "center",
-            headerTintColor: "#000000",
+            headerTitleAlign: 'center',
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
             headerLeft: () => (
               <TouchableOpacity
-                onPress={() => router.replace("/(auth)")}
+                onPress={() => router.replace('/(auth)')}
                 style={{ marginLeft: 10 }}
               >
-                <Text style={{ color: "#333" }}>Go Back</Text>
+                <Text style={{ color: '#333' }}>Go Back</Text>
               </TouchableOpacity>
             ),
           })}
         />
 
         <Stack.Screen
-          name="signInAsTeam"
+          name='signInAsTeam'
           options={({ navigation }) => ({
-            title: "Team Sign In",
+            title: 'Team Sign In',
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTitleAlign: "center",
-            headerTintColor: "#000000",
+            headerTitleAlign: 'center',
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
             headerLeft: () => (
               <TouchableOpacity
-                onPress={() => router.replace("/(auth)")}
+                onPress={() => router.replace('/(auth)')}
                 style={{ marginLeft: 10 }}
               >
-                <Text style={{ color: "#000000" }}>Go Back</Text>
+                <Text style={{ color: '#000000' }}>Go Back</Text>
               </TouchableOpacity>
             ),
           })}
         />
 
         <Stack.Screen
-          name="signInAsEmployee"
+          name='signInAsEmployee'
           options={() => ({
-            title: "Employee Sign In",
+            title: 'Employee Sign In',
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTitleAlign: "center",
-            headerTintColor: "#000000",
+            headerTitleAlign: 'center',
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
             headerLeft: () => (
               <TouchableOpacity
-                onPress={() => router.replace("/(auth)")}
+                onPress={() => router.replace('/(auth)')}
                 style={{ marginLeft: 10 }}
               >
-                <Text style={{ color: "#000000" }}>Go Back</Text>
+                <Text style={{ color: '#000000' }}>Go Back</Text>
               </TouchableOpacity>
             ),
           })}
         />
         <Stack.Screen
-          name="signUpAsCustomer"
+          name='signUpAsCustomer'
           options={{
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTitleAlign: "center",
-            headerTintColor: "#000000",
+            headerTitleAlign: 'center',
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
           }}
         />
 
         <Stack.Screen
-          name="forgotPassword"
+          name='forgotPassword'
           options={{
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTitleAlign: "center",
-            headerTintColor: "#000000",
+            headerTitleAlign: 'center',
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
           }}
         />
 
         <Stack.Screen
-          name="signUpAsTeam"
+          name='signUpAsTeam'
           options={{
             headerStyle: {
-              backgroundColor: "#BF9000",
+              backgroundColor: '#BF9000',
             },
-            headerTitleAlign: "center",
-            headerTintColor: "#000000",
+            headerTitleAlign: 'center',
+            headerTintColor: '#000000',
             headerTitleStyle: {
-              fontWeight: "bold",
+              fontWeight: 'bold',
             },
           }}
         />

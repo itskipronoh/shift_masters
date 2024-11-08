@@ -64,7 +64,7 @@ const ProfileAccount = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <ScrollView>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Owner Name:</Text>
@@ -72,7 +72,7 @@ const ProfileAccount = () => {
             <TextInput
               style={styles.input}
               value={ownerName}
-              keyboardType="default"
+              keyboardType='default'
               onChangeText={(text) => setOwnerName(text)}
             />
           ) : (
@@ -85,7 +85,7 @@ const ProfileAccount = () => {
             <TextInput
               style={styles.input}
               value={teamName}
-              keyboardType="default"
+              keyboardType='default'
               onChangeText={(text) => setTeamName(text)}
             />
           ) : (
@@ -98,7 +98,7 @@ const ProfileAccount = () => {
             <TextInput
               style={styles.input}
               value={email}
-              keyboardType="email-address"
+              keyboardType='email-address'
               onChangeText={(text) => setEmail(text)}
             />
           ) : (
@@ -111,7 +111,7 @@ const ProfileAccount = () => {
             <TextInput
               style={styles.input}
               value={phoneNumber}
-              keyboardType="phone-pad"
+              keyboardType='phone-pad'
               onChangeText={(text) => setPhoneNumber(text)}
             />
           ) : (
@@ -139,7 +139,7 @@ const ProfileAccount = () => {
                 <Ionicons
                   name={showPassword ? 'eye' : 'eye-off'}
                   size={24}
-                  color="black"
+                  color='black'
                 />
               </TouchableOpacity>
             </View>
@@ -147,40 +147,40 @@ const ProfileAccount = () => {
             <Text style={styles.value}>{hidePassword()}</Text>
           )}
           <View style={styles.inputContainer}>
-          <Text style={styles.label}>Average Wage per Hour (in KSHs):</Text>
-          {isEditMode ? (
-            <TextInput
-              style={styles.input}
-              value={averageWage}
-              placeholder="i.e: 2500"
-              placeholderTextColor="gray"
-              keyboardType="numeric"
-              onChangeText={(text) => setAverageWage(text)}
-            />
-          ) : (
-            <Text style={styles.value}>{averageWage}</Text>
-          )}
-        </View>
+            <Text style={styles.label}>Average Wage per Hour (in KSHs):</Text>
+            {isEditMode ? (
+              <TextInput
+                style={styles.input}
+                value={averageWage}
+                placeholder='i.e: 2500'
+                placeholderTextColor='gray'
+                keyboardType='numeric'
+                onChangeText={(text) => setAverageWage(text)}
+              />
+            ) : (
+              <Text style={styles.value}>{averageWage}</Text>
+            )}
+          </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Company/Team Description:</Text>
-          {isEditMode ? (
-            <TextInput
-              style={styles.input}
-              placeholder="Description or Condition"
-              placeholderTextColor="gray"
-              keyboardType="default"
-              clearButtonMode={'always'}
-              multiline={true}
-              numberOfLines={10}
-              maxLength={200}
-              //value={description}
-              onChangeText={(text) => setDescription(text)}
-            />
-          ) : (
-            <Text style={styles.value}>{description}</Text>
-          )}
-        </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Company/Team Description:</Text>
+            {isEditMode ? (
+              <TextInput
+                style={styles.input}
+                placeholder='Description or Condition'
+                placeholderTextColor='gray'
+                keyboardType='default'
+                clearButtonMode={'always'}
+                multiline={true}
+                numberOfLines={10}
+                maxLength={200}
+                //value={description}
+                onChangeText={(text) => setDescription(text)}
+              />
+            ) : (
+              <Text style={styles.value}>{description}</Text>
+            )}
+          </View>
           {!isEditMode && (
             <TouchableOpacity
               style={styles.editButton}
@@ -198,7 +198,7 @@ const ProfileAccount = () => {
             </TouchableOpacity>
           )}
         </View>
-        
+
         {isEditMode && (
           <TouchableOpacity style={styles.button} onPress={handleSaveChanges}>
             <Text style={styles.buttonText}>Save Changes</Text>

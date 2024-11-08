@@ -1,14 +1,14 @@
-import { router } from "expo-router";
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { useGlobalContext } from "../../context/GlobalProvider";
+import { router } from 'expo-router';
+import React from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const SignOut = () => {
   const { endSession } = useGlobalContext();
 
   const handleSignOut = async () => {
     await endSession();
-     router.push('(auth)/signInAsCustomer');
+    router.push('(auth)/signInAsCustomer');
   };
   return (
     <View style={styles.container}>
@@ -22,7 +22,7 @@ const SignOut = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.cancelButton}
-          onPress={() => router.push("(home)/Home")}
+          onPress={() => router.push('(home)/Home')}
         >
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
@@ -34,43 +34,43 @@ const SignOut = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 20,
   },
   messageText: {
     fontSize: 20,
-    textAlign: "center",
-    fontWeight: "bold",
+    textAlign: 'center',
+    fontWeight: 'bold',
     marginBottom: 30,
   },
   buttonContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   signOutButton: {
-    backgroundColor: "#bf9000",
-    borderColor: "#000000",
+    backgroundColor: '#bf9000',
+    borderColor: '#000000',
     borderWidth: 1,
     paddingVertical: 15,
     paddingHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginRight: 10,
   },
   cancelButton: {
-    backgroundColor: "#bf9000",
-    borderColor: "#000000",
+    backgroundColor: '#bf9000',
+    borderColor: '#000000',
     borderWidth: 1,
     paddingVertical: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 20,
     marginRight: 10,
   },
   buttonText: {
-    color: "#000",
-    fontWeight: "bold",
+    color: '#000',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

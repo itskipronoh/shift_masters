@@ -1,41 +1,41 @@
-import { router } from "expo-router";
-import React, { useState } from "react";
+import { router } from 'expo-router';
+import React, { useState } from 'react';
 import {
   View,
   ScrollView,
   Text,
   TouchableOpacity,
   StyleSheet,
-} from "react-native";
-import { useLocalSearchParams } from "expo-router";
+} from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 const teamsData = [
   {
-    name: "Team A",
+    name: 'Team A',
     wage: 2000,
     rating: 4.5,
   },
   {
-    name: "Team B",
+    name: 'Team B',
     wage: 2500,
     rating: 4.7,
   },
   {
-    name: "Team C",
+    name: 'Team C',
     wage: 2500,
     rating: 4.7,
   },
   {
-    name: "Team D",
+    name: 'Team D',
     wage: 1550,
     rating: 3.8,
   },
   {
-    name: "Team E",
+    name: 'Team E',
     wage: 1800,
     rating: 3.9,
   },
   {
-    name: "Team F",
+    name: 'Team F',
     wage: 1700,
     rating: 3.8,
   },
@@ -46,7 +46,15 @@ const TeamScreen = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [showOrderButton, setShowOrderButton] = useState(false);
   const [blurOtherLists, setBlurOtherLists] = useState(false);
-  const { pickupLocation, destLocationType, destOtherCat, DestinationLocation, locationType, otherCategory, items } = useLocalSearchParams();
+  const {
+    pickupLocation,
+    destLocationType,
+    destOtherCat,
+    DestinationLocation,
+    locationType,
+    otherCategory,
+    items,
+  } = useLocalSearchParams();
 
   const handleSelectTeam = (team) => {
     if (selectedTeam === team) {
@@ -85,7 +93,7 @@ const TeamScreen = () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              router.push("ViewTeam");
+              router.push('ViewTeam');
             }}
           >
             <Text style={styles.buttonText}>View</Text>
@@ -104,7 +112,7 @@ const TeamScreen = () => {
         <TouchableOpacity
           style={styles.orderButton}
           onPress={() => {
-            router.push("OrderPlaced"); //TODO place order te o the selected team
+            router.push('OrderPlaced'); //TODO place order te o the selected team
           }}
         >
           <Text style={styles.orderButtonText}>Make Order</Text>
@@ -117,24 +125,24 @@ const TeamScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   scrollContainer: {
     paddingVertical: 20,
     paddingHorizontal: 10,
   },
   teamContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginVertical: 5,
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     borderRadius: 10,
   },
   selectedTeam: {
-    backgroundColor: "#997303",
+    backgroundColor: '#997303',
   },
   blurTeam: {
     opacity: 0.5,
@@ -144,63 +152,63 @@ const styles = StyleSheet.create({
   },
   teamName: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "black",
+    fontWeight: 'bold',
+    color: 'black',
   },
   teamWage: {
     fontSize: 16,
-    color: "black",
+    color: 'black',
   },
   teamRating: {
     fontSize: 16,
-    color: "black",
+    color: 'black',
   },
   buttonContainer: {
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   button: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     borderRadius: 5,
     paddingHorizontal: 25,
     paddingVertical: 15,
     marginTop: 4,
   },
   buttonText: {
-    color: "red",
-    fontWeight: "bold",
+    color: 'red',
+    fontWeight: 'bold',
   },
   orderButton: {
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     borderRadius: 10,
     margin: 20,
     paddingVertical: 10,
-    alignItems: "center",
+    alignItems: 'center',
   },
   teamWageAmount: {
-    color: "red",
-    fontWeight: "bold",
+    color: 'red',
+    fontWeight: 'bold',
   },
   teamrating: {
-    color: "blue",
-    fontWeight: "bold",
+    color: 'blue',
+    fontWeight: 'bold',
   },
   orderButtonText: {
-    color: "black",
+    color: 'black',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   titleContainer: {
-    flexDirection: "coloumn",
-    alignItems: "center",
+    flexDirection: 'coloumn',
+    alignItems: 'center',
     marginRight: 10,
     marginBottom: 5,
   },
   titleText: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#8B0000",
+    fontWeight: 'bold',
+    color: '#8B0000',
   },
 });
 

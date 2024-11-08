@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Image,
@@ -8,19 +8,19 @@ import {
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
-} from "react-native";
-import { IconButton } from "react-native-paper";
-import { Linking } from "react-native";
-import { router } from "expo-router";
+} from 'react-native';
+import { IconButton } from 'react-native-paper';
+import { Linking } from 'react-native';
+import { router } from 'expo-router';
 const HouseMoversScreen = () => {
-  const [wage, SetWage] = useState("2500");
-  const [reviewText, setReviewText] = useState("");
+  const [wage, SetWage] = useState('2500');
+  const [reviewText, setReviewText] = useState('');
   const [comments, setComments] = useState([]);
 
   const handleSubmitReview = () => {
-    if (reviewText.trim() !== "") {
+    if (reviewText.trim() !== '') {
       setComments([...comments, reviewText]);
-      setReviewText("");
+      setReviewText('');
     }
   };
 
@@ -31,24 +31,24 @@ const HouseMoversScreen = () => {
   };
 
   const handleGoBack = () => {
-    router.push("SelectTeams");
+    router.push('SelectTeams');
   };
 
   const makePhoneCall = () => {
-    const phoneNumber = "0113515227"; 
+    const phoneNumber = '0113515227';
     Linking.canOpenURL(`tel:${phoneNumber}`).then((supported) => {
       if (supported) {
         // Open the phone dialer with the specified phone number
         Linking.openURL(`tel:${phoneNumber}`);
       } else {
-        console.log("Phone call not available");
+        console.log('Phone call not available');
       }
     });
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
-      <Image source={require("../../assets/kk.jpg")} style={styles.image} />
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
+      <Image source={require('../../assets/kk.jpg')} style={styles.image} />
       <ScrollView>
         <View style={styles.contentContainer}>
           <Text style={styles.text}>
@@ -68,7 +68,7 @@ const HouseMoversScreen = () => {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => {
-              router.push("OrderPlaced");
+              router.push('OrderPlaced');
             }}
           >
             <Text style={styles.buttonText}>Make Order</Text>
@@ -85,10 +85,10 @@ const HouseMoversScreen = () => {
         <View style={styles.reviewContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Write your review here..."
-            placeholderTextColor="gray"
+            placeholder='Write your review here...'
+            placeholderTextColor='gray'
             value={reviewText}
-            clearButtonMode={"always"}
+            clearButtonMode={'always'}
             multiline={true}
             numberOfLines={10}
             maxLength={400}
@@ -122,43 +122,43 @@ const HouseMoversScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: 'black',
   },
   image: {
     //flex: 1,
     //marginTop:10,
-    width: "100%",
-    height: "30%",
-    resizeMode: "cover",
+    width: '100%',
+    height: '30%',
+    resizeMode: 'cover',
   },
   scrollContainer: {
     paddingVertical: 20,
     paddingHorizontal: 10,
   },
   contentContainer: {
-    backgroundColor: "#bf9000",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#bf9000',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 10,
   },
   text: {
-    textAlign: "center",
-    color: "white",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 12,
     marginHorizontal: 20,
   },
   text2: {
-    textAlign: "center",
-    color: "black",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: 'black',
+    fontWeight: 'bold',
     fontSize: 15,
     marginHorizontal: 20,
   },
   text3: {
-    textAlign: "center",
-    color: "red",
-    fontWeight: "bold",
+    textAlign: 'center',
+    color: 'red',
+    fontWeight: 'bold',
     fontSize: 18,
   },
   reviewContainer: {
@@ -170,40 +170,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   input: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     height: 50,
     borderRadius: 5,
     paddingHorizontal: 10,
-    borderColor: "#bf9000",
+    borderColor: '#bf9000',
     borderWidth: 1,
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     paddingVertical: 6,
     borderRadius: 5,
-    alignItems: "center",
+    alignItems: 'center',
   },
   button2: {
     marginTop: 7,
     paddingHorizontal: 10,
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     paddingVertical: 6,
     borderRadius: 5,
-    alignItems: "center",
+    alignItems: 'center',
   },
   button3: {
     marginTop: 7,
     paddingHorizontal: 10,
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     paddingVertical: 6,
     borderRadius: 5,
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttonText: {
-    color: "black",
+    color: 'black',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   commentsContainer: {
     flex: 1,
@@ -211,39 +211,39 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   comment: {
-    backgroundColor: "#bf9000",
+    backgroundColor: '#bf9000',
     borderRadius: 5,
     marginBottom: 5,
     padding: 7,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   commentText: {
-    color: "white",
+    color: 'white',
     flex: 1,
   },
   deleteButton: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
   },
   deleteButtonText: {
-    color: "red",
+    color: 'red',
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   titleContainer: {
-    flexDirection: "coloumn",
-    alignItems: "center",
+    flexDirection: 'coloumn',
+    alignItems: 'center',
     marginRight: 10,
     marginBottom: 5,
   },
   titleText: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#8B0000",
+    fontWeight: 'bold',
+    color: '#8B0000',
   },
 });
 

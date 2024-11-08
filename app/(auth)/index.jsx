@@ -1,6 +1,6 @@
-import { TabRouter } from "@react-navigation/native";
-import { router } from "expo-router";
-import React, { useState } from "react";
+import { TabRouter } from '@react-navigation/native';
+import { router } from 'expo-router';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -8,31 +8,31 @@ import {
   Image,
   Pressable,
   TouchableOpacity,
-} from "react-native";
+} from 'react-native';
 
 export default function SignInAs({ navigation }) {
-  const [signInType, setSignInType] = useState("");
+  const [signInType, setSignInType] = useState('');
 
   const handleSignIn = (type) => {
     setSignInType(type);
 
-    console.log("Sign in as:", type);
+    console.log('Sign in as:', type);
   };
 
   return (
     <View style={styles.container}>
       <Image
         style={styles.logo}
-        source={require("../../assets/HOUSE-MOVERS-LOGO.png")}
+        source={require('../../assets/HOUSE-MOVERS-LOGO.png')}
       />
-      <Image style={styles.pic1} source={require("../../assets/Pic-1.png")} />
+      <Image style={styles.pic1} source={require('../../assets/Pic-1.png')} />
       <Pressable
         style={({ pressed }) => [
           styles.button,
-          pressed && { opacity: 1.8, backgroundColor: "#987200" },
+          pressed && { opacity: 1.8, backgroundColor: '#987200' },
         ]}
         onPress={() => {
-          router.push("/signInAsCustomer");
+          router.push('/signInAsCustomer');
         }}
       >
         <Text style={styles.buttonText}>Sign In as Customer</Text>
@@ -41,10 +41,10 @@ export default function SignInAs({ navigation }) {
       <Pressable
         style={({ pressed }) => [
           styles.button,
-          pressed && { opacity: 1.8, backgroundColor: "#987200" },
+          pressed && { opacity: 1.8, backgroundColor: '#987200' },
         ]}
         onPress={() => {
-          router.push("/signInAsTeam");
+          router.push('/signInAsTeam');
         }}
       >
         <Text style={styles.buttonText}>Sign In as Teams</Text>
@@ -53,10 +53,10 @@ export default function SignInAs({ navigation }) {
       <Pressable
         style={({ pressed }) => [
           styles.button,
-          pressed && { opacity: 1.8, backgroundColor: "#987200" },
+          pressed && { opacity: 1.8, backgroundColor: '#987200' },
         ]}
         onPress={() => {
-          router.push("signInAsEmployee");
+          router.push('signInAsEmployee');
         }}
       >
         <Text style={styles.buttonText}>Sign In as Employee</Text>
@@ -67,13 +67,13 @@ export default function SignInAs({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     padding: 0,
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   logo: {
-    resizeMode: "center",
+    resizeMode: 'center',
     height: 177,
     width: 250,
     marginTop: -35,
@@ -85,22 +85,22 @@ const styles = StyleSheet.create({
     height: 309,
   },
   button: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "#000000",
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: '#000000',
     borderWidth: 1,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderRadius: 15,
     width: 300,
     padding: 10,
-    backgroundColor: "#BF9000",
+    backgroundColor: '#BF9000',
     marginTop: 15,
   },
   buttonText: {
-    color: "#000000",
-    alignItems: "center",
-    fontWeight: "bold",
-    justifyContent: "center",
+    color: '#000000',
+    alignItems: 'center',
+    fontWeight: 'bold',
+    justifyContent: 'center',
   },
 });

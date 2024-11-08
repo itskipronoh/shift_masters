@@ -36,16 +36,19 @@ const ForgotPasswordScreen = (navigation) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-      <KeyboardAvoidingView behavior="position">
+    <ScrollView
+      contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps='handled'
+    >
+      <KeyboardAvoidingView behavior='position'>
         <Text style={styles.title}>Recover Forgot Password</Text>
 
         <View style={styles.formContainer}>
           <Text style={styles.label}>Email Address</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter your email"
-            keyboardType="email-address"
+            placeholder='Enter your email'
+            keyboardType='email-address'
             value={email}
             onChangeText={setEmail}
           />

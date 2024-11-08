@@ -24,29 +24,22 @@ const ProfileAccount = (navigation) => {
     if (!Name || !phoneNumber || !cnic || !password) {
       alert('All fields are required.');
       return;
-    }
-    else if((cnic.length < 6) || (cnic.length > 8)){
+    } else if (cnic.length < 6 || cnic.length > 8) {
       alert('Please enter a valid 13 digit cnic number without dashes (-)');
       return;
-    }
-    else if(cnic.length!==8)
-    {
+    } else if (cnic.length !== 8) {
       alert('Please enter a valid 8 digit id number without dashes (-)');
       return;
-    }
-    else if(phoneNumber.length<8){
+    } else if (phoneNumber.length < 8) {
       alert('Please enter a valid 11 digits mobile number');
       return;
-    }
-    else if(phoneNumber.length>10){
+    } else if (phoneNumber.length > 10) {
       alert('Please enter a valid 11 digits mobile number');
       return;
-    }
-    else if (password.length < 8) {
+    } else if (password.length < 8) {
       alert('Password should be at least 8 characters long!');
       return;
-    }
-    else{
+    } else {
       setIsChangesSaved(true);
       setIsEditMode(false);
     }
@@ -58,7 +51,7 @@ const ProfileAccount = (navigation) => {
     setShowPassword(!showPassword);
   };
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <ScrollView>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Employee ID:</Text>
@@ -70,8 +63,8 @@ const ProfileAccount = (navigation) => {
             <TextInput
               style={styles.input}
               value={Name}
-              keyboardType="default"
-              onChangeText={text => setName(text)}
+              keyboardType='default'
+              onChangeText={(text) => setName(text)}
             />
           ) : (
             <Text style={styles.value}>{Name}</Text>
@@ -83,8 +76,8 @@ const ProfileAccount = (navigation) => {
             <TextInput
               style={styles.input}
               value={phoneNumber}
-              keyboardType="phone-pad"
-              onChangeText={text => setPhoneNumber(text)}
+              keyboardType='phone-pad'
+              onChangeText={(text) => setPhoneNumber(text)}
             />
           ) : (
             <Text style={styles.value}>{phoneNumber}</Text>
@@ -98,22 +91,22 @@ const ProfileAccount = (navigation) => {
           <Text style={styles.label}>Password:</Text>
           {isEditMode ? (
             <View style={styles.textinputcontainer}>
-            <TextInput
-              style={styles.input}
-              value={password}
-              onChangeText={password => setPassword(password)}
-              secureTextEntry={!showPassword}
-            />
-            <TouchableOpacity
-              style={styles.eyebutton}
-              onPress={togglePasswordVisibility}
-            >
-            <Ionicons
-              name={showPassword ? 'eye' : 'eye-off'}
-              size={24}
-              color="black"
-            />
-            </TouchableOpacity>
+              <TextInput
+                style={styles.input}
+                value={password}
+                onChangeText={(password) => setPassword(password)}
+                secureTextEntry={!showPassword}
+              />
+              <TouchableOpacity
+                style={styles.eyebutton}
+                onPress={togglePasswordVisibility}
+              >
+                <Ionicons
+                  name={showPassword ? 'eye' : 'eye-off'}
+                  size={24}
+                  color='black'
+                />
+              </TouchableOpacity>
             </View>
           ) : (
             <Text style={styles.value}>{hidePassword()}</Text>
@@ -136,9 +129,7 @@ const ProfileAccount = (navigation) => {
           )}
         </View>
         {isEditMode && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleSaveChanges}>
+          <TouchableOpacity style={styles.button} onPress={handleSaveChanges}>
             <Text style={styles.buttonText}>Save Changes</Text>
           </TouchableOpacity>
         )}
@@ -158,16 +149,16 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 20,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     color: 'black',
     marginBottom: 5,
   },
   value: {
-    marginTop:5,
+    marginTop: 5,
     fontSize: 16,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     color: 'white',
-    secureTextEntry: "text",
+    secureTextEntry: 'text',
   },
   textinputcontainer: {
     borderColor: '#000000',
@@ -181,10 +172,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     backgroundColor: 'white',
     borderRadius: 10,
-    padding: 5, 
+    padding: 5,
   },
   input: {
-    flex:1,
+    flex: 1,
     borderColor: '#000000',
     borderWidth: 1,
     backgroundColor: 'white',
@@ -204,21 +195,21 @@ const styles = StyleSheet.create({
   },
   editButtonText: {
     color: '#BF9000',
-    fontWeight:'bold',
+    fontWeight: 'bold',
     fontSize: 14,
   },
   button: {
     backgroundColor: 'black',
     borderRadius: 5,
     paddingVertical: 10,
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,
-    marginBottom:20,
+    marginBottom: 20,
   },
   buttonText: {
     color: '#bf9000',
-    fontWeight:'bold',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

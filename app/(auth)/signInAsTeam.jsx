@@ -1,7 +1,18 @@
 import { router } from 'expo-router';
 import * as React from 'react';
 import { useState } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet, Image, ScrollView, KeyboardAvoidingView, Platform, Pressable, TextInput} from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  TextInput,
+} from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import { useGlobalContext } from '../../context/GlobalProvider';
 
@@ -15,18 +26,17 @@ const SignInTeam = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [error, setError] = useState('');
 
-
-   const handleSignIn = async () => {
-    if (email === "" || password === "") {
+  const handleSignIn = async () => {
+    if (email === '' || password === '') {
       setShowErrorMessage(true);
     } else {
       setShowErrorMessage(false);
-      router.push("(home)/Home");
+      router.push('(home)/Home');
       try {
         const response = await fetch(`${endpoint}auth/login`, {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             email: email,
@@ -35,24 +45,24 @@ const SignInTeam = () => {
         });
 
         const data = await response.json();
-        console.log("Data:", data);
+        console.log('Data:', data);
 
         if (data.error) {
           setShowErrorMessage(true);
         } else {
           startSession(data);
           getSession();
-          router.replace("(team)/");
-          toast.show("Logged in successfully", {
-            type: "success",
-            placement: "top",
+          router.replace('(team)/');
+          toast.show('Logged in successfully', {
+            type: 'success',
+            placement: 'top',
             duration: 2500,
             offset: 30,
-            animationType: "zoom-in",
+            animationType: 'zoom-in',
           });
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error('Error:', error);
       }
     }
   };
@@ -64,53 +74,52 @@ const SignInTeam = () => {
     setEmail(text);
   };
   const goBack = () => {
-   router.back();
+    router.back();
   };
   return (
-      <KeyboardAvoidingView
+    <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <Image
-        style={styles.logo}
-        source={require('../../assets/HOUSE-MOVERS-LOGO.png')}/>
-      <View style={styles.container2}>
-      <TouchableOpacity
-        style={[ styles.segmentButton, styles.activeSegmentButton,]}
-       >
-        <Text style={[styles.segmentButtonText,styles.activeSegmentButtonText]}>Sign In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.segmentButton}
-        onPress={() => router.push('/signUpAsTeam')}>
-        <Text style={styles.segmentButtonText}>Sign Up</Text>
-      </TouchableOpacity>
-    </View>
-       <View style={styles.inputContainer}>
+        <Image
+          style={styles.logo}
+          source={require('../../assets/HOUSE-MOVERS-LOGO.png')}
+        />
+        <View style={styles.container2}>
+          <TouchableOpacity
+            style={[styles.segmentButton, styles.activeSegmentButton]}
+          >
+            <Text
+              style={[styles.segmentButtonText, styles.activeSegmentButtonText]}
+            >
+              Sign In
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.segmentButton}
+            onPress={() => router.push('/signUpAsTeam')}
+          >
+            <Text style={styles.segmentButtonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.inputContainer}>
           <TextInput
-            style={[
-              styles.input,
-              !isValidEmail && styles.invalidInput,
-            ]}
-            placeholder="Email"
-            placeholderTextColor="black"
-            keyboardType="email-address"
+            style={[styles.input, !isValidEmail && styles.invalidInput]}
+            placeholder='Email'
+            placeholderTextColor='black'
+            keyboardType='email-address'
             clearButtonMode={'always'}
             onChangeText={validateEmail}
             value={email}
           />
-          {!isValidEmail && (
-            <Text style={styles.errorText}>Invalid email</Text>
-          )}
+          {!isValidEmail && <Text style={styles.errorText}>Invalid email</Text>}
         </View>
         <View style={styles.inputContainer}>
           <TextInput
-            style={[
-              styles.input,
-              !isPasswordEntered && styles.invalidInput,
-            ]}
-            placeholder="Password"
-            placeholderTextColor="black"
+            style={[styles.input, !isPasswordEntered && styles.invalidInput]}
+            placeholder='Password'
+            placeholderTextColor='black'
             clearButtonMode={'always'}
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
@@ -120,34 +129,42 @@ const SignInTeam = () => {
             <Text style={styles.errorText}>Please enter password</Text>
           )}
         </View>
-      
-        <Text style={styles.errorMessage}>
-            {error}
-        </Text>
 
-        <Pressable style={({pressed}) => [
-              styles.signInButton,
-              pressed && {opacity: 1.8, backgroundColor:'#987200'},
-        ]} onPress={handleSignIn}>
+        <Text style={styles.errorMessage}>{error}</Text>
+
+        <Pressable
+          style={({ pressed }) => [
+            styles.signInButton,
+            pressed && { opacity: 1.8, backgroundColor: '#987200' },
+          ]}
+          onPress={handleSignIn}
+        >
           <Text style={styles.signInButtonText}>Sign In</Text>
         </Pressable>
-        <TouchableOpacity style={styles.buttonForgotPassword} onPress={() => router.push('forgotPassword')}>
-        <Text style={styles.buttonForgotPassword}> Forgot Password? </Text> 
+        <TouchableOpacity
+          style={styles.buttonForgotPassword}
+          onPress={() => router.push('forgotPassword')}
+        >
+          <Text style={styles.buttonForgotPassword}> Forgot Password? </Text>
         </TouchableOpacity>
-        <Text style={styles.ss}> Dont have account? <Text style = {styles.ff} onPress={() => router.push('/signUpAsTeam')}>Create a New Account!</Text>
+        <Text style={styles.ss}>
+          {' '}
+          Dont have account?{' '}
+          <Text style={styles.ff} onPress={() => router.push('/signUpAsTeam')}>
+            Create a New Account!
+          </Text>
         </Text>
-        
       </ScrollView>
     </KeyboardAvoidingView>
   );
-}
+};
 export default SignInTeam;
 const styles = StyleSheet.create({
-   container: {
+  container: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -155,7 +172,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  logo:{
+  logo: {
     resizeMode: 'cover',
     alignItems: 'center',
     justifyContent: 'center',
@@ -175,7 +192,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 1,
     marginTop: -35,
     marginBottom: 30,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -223,7 +240,7 @@ const styles = StyleSheet.create({
     color: 'red',
     marginTop: 10,
   },
-   signInButton: {
+  signInButton: {
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#000000',
@@ -233,8 +250,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: 300,
     padding: 10,
-    backgroundColor:'#BF9000',
-    marginTop:10,
+    backgroundColor: '#BF9000',
+    marginTop: 10,
   },
   signInButtonText: {
     color: '#000000',
@@ -242,28 +259,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
   },
-  ss:{
+  ss: {
     alignItems: 'center',
     justifyContent: 'center',
-    color:'black',
-    marginTop:10,
+    color: 'black',
+    marginTop: 10,
   },
-  ff:{
+  ff: {
     color: 'red',
     textAlign: 'center',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
     fontSize: 14,
     alignSelf: 'center',
-    padding: 10, 
+    padding: 10,
   },
-  buttonForgotPassword:{
+  buttonForgotPassword: {
     alignItems: 'center',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
     justifyContent: 'center',
-    color:'blue',
-    marginTop:7.5,
+    color: 'blue',
+    marginTop: 7.5,
     marginBottom: 10,
   },
 });
