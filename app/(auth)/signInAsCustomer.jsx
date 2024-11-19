@@ -37,7 +37,7 @@ const SignInCustomer = () => {
     } else {
       const res = await signInUser(email, password);
       console.log(res);
-      if (res.error) {
+      if (res?.error) {
         toast.show(res.error, { type: 'danger' });
       } else {
         startSession(res);

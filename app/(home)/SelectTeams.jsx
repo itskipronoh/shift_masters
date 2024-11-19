@@ -32,9 +32,15 @@ const TeamScreen = () => {
   const handleSubmit = async () => {
     setOrderDetails({ ...orderDetails, selectedTeam });
 
-    const res = await makeOrder(orderDetails, User.token);
-
-    // TODO: Handle the response from the server
+    try {
+      const res = await makeOrder(
+        [{ ...orderDetails, selectedTeam }],
+        User.token
+      );
+      console.log(res);
+    } catch (error) {
+      console.error('Error making order:', error);
+    }
 
     router.push('(home)/OrderPlaced');
   };

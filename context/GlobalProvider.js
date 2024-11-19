@@ -9,14 +9,15 @@ export default function GlobalProvider({ children }) {
   const endpoint = `https://8q36q111-5000.euw.devtunnels.ms`;
   const [orderDetails, setOrderDetails] = useState(null);
 
-
   async function startSession(user) {
-    setUser(user)
-    try {
-      const userData = JSON.stringify(user);
-      await AsyncStorage.setItem('user', userData);
-    } catch (e) {
-      console.error('error storing users', e);
+    if (user) {
+      setUser(user);
+      try {
+        const userData = JSON.stringify(user);
+        await AsyncStorage.setItem('user', userData);
+      } catch (e) {
+        console.error('error storing users', e);
+      }
     }
   }
 
