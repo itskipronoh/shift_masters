@@ -9,9 +9,9 @@ export default function GlobalProvider({ children }) {
   const endpoint = `https://8q36q111-5000.euw.devtunnels.ms`;
   const [orderDetails, setOrderDetails] = useState(null);
 
-  console.log('current user', User);
 
   async function startSession(user) {
+    setUser(user)
     try {
       const userData = JSON.stringify(user);
       await AsyncStorage.setItem('user', userData);

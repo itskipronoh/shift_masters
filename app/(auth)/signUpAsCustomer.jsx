@@ -12,9 +12,10 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
-import { router } from 'expo-router';
-import { useGlobalContext } from '../../context/GlobalProvider';
+import { router, Stack } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
+import { signUpUser } from '../../api';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 const role = 'customer';
 const SignUpCustomer = () => {
@@ -24,7 +25,6 @@ const SignUpCustomer = () => {
   const [password, onChangePassword] = useState('');
   const [cnfrmpassword, onChangeCnfrmPassword] = useState('');
   const [error, setError] = useState('');
-  const { endpoint } = useGlobalContext();
   const toast = useToast();
 
   const handleSignUp = async () => {
@@ -50,39 +50,28 @@ const SignUpCustomer = () => {
       return;
     }
 
-    try {
-      const response = await fetch(`${endpoint}auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          phone: number,
-          password: password,
-          role: role,
-        }),
+    const res = await signUpUser({
+      name,
+      email,
+      phone: number,
+      password,
+      role,
+    });
+
+    if (res.error) {
+      setError(res.error);
+      toast.show(res.error, {
+        type: 'success',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
       });
+      return;
+    }
 
-      const data = await response.json();
-      // console.log('Data:', data);
-
-      if (data.error) {
-        setError(data.error);
-        console.error('Error:', data.error);
-      } else {
-        router.push('signInAsCustomer');
-        toast.show('Created successfully', {
-          type: 'success',
-          placement: 'top',
-          duration: 2500,
-          offset: 30,
-          animationType: 'zoom-in',
-        });
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (res) {
+      router.navigate('/(auth)/signInAsCustomer');
     }
   };
   return (
@@ -90,6 +79,11 @@ const SignUpCustomer = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+      <Stack.Screen
+        options={{
+          headerTitle: 'Sign In As Customer',
+        }}
+      />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
           style={styles.logo}

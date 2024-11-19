@@ -13,8 +13,8 @@ import {
   TextInput,
 } from 'react-native';
 import { router } from 'expo-router';
-import { useGlobalContext } from '../../context/GlobalProvider';
 import { useToast } from 'react-native-toast-notifications';
+import { signUpUser } from '../../api';
 
 const SignUpTeam = () => {
   const [name, onChangeName] = useState('');
@@ -24,9 +24,9 @@ const SignUpTeam = () => {
   const [password, onChangePassword] = useState('');
   const [cnfrmpassword, onChangeCnfrmPassword] = useState('');
   const [error, setError] = useState('');
-  const { endpoint } = useGlobalContext();
   const toast = useToast();
   const role = 'team';
+
   const handleSignUp = async () => {
     if (!name || !email || !number || !password || !cnfrmpassword) {
       setError('All fields are required.');
@@ -48,48 +48,34 @@ const SignUpTeam = () => {
       return;
     }
 
-    try {
-      const response = await fetch(`${endpoint}auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          idNumber: id,
-          phone: number,
-          role: role,
-          password: password,
-        }),
+    const res = await signUpUser({
+      name,
+      email,
+      phone: number,
+      role,
+      password,
+      idNumber: id,
+    });
+
+    if (res.error) {
+      toast.show(`${res.error}`, {
+        type: 'danger',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
       });
+    }
 
-      const data = await response.json();
-      console.log('Data from team:', data);
-
-      if (data.error) {
-        setError(data.error);
-        toast.show(`${data.error}`, {
-          type: 'danger',
-          placement: 'top',
-          duration: 2500,
-          offset: 30,
-          animationType: 'zoom-in',
-        });
-      } else {
-        router.push('signInAsTeam');
-        toast.show('Created successfully', {
-          type: 'success',
-          placement: 'top',
-          duration: 2500,
-          offset: 30,
-          animationType: 'zoom-in',
-        });
-      }
-      console.log(data);
-    } catch (error) {
-      console.error('Error:', error);
-      setError('An error occurred. Please try again.');
+    if (res) {
+      router.push('signInAsTeam');
+      toast.show('Created successfully', {
+        type: 'success',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
+      });
     }
   };
 

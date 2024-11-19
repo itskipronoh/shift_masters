@@ -19,9 +19,9 @@ export const apiCall = async (url, method, data, token) => {
   }
 };
 
-// sign in as customer
+// sign in as a user
 
-export const signInAsCustomer = async (email, password) => {
+export const signInUser = async (email, password) => {
   try {
     const response = await fetch(`${BaseURI}/auth/login`, {
       method: 'POST',
@@ -42,7 +42,11 @@ export const signInAsCustomer = async (email, password) => {
   }
 };
 
-//make order
+// sign-up user
+
+export const signUpUser = async (userData) => {
+  return await apiCall(`/auth/register`, 'POST', userData);
+};
 
 export const makeOrder = async (orderData, token) => {
   return await apiCall(`/placeOrder`, 'POST', orderData, token);

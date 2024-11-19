@@ -13,17 +13,25 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
-
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { useToast } from 'react-native-toast-notifications';
-const SignInEmployee = ({ navigation }) => {
+import { signInUser } from '../../api';
+
+const SignInEmployee = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidemail, setIsValidemail] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const { endpoint, startSession, getSession } = useGlobalContext();
+  const {  startSession, getSession } = useGlobalContext();
   const toast = useToast();
+  const { User } = useGlobalContext();
+
+  React.useEffect(() => {
+    if (User && User.role == 'admin') {
+      router.replace('(employee)/Home');
+    }
+  }, [User]);
 
   const handleSignIn = async () => {
     if (email === '' || password === '') {
@@ -37,43 +45,31 @@ const SignInEmployee = ({ navigation }) => {
       return;
     }
 
-    try {
-      const response = await fetch(`${endpoint}auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+    const res = await signInUser(email, password);
+    console.log(res);
+
+    if (res.error) {
+      toast.show(res.error, {
+        type: 'error',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
       });
+      return;
+    }
 
-      const data = await response.json();
-      console.log('Data:', data);
-
-      if (data.error) {
-        toast.show(`${data.error}`, {
-          type: 'error',
-          placement: 'top',
-          duration: 2500,
-          offset: 30,
-          animationType: 'zoom-in',
-        });
-      } else {
-        startSession(data);
-        getSession();
-        router.replace('(employee)/Home');
-        toast.show('Logged in successfully', {
-          type: 'success',
-          placement: 'top',
-          duration: 2500,
-          offset: 30,
-          animationType: 'zoom-in',
-        });
-      }
-    } catch (error) {
-      console.error('Error:', error);
+    if (res) {
+      startSession(res);
+      getSession();
+      router.replace('(employee)/Home');
+      toast.show('Logged in successfully', {
+        type: 'success',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
+      });
     }
   };
 
@@ -142,7 +138,6 @@ export default SignInEmployee;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    //justifyContent: 'center',
     padding: 0,
     flex: 1,
     backgroundColor: '#FFFFFF',

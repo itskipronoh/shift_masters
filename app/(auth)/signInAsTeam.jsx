@@ -15,10 +15,11 @@ import {
 } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import { useGlobalContext } from '../../context/GlobalProvider';
+import { signInUser } from '../../api';
 
 const SignInTeam = () => {
   const toast = useToast();
-  const { endpoint, getSession, startSession } = useGlobalContext();
+  const { getSession, startSession, User } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -26,44 +27,36 @@ const SignInTeam = () => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [error, setError] = useState('');
 
+  React.useEffect(() => {
+    if (User) {
+      router.replace('/(team)/');
+    }
+  }, [User]);
+
   const handleSignIn = async () => {
     if (email === '' || password === '') {
       setShowErrorMessage(true);
     } else {
-      setShowErrorMessage(false);
-      router.push('(home)/Home');
-      try {
-        const response = await fetch(`${endpoint}auth/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
+      const res = await signInUser(email, password);
+
+      if (res) {
+        startSession(res);
+        getSession();
+        router.replace('(home)/Home');
+        toast.show('Logged in successfully', {
+          type: 'success',
+          placement: 'top',
+          duration: 2500,
+          offset: 30,
+          animationType: 'zoom-in',
         });
-
-        const data = await response.json();
-        console.log('Data:', data);
-
-        if (data.error) {
-          setShowErrorMessage(true);
-        } else {
-          startSession(data);
-          getSession();
-          router.replace('(team)/');
-          toast.show('Logged in successfully', {
-            type: 'success',
-            placement: 'top',
-            duration: 2500,
-            offset: 30,
-            animationType: 'zoom-in',
-          });
-        }
-      } catch (error) {
-        console.error('Error:', error);
       }
+
+      if (res.error) {
+        setError(res.error);
+        return;
+      }
+      setShowErrorMessage(false);
     }
   };
 
