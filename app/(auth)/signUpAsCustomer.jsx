@@ -15,7 +15,6 @@ import {
 import { router, Stack } from 'expo-router';
 import { useToast } from 'react-native-toast-notifications';
 import { signUpUser } from '../../api';
-import { useGlobalContext } from '../../context/GlobalProvider';
 
 const role = 'customer';
 const SignUpCustomer = () => {
@@ -184,7 +183,6 @@ export default SignUpCustomer;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    //justifyContent: 'center',
     padding: 0,
     flex: 1,
     backgroundColor: '#FFFFFF',
@@ -269,7 +267,6 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 12,
     borderWidth: 1,
-    //marginLeft:0,
     marginTop: 10,
     padding: 10,
     paddingHorizontal: 10,
@@ -282,7 +279,6 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 12,
     borderWidth: 1,
-    //marginLeft:0,
     marginTop: 10,
     padding: 10,
     paddingHorizontal: 10,
@@ -295,7 +291,6 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 12,
     borderWidth: 1,
-    //marginLeft:0,
     marginTop: 10,
     padding: 10,
     paddingHorizontal: 10,

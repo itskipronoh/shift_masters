@@ -1,5 +1,5 @@
-import { router } from 'expo-router';
-import React, { useState } from 'react';
+import { router, useNavigation } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   ScrollView,
@@ -9,13 +9,20 @@ import {
 } from 'react-native';
 import { teamsData } from '../../data';
 import { useGlobalContext } from '../../context/GlobalProvider';
-import { makeOrder } from '../../api';
+import { BaseURI } from '../../api';
 
 const TeamScreen = () => {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [showOrderButton, setShowOrderButton] = useState(false);
   const [blurOtherLists, setBlurOtherLists] = useState(false);
   const { orderDetails, setOrderDetails, User } = useGlobalContext();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (!User) {
+      router.replace('/(auth)/signUpAsCustomer');
+    }
+  }, [User]);
 
   const handleSelectTeam = (team) => {
     if (selectedTeam === team) {
@@ -30,19 +37,27 @@ const TeamScreen = () => {
   };
 
   const handleSubmit = async () => {
-    setOrderDetails({ ...orderDetails, selectedTeam });
+    await setOrderDetails({ ...orderDetails, selectedTeam });
 
     try {
-      const res = await makeOrder(
-        [{ ...orderDetails, selectedTeam }],
-        User.token
-      );
-      console.log(res);
-    } catch (error) {
-      console.error('Error making order:', error);
-    }
+      const response = await fetch(`${BaseURI}/placeOrder`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: User?.token ? `Bearer ${User.token}` : '',
+        },
+        body: JSON.stringify(orderDetails),
+      });
 
-    router.push('(home)/OrderPlaced');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      router.navigate('/(home)/OrderPlaced');
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const renderTeams = () => {

@@ -1,20 +1,14 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, Pressable } from 'react-native';
-import { router } from 'expo-router';
-import { useGlobalContext } from '../../context/GlobalProvider';
 
 const Home = () => {
-  const { orderDetails } = useGlobalContext();
-
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={require('../../assets/ff.png')} />
       <View style={styles.container2}>
         <View style={styles.heading}>
           <Text style={styles.textheading}>
-            ORDER PLACED!!! {'\n'}
-            {'\n'} Your OrderID is
-            <Text style={styles.orderId}> {orderDetails?._id}</Text> {'\n'}
+            ORDER PLACED Successfully!!! {'\n'}
             {'\n'}{' '}
             <Text style={styles.message}>
               Team Owner or Driver will make contact with you shortly! Thanks!!!
