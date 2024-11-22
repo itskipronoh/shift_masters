@@ -42,7 +42,7 @@ const SignInTeam = () => {
       if (res) {
         startSession(res);
         getSession();
-        router.replace('(home)/Home');
+        router.replace('/(team)/');
         toast.show('Logged in successfully', {
           type: 'success',
           placement: 'top',

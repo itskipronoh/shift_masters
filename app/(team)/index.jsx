@@ -27,17 +27,7 @@ const Home = () => {
         >
           <Text style={styles.textbutton1}> Vehicle Data </Text>
         </Pressable>
-        <Pressable
-          style={({ pressed }) => [
-            styles.button2,
-            pressed && { opacity: 1.8, backgroundColor: '#987200' },
-          ]}
-          onPress={() => {
-            router.push('EmployeeData');
-          }}
-        >
-          <Text style={styles.textbutton2}> Employee Data </Text>
-        </Pressable>
+
         <Pressable
           style={({ pressed }) => [
             styles.button3,

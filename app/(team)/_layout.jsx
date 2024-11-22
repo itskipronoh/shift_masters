@@ -1,7 +1,5 @@
 import { Drawer } from 'expo-router/drawer';
 export default function TeamLayout() {
-  // const showHiddenScreen = false;
-  const showHiddenScreen = true;
   return (
     <Drawer screenOptions={{ drawerPosition: 'left' }} initialRouteName='index'>
       <Drawer.Screen
@@ -50,22 +48,7 @@ export default function TeamLayout() {
           },
         }}
       />
-      <Drawer.Screen
-        name='EmployeeData'
-        options={{
-          title: 'Employee Data',
-          gestureEnabled: true,
-          gestureDirection: 'horizontal',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#BF9000',
-          },
-          headerTintColor: '#000000',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      />
+    
       <Drawer.Screen
         name='Orders'
         options={{
