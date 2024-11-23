@@ -1,4 +1,4 @@
-export const BaseURI = 'https://8q36q111-5000.euw.devtunnels.ms';
+export const BaseURI = 'https://rrf38mr7-5000.uks1.devtunnels.ms/';
 
 export const apiCall = async (url, method, data, token) => {
   try {
@@ -19,9 +19,9 @@ export const apiCall = async (url, method, data, token) => {
   }
 };
 
-// sign in as a user
+// sign in as customer
 
-export const signInUser = async (email, password) => {
+export const signInAsCustomer = async (email, password) => {
   try {
     const response = await fetch(`${BaseURI}/auth/login`, {
       method: 'POST',
@@ -34,10 +34,6 @@ export const signInUser = async (email, password) => {
       }),
     });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
     const data = await response.json();
 
     return data;
@@ -46,11 +42,7 @@ export const signInUser = async (email, password) => {
   }
 };
 
-// sign-up user
-
-export const signUpUser = async (userData) => {
-  return await apiCall(`/auth/register`, 'POST', userData);
-};
+//make order
 
 export const makeOrder = async (orderData, token) => {
   return await apiCall(`/placeOrder`, 'POST', orderData, token);
