@@ -1,4 +1,4 @@
-export const BaseURI = 'https://rrf38mr7-5000.uks1.devtunnels.ms/';
+export const BaseURI = 'https://8q36q111-5000.euw.devtunnels.ms';
 
 export const apiCall = async (url, method, data, token) => {
   try {
@@ -46,4 +46,8 @@ export const signInAsCustomer = async (email, password) => {
 
 export const makeOrder = async (orderData, token) => {
   return await apiCall(`/placeOrder`, 'POST', orderData, token);
+};
+
+export const getAllOrders = async () => {
+  return await apiCall(`/orders`, 'GET');
 };

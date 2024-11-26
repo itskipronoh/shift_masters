@@ -1,132 +1,169 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-// import { Linking } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import { Linking, Alert } from 'react-native';
-import { useGlobalContext } from "../../context/GlobalProvider";
-import { router } from "expo-router";
+import { useGlobalContext } from '../../context/GlobalProvider';
+import { router } from 'expo-router';
+import axios from 'axios';
+import { BaseURI } from '../../api';
 
 const OrdersRequestComponent = () => {
-  const orders = [
-    {
-      customerName: 'John Doe',
-      fromAddress: '123 Main St',
-      toAddress: '456 Elm St',
-      fareAmount: 5000,
-    },
-    {
-      customerName: 'Jane Smith',
-      fromAddress: '789 Oak Ave',
-      toAddress: '987 Pine St',
-      fareAmount: 3500,
-    },
-    // Add more orders as needed
-  ];
-const navigation = useNavigation();
-const { endpoint } = useGlobalContext();
+  const [orders, setOrders] = useState([]);
+  const { endpoint } = useGlobalContext();
 
-const handleAcceptOrder = async (order) => {
-  try {
-    const response = await fetch(`${endpoint}/updateOrderStatus`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        orderId: order.orderId,
-        status: 'accepted',
-      }),
-    });
+  const getAllOrders = async () => {
+    try {
+      const response = await axios.get(`${BaseURI}/orders`);
 
-    if (!response.ok) {
-      throw new Error('Failed to accept the order');
+      setOrders(response.data.orders);
+    } catch (error) {
+      console.log(error);
+      setOrders([]);
+    }
+  };
+  getAllOrders();
+
+  useEffect(() => {}, []);
+
+  const handleAcceptOrder = async (order) => {
+    try {
+      const response = await fetch(`${endpoint}/updateOrderStatus`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId: order.orderId,
+          status: 'accepted',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to accept the order');
+      }
+
+      const responseData = await response.json();
+      console.log('Order accepted:', responseData);
+      // Optional: Refresh orders or update state to reflect the change
+    } catch (error) {
+      console.error('Error accepting order:', error);
+      alert('Could not accept the order. Please try again.');
+    }
+  };
+
+  const handleCancelOrder = async (order) => {
+    try {
+      const response = await fetch(`${endpoint}/updateOrderStatus`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          orderId: order.orderId,
+          status: 'canceled',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to cancel the order');
+      }
+
+      const responseData = await response.json();
+      console.log('Order canceled:', responseData);
+      // Optional: Refresh orders or update state to reflect the change
+    } catch (error) {
+      console.error('Error canceling order:', error);
+      alert('Could not cancel the order. Please try again.');
+    }
+  };
+
+  const makePhoneCall = (phoneNumber) => {
+    if (!phoneNumber) {
+      Alert.alert('Phone number not available');
+      return;
     }
 
-    const responseData = await response.json();
-    console.log('Order accepted:', responseData);
-    // Optional: Refresh orders or update state to reflect the change
-  } catch (error) {
-    console.error('Error accepting order:', error);
-    alert('Could not accept the order. Please try again.');
-  }
-};
-
-const handleCancelOrder = async (order) => {
-  try {
-    const response = await fetch(`${endpoint}/updateOrderStatus`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        orderId: order.orderId,
-        status: 'canceled',
-      }),
+    const url = `tel:${phoneNumber}`;
+    Linking.openURL(url).catch((error) => {
+      console.error('Error making phone call:', error);
+      Alert.alert(
+        'Unable to make the call. Please check your device settings.'
+      );
     });
-
-    if (!response.ok) {
-      throw new Error('Failed to cancel the order');
-    }
-
-    const responseData = await response.json();
-    console.log('Order canceled:', responseData);
-    // Optional: Refresh orders or update state to reflect the change
-  } catch (error) {
-    console.error('Error canceling order:', error);
-    alert('Could not cancel the order. Please try again.');
-  }
-};
-
-const makePhoneCall = (phoneNumber) => {
-  if (!phoneNumber) {
-    Alert.alert("Phone number not available");
-    return;
-  }
-
-  const url = `tel:${phoneNumber}`;
-  Linking.openURL(url).catch((error) => {
-    console.error('Error making phone call:', error);
-    Alert.alert("Unable to make the call. Please check your device settings.");
-  });
-};
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {orders.map((order, index) => (
-          <View style={styles.orderContainer} key={index}>
-            <Text style={styles.customerName}>{order.userName}</Text>
-            <View style={styles.addressContainer}>
-              <View style={[styles.dot, { backgroundColor: 'green' }]} />
+        {orders &&
+          orders.map((order, index) => (
+            <View style={styles.orderContainer} key={index}>
+              <Text style={styles.customerName}>{order?.userOrder}</Text>
+              <View style={styles.addressContainer}>
+                <View style={[styles.dot, { backgroundColor: 'green' }]} />
+                <Text style={styles.addressText}>
+                  From:{' '}
+                  <Text style={styles.addressTextFrom}>
+                    {order?.pickupLocation}
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.addressContainer}>
+                <View style={[styles.dot, { backgroundColor: 'red' }]} />
+                <Text style={styles.addressText}>
+                  To:{' '}
+                  <Text style={styles.addressTextTo}>
+                    {order?.DestinationLocation}
+                  </Text>
+                </Text>
+              </View>
               <Text style={styles.addressText}>
-                From: <Text style={styles.addressTextFrom}>{order.fromAddress}</Text>
+                Estimated Fare:{' '}
+                <Text style={[styles.fareAmountText, { color: 'red' }]}>
+                  {order?.selectedTeam?.wage}/.KSHs
+                </Text>
               </Text>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handleAcceptOrder(order)}
+                >
+                  <Text style={styles.buttonText}>Accept Order</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => handleCancelOrder(order)}
+                >
+                  <Text style={styles.buttonText}>Cancel Order</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => router.push('ViewOrderDetails')}
+                >
+                  <Text style={styles.buttonText}>View Order Details</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    makePhoneCall;
+                  }}
+                >
+                  <Text style={styles.buttonText}>Contact Customer</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.addressContainer}>
-              <View style={[styles.dot, { backgroundColor: 'red' }]} />
-              <Text style={styles.addressText}>
-                To: <Text style={styles.addressTextTo}>{order.toAddress}</Text>
-              </Text>
-            </View>
-            <Text style={styles.addressText}>
-              Estimated Fare: <Text style={[styles.fareAmountText, { color: 'red' }]}>{order.fareAmount}/.KSHs</Text>
-            </Text>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => handleAcceptOrder(order)}>
-                <Text style={styles.buttonText}>Accept Order</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => handleCancelOrder(order)}>
-                <Text style={styles.buttonText}>Cancel Order</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => router.push('ViewOrderDetails')}>
-                <Text style={styles.buttonText}>View Order Details</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={() => {makePhoneCall}}>
-                <Text style={styles.buttonText}>Contact Customer</Text>
-              </TouchableOpacity>
-            </View>
+          ))}
+
+        {!orders && (
+          <View>
+            <Text>No Orders Available</Text>
           </View>
-        ))}
+        )}
       </ScrollView>
     </View>
   );
