@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import OrdersRequest from '../../pages/team/OrdersRequests';

@@ -1,84 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  ScrollView,
   Text,
   TouchableOpacity,
   StyleSheet,
+  FlatList,
 } from 'react-native';
 import { Linking, Alert } from 'react-native';
-import { useGlobalContext } from '../../context/GlobalProvider';
 import { router } from 'expo-router';
 import axios from 'axios';
 import { BaseURI } from '../../api';
 
 const OrdersRequestComponent = () => {
   const [orders, setOrders] = useState([]);
-  const { endpoint } = useGlobalContext();
 
   const getAllOrders = async () => {
     try {
       const response = await axios.get(`${BaseURI}/orders`);
 
-      setOrders(response.data.orders);
+      const data =
+        response.data.orders &&
+        response.data.orders.filter((item) => item.status === 'pending');
+
+      setOrders(data);
     } catch (error) {
       console.log(error);
       setOrders([]);
     }
   };
-  getAllOrders();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getAllOrders();
+  }, []);
 
-  const handleAcceptOrder = async (order) => {
+  const handleAcceptOrder = async (orderId) => {
     try {
-      const response = await fetch(`${endpoint}/updateOrderStatus`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          orderId: order.orderId,
-          status: 'accepted',
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to accept the order');
+      if (!orderId) {
+        throw new Error('Order ID is missing');
       }
 
-      const responseData = await response.json();
-      console.log('Order accepted:', responseData);
-      // Optional: Refresh orders or update state to reflect the change
+      const response = await axios.post(`${BaseURI}/updateOrderStatus`, {
+        id: orderId,
+        status: 'accepted'
+      });
+
+      if (response.data) {
+        setOrders(orders.filter((o) => o._id !== orderId));
+        Alert.alert('Success', 'Order has been accepted successfully!');
+      }
     } catch (error) {
       console.error('Error accepting order:', error);
-      alert('Could not accept the order. Please try again.');
+      Alert.alert('Error', 'Could not accept the order. Please try again.');
     }
   };
 
-  const handleCancelOrder = async (order) => {
+  const handleCancelOrder = async (orderId) => {
     try {
-      const response = await fetch(`${endpoint}/updateOrderStatus`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          orderId: order.orderId,
-          status: 'canceled',
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to cancel the order');
+      if (!orderId) {
+        throw new Error('Order ID is missing');
       }
 
-      const responseData = await response.json();
-      console.log('Order canceled:', responseData);
-      // Optional: Refresh orders or update state to reflect the change
+      const response = await axios.post(`${BaseURI}/updateOrderStatus`, {
+        id: orderId,
+        status: 'cancelled'
+      });
+
+      if (response.data) {
+        setOrders(orders.filter((o) => o._id !== orderId));
+        Alert.alert('Success', 'Order has been canceled successfully!');
+      }
     } catch (error) {
       console.error('Error canceling order:', error);
-      alert('Could not cancel the order. Please try again.');
+      Alert.alert('Error', 'Could not cancel the order. Please try again.');
     }
   };
 
@@ -99,72 +92,73 @@ const OrdersRequestComponent = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {orders &&
-          orders.map((order, index) => (
-            <View style={styles.orderContainer} key={index}>
-              <Text style={styles.customerName}>{order?.userOrder}</Text>
-              <View style={styles.addressContainer}>
-                <View style={[styles.dot, { backgroundColor: 'green' }]} />
-                <Text style={styles.addressText}>
-                  From:{' '}
-                  <Text style={styles.addressTextFrom}>
-                    {order?.pickupLocation}
-                  </Text>
-                </Text>
-              </View>
-              <View style={styles.addressContainer}>
-                <View style={[styles.dot, { backgroundColor: 'red' }]} />
-                <Text style={styles.addressText}>
-                  To:{' '}
-                  <Text style={styles.addressTextTo}>
-                    {order?.DestinationLocation}
-                  </Text>
-                </Text>
-              </View>
+      <FlatList
+        data={orders}
+        keyExtractor={(order, index) => index.toString()}
+        contentContainerStyle={styles.scrollViewContent}
+        renderItem={({ item: order }) => (
+          <View style={styles.orderContainer}>
+            <Text style={styles.customerName}>{order?.userOrder}</Text>
+            <View style={styles.addressContainer}>
+              <View style={[styles.dot, { backgroundColor: 'green' }]} />
               <Text style={styles.addressText}>
-                Estimated Fare:{' '}
-                <Text style={[styles.fareAmountText, { color: 'red' }]}>
-                  {order?.selectedTeam?.wage}/.KSHs
+                From:{' '}
+                <Text style={styles.addressTextFrom}>
+                  {order?.pickupLocation}
                 </Text>
               </Text>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handleAcceptOrder(order)}
-                >
-                  <Text style={styles.buttonText}>Accept Order</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handleCancelOrder(order)}
-                >
-                  <Text style={styles.buttonText}>Cancel Order</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => router.push('ViewOrderDetails')}
-                >
-                  <Text style={styles.buttonText}>View Order Details</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    makePhoneCall;
-                  }}
-                >
-                  <Text style={styles.buttonText}>Contact Customer</Text>
-                </TouchableOpacity>
-              </View>
             </View>
-          ))}
+            <View style={styles.addressContainer}>
+              <View style={[styles.dot, { backgroundColor: 'red' }]} />
+              <Text style={styles.addressText}>
+                To:{' '}
+                <Text style={styles.addressTextTo}>
+                  {order?.DestinationLocation}
+                </Text>
+              </Text>
+            </View>
+            <Text style={styles.addressText}>
+              Estimated Fare:{' '}
+              <Text style={[styles.fareAmountText, { color: 'red' }]}>
+                {order?.selectedTeam?.wage}/.KSHs
+              </Text>
+            </Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleAcceptOrder(order._id)}
+              >
+                <Text style={styles.buttonText}>Accept Order</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleCancelOrder(order._id)}
+              >
+                <Text style={styles.buttonText}>Cancel Order</Text>
+              </TouchableOpacity>
 
-        {!orders && (
-          <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => makePhoneCall(order?.phoneNumber)}
+              >
+                <Text style={styles.buttonText}>Contact Customer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+        ListEmptyComponent={() => (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'red',
+            }}
+          >
             <Text>No Orders Available</Text>
           </View>
         )}
-      </ScrollView>
+      />
     </View>
   );
 };

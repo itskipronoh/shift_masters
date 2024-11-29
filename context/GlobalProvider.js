@@ -6,7 +6,6 @@ export default function GlobalProvider({ children }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [User, setUser] = useState(null);
   const [session, setSession] = useState(null);
-  const endpoint = `https://rrf38mr7-5000.uks1.devtunnels.ms/`;
   const [orderDetails, setOrderDetails] = useState(null);
 
   console.log('current user', User);
@@ -51,7 +50,6 @@ export default function GlobalProvider({ children }) {
         startSession,
         User,
         session,
-        endpoint,
         endSession,
         orderDetails,
         setOrderDetails,

@@ -1,72 +1,87 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { Stack, useLocalSearchParams } from 'expo-router';
 
 import axios from 'axios';
 import { BaseURI } from '../../api';
 
 const ViewOrdersDetails = () => {
-  const route = useRoute();
-  const { id } = route.params;
+  const { id } = useLocalSearchParams();
 
-  const [order, setOrder] = useState([]);
-
+  const [order, setOrder] = useState(null);
   const getOrder = async (id) => {
     try {
-      const response = await axios.get(`${BaseURI}/orders/${id}`);
-
-      const data = response.json();
-
+      const response = await axios.get(`${BaseURI}/viewOrder/${id}`);
+      const data = response.data?.order;
       setOrder(data);
     } catch (error) {
       console.log(error);
-      setOrder([]);
+      setOrder(null);
     }
   };
 
   useEffect(() => {
-    getOrder();
+    getOrder(id);
   }, [id]);
+
+  if (!order) {
+    return (
+      <View style={styles.emptyStateContainer}>
+        <Text style={styles.emptyStateText}>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          headerTitle: '',
+          headerStyle: {
+            backgroundColor: '#BF9000',
+          },
+        }}
+      />
       <View style={styles.orderContainer}>
-        <Text style={styles.customerName}>{order?.userOrder}</Text>
+        <Text style={styles.customerName}>Order Details</Text>
+        <Text style={styles.addressText}>Status: {order.status}</Text>
+        <Text style={styles.addressText}>Created At: {new Date(order.createdAt).toLocaleString()}</Text>
+        <Text style={styles.addressText}>Updated At: {new Date(order.updatedAt).toLocaleString()}</Text>
+        
         <View style={styles.addressContainer}>
           <View style={[styles.dot, { backgroundColor: 'green' }]} />
           <Text style={styles.addressText}>
-            From:{' '}
-            <Text style={styles.addressTextFrom}>{order?.pickupLocation}</Text>
+            From: <Text style={styles.addressTextFrom}>{order.pickupLocation} ({order.pickupLocationType})</Text>
           </Text>
         </View>
+        
         <View style={styles.addressContainer}>
           <View style={[styles.dot, { backgroundColor: 'red' }]} />
           <Text style={styles.addressText}>
-            To:{' '}
-            <Text style={styles.addressTextTo}>
-              {order?.DestinationLocation}
-            </Text>
+            To: <Text style={styles.addressTextTo}>{order.DestinationLocation} ({order.DestinationLocationType})</Text>
           </Text>
         </View>
+        
         <Text style={styles.addressText}>
-          Estimated Fare:{' '}
-          <Text style={[styles.fareAmountText, { color: 'red' }]}>
-            {order?.selectedTeam?.wage}/.KSHs
-          </Text>
+          Estimated Fare: <Text style={[styles.fareAmountText, { color: 'red' }]}>{order.selectedTeam.wage}/.KSHs</Text>
         </Text>
+        
+        <Text style={styles.addressText}>Team: {order.selectedTeam.name} (Rating: {order.selectedTeam.rating})</Text>
+        
+        <Text style={styles.customerName}>Items:</Text>
+        {order.items.map(item => {
+          return (
+            <View key={item._id} style={styles.itemContainer}>
+              <Text style={styles.addressText}>Name: {item.name}</Text>
+              <Text style={styles.addressText}>Description: {item.description}</Text>
+              <Text style={styles.addressText}>Quantity: {item.quantity}</Text>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
-};
-
-ViewOrdersDetails.navigationOptions = {
-  screenOptions: {
-    tabBarActiveTintColor: '#bf9000',
-    tabBarInactiveTintColor: 'grey',
-    tabBarStyle: {
-      display: 'flex',
-    },
-  },
 };
 
 const styles = StyleSheet.create({
@@ -142,6 +157,12 @@ const styles = StyleSheet.create({
   emptyStateText: {
     fontSize: 18,
     color: 'grey',
+  },
+  itemContainer: {
+    backgroundColor: '',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
   },
 });
 

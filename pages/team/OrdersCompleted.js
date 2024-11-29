@@ -1,109 +1,147 @@
-import React from 'react';
-import { View, ScrollView, Text,TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Linking } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import { Linking, Alert } from 'react-native';
+import { router } from 'expo-router';
+import axios from 'axios';
+import { BaseURI } from '../../api';
 
-const CompletedOrdersScreen = () => {
-  const orders = [
-    {
-      id: '1234',
-      customerName: 'John Doe',
-      from: '123 Main St',
-      to: '456 Elm St',
-      status: 'Completed',
-    },
-    {
-      id: '5678',
-      customerName: 'Jane Smith',
-      from: '789 Oak St',
-      to: '321 Pine St',
-      status: 'Completed',
-    },
-    // Add more orders as needed
-  ];
-  const makePhoneCall = () => {
-  const phoneNumber = '1234567890'; // Replace with the desired phone number
+const OrdersCompletedComponent = () => {
+  const [orders, setOrders] = useState([]);
 
-  // Check if the Linking API is supported on the device
-  Linking.canOpenURL(`tel:${phoneNumber}`).then((supported) => {
-    if (supported) {
-      // Open the phone dialer with the specified phone number
-      Linking.openURL(`tel:${phoneNumber}`);
-    } else {
-      console.log('Phone call not available');
+  const getAllOrders = async () => {
+    try {
+      const response = await axios.get(`${BaseURI}/orders`);
+
+      const data =
+        response.data.orders &&
+        response.data.orders.filter((item) => item.status === 'completed');
+
+      setOrders(data);
+    } catch (error) {
+      console.log(error);
+      setOrders([]);
     }
-  });
-};
-  const navigation = useNavigation();
+  };
+
+  useEffect(() => {
+    getAllOrders();
+  }, []);
+
+  const makePhoneCall = (phoneNumber) => {
+    if (!phoneNumber) {
+      Alert.alert('Phone number not available');
+      return;
+    }
+
+    const url = `tel:${phoneNumber}`;
+    Linking.openURL(url).catch((error) => {
+      console.error('Error making phone call:', error);
+      Alert.alert(
+        'Unable to make the call. Please check your device settings.'
+      );
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.rectangleContainer}>
-        <ScrollView contentContainerStyle={styles.ordersContainer}>
-          {orders.map((order, index) => (
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {orders &&
+          orders.map((order, index) => (
             <View style={styles.orderContainer} key={index}>
-              <Text style={styles.customerName}>{order.customerName}</Text>
-              <View style={styles.detailsContainer}>
+              <Text style={styles.customerName}>{order?.userOrder}</Text>
+              <View style={styles.addressContainer}>
                 <View style={[styles.dot, { backgroundColor: 'green' }]} />
-                <Text style={styles.addressText}>From : <Text style={styles.addressTextFrom}>{order.from}</Text></Text>
+                <Text style={styles.addressText}>
+                  From:{' '}
+                  <Text style={styles.addressTextFrom}>
+                    {order?.pickupLocation}
+                  </Text>
+                </Text>
               </View>
-              <View style={styles.detailsContainer}>
+              <View style={styles.addressContainer}>
                 <View style={[styles.dot, { backgroundColor: 'red' }]} />
-                <Text style={styles.addressText}>To: <Text style={styles.addressTextTo}>{order.from}</Text></Text>
+                <Text style={styles.addressText}>
+                  To:{' '}
+                  <Text style={styles.addressTextTo}>
+                    {order?.DestinationLocation}
+                  </Text>
+                </Text>
               </View>
-              <Text style={[styles.orderIdText, { color: 'white' }]}>Order ID: <Text style={{ color: '#0000FF' }}>{order.id}</Text></Text>
-              <Text style={[styles.orderIdText, { color: 'white' }]}>Order Status: <Text style={{ color: '#00FFFF' }}>{order.status}</Text></Text>
-
-              <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={[styles.button, { backgroundColor: '#bf9000' }]} onPress={() => {navigation.navigate('Details');}}>
-                  <Text style={[styles.buttonText, { color: 'black' }]}>
-                    View Order Details
-                  </Text>
-                </TouchableOpacity> 
-                <TouchableOpacity style={[styles.button, { backgroundColor: '#bf9000' }]} onPress={() => {makePhoneCall}}>
-                  <Text style={[styles.buttonText, { color: 'black' }]}>
-                    Contact Customer
-                  </Text>
+              <Text style={styles.addressText}>
+                Estimated Fare:{' '}
+                <Text style={[styles.fareAmountText, { color: 'red' }]}>
+                  {order?.selectedTeam?.wage}/.KSHs
+                </Text>
+              </Text>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => router.push(`/orderDetails/${order._id}`)}
+                >
+                  <Text style={styles.buttonText}>View Order Details</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() => {
+                    makePhoneCall;
+                  }}
+                >
+                  <Text style={styles.buttonText}>Contact Customer</Text>
                 </TouchableOpacity>
               </View>
             </View>
           ))}
-        </ScrollView>
-      </View>
+
+        {!orders && (
+          <View>
+            <Text>No Orders Available</Text>
+          </View>
+        )}
+      </ScrollView>
     </View>
   );
+};
+
+OrdersCompletedComponent.navigationOptions = {
+  screenOptions: {
+    tabBarActiveTintColor: '#bf9000',
+    tabBarInactiveTintColor: 'grey',
+    tabBarStyle: {
+      display: 'flex',
+    },
+  },
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#bf9000',
-  },
-  rectangleContainer: {
-    flex: 1,
     backgroundColor: '#BF9000',
-    marginTop: 10,
-    paddingHorizontal: 20,
-    paddingTop: 10,
   },
-  ordersContainer: {
-    paddingBottom: 20,
+  scrollViewContent: {
+    padding: 20,
   },
   orderContainer: {
     backgroundColor: 'black',
-    marginBottom: 20,
     padding: 10,
     borderRadius: 10,
+    marginBottom: 10,
   },
   customerName: {
     fontSize: 19,
     fontWeight: 'bold',
-    color: 'yellow',
     marginBottom: 10,
+    color: 'yellow',
   },
-  detailsContainer: {
+  addressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   dot: {
     width: 10,
@@ -113,42 +151,38 @@ const styles = StyleSheet.create({
   },
   addressText: {
     fontSize: 16,
-    color: 'white',
     fontWeight: 'bold',
+    color: 'white',
   },
-  addressTextFrom:{
+  addressTextFrom: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'green',
   },
-  addressTextTo:{
+  addressTextTo: {
     fontSize: 16,
     fontWeight: 'bold',
     color: 'red',
   },
-  orderIdText: {
+  fareAmountText: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 7,
   },
-  buttonsContainer: {
-    flexDirection: 'colomn',
+  buttonContainer: {
+    marginTop: 10,
   },
   button: {
-    backgroundColor: '#bf9000',
+    backgroundColor: '#BF9000',
     borderRadius: 5,
-    paddingVertical: 8,
-    justifyContent:'Center',
-    alignItems:'center',
-    paddingHorizontal: 12,
-    marginTop: 10,
+    paddingVertical: 10,
+    marginBottom: 10,
+    alignItems: 'center',
   },
   buttonText: {
     color: 'black',
     fontSize: 16,
-    textAlign:'center',
     fontWeight: 'bold',
   },
 });
 
-export default CompletedOrdersScreen;
+export default OrdersCompletedComponent;
