@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import { MaterialIcons } from '@expo/vector-icons'; // Import icons from Expo vector icons library
+import { MaterialIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons';
 import PendingOrders from '../../pages/employee/PendingOrdersLabour';
 import CompletedOrders from '../../pages/employee/CompletedOrdersLabour';
@@ -11,7 +10,7 @@ const LabourOrders = () => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <NavigationContainer independent={true}>
+    <>
       <Tab.Navigator
         shifting={true}
         tabBarOptions={{
@@ -26,7 +25,7 @@ const LabourOrders = () => {
           component={PendingOrders}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name='history' color={color} size={24} /> // Replace with your custom icon or remove the icon to hide it
+              <MaterialIcons name='history' color={color} size={24} /> 
             ),
             tabBarBadge: 'New',
             headerShown: false,
@@ -37,7 +36,7 @@ const LabourOrders = () => {
           component={CompletedOrders}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name='checkcircle' size={24} color={color} /> // Replace with your custom icon or remove the icon to hide it
+              <AntDesign name='checkcircle' size={24} color={color} /> 
             ) /*tabBarBadge: 'New',*/,
             headerShown: false,
           }}
@@ -50,7 +49,7 @@ const LabourOrders = () => {
             tabBarStyle: { display: 'none' },
             tabBarButton: () => null,
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name='local-shipping' color={color} size={18} /> // Replace with your custom icon or remove the icon to hide it
+              <MaterialIcons name='local-shipping' color={color} size={18} /> 
             ) /*tabBarBadge: 'New',*/,
             headerShown: true,
             headerTitleAlign: 'center',
@@ -71,8 +70,8 @@ const LabourOrders = () => {
             tabBarStyle: { display: 'none' },
             tabBarButton: () => null,
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name='bars' size={18} color={color} /> // Replace with your custom icon or remove the icon to hide it
-            ) /*tabBarBadge: 'New',*/,
+              <AntDesign name='bars' size={18} color={color} /> 
+            ) ,
             headerShown: true,
             headerTitleAlign: 'center',
             headerStyle: {
@@ -85,7 +84,7 @@ const LabourOrders = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+    </>
   );
 };
 

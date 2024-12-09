@@ -57,7 +57,7 @@ const SignUpTeam = () => {
       idNumber: id,
     });
 
-    if (res.error) {
+    if (res && res.error) {
       toast.show(`${res.error}`, {
         type: 'danger',
         placement: 'top',
@@ -67,7 +67,7 @@ const SignUpTeam = () => {
       });
     }
 
-    if (res) {
+    if (res && !res.error) {
       router.push('signInAsTeam');
       toast.show('Created successfully', {
         type: 'success',

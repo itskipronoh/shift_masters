@@ -10,7 +10,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
-import { useGlobalContext } from '../../context/GlobalProvider';
+import { BaseURI } from '../../api';
+
 const VehicleData = () => {
   const [vehicleName, setVehicleName] = useState('');
   const [vehicleModel, setVehicleModel] = useState('');
@@ -21,237 +22,179 @@ const VehicleData = () => {
   const [vehicleList, setVehicleList] = useState([]);
   const [error, setError] = useState('');
   const toast = useToast();
-  const { endpoint } = useGlobalContext();
-  // Function to fetch all vehicles
-  // const fetchVehicles = async () => {
-  //   try {
-  //     const response = await fetch(`${endpoint}vehicles/`, {
-  //       method: 'GET',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     const newVehicleList = data.map(item => ({
-  //       // id: item._id, // Assuming _id is the unique identifier
-  //       vehicleName: item.name,
-  //       vehicleModelYear: item.model,
-  //       vehicleManufacturer: item.manufacturer,
-  //       vehicleRegisterNumberPlate: item.registerNumberPlate,
-  //       loadingCapacity: item.loadingCapacity,
-  //       vehicleCategoryType: item.categoryType,
-  //     }));
-  //     setVehicleList(newVehicleList);
-  //   } catch (error) {
-  //     console.error("Error fetching vehicles:", error);
-  //     setError("Failed to retrieve vehicle data.");
-  //     toast.show("Failed to retrieve vehicle data.", {
-  //       type: "danger",
-  //       placement: "top",
-  //       duration: 2500,
-  //       offset: 30,
-  //       animationType: "zoom-in",
-  //     });
-  //   }
-  // };
 
-  // // Function to add a new vehicle
-  // const addVehicle = async () => {
-  //   if (!vehicleName || !vehicleModel || !vehicleManufacturer || !vehicleRegisterNumber || !loadingCapacity || !vehicleCategory) {
-  //     setError("Please enter data in all fields.");
-  //     toast.show("Please enter data in all fields.", {
-  //       type: "danger",
-  //       placement: "top",
-  //       duration: 2500,
-  //       offset: 30,
-  //       animationType: "zoom-in",
-  //     });
-  //     return;
-  //   }
-  //   try {
-  //     const response = await fetch(`${endpoint}vehicles/create`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         name: vehicleName,
-  //         modelYear: vehicleModel,
-  //         manufacturer: vehicleManufacturer,
-  //         registerNumberPlate: vehicleRegisterNumber,
-  //         loadingCapacity: loadingCapacity,
-  //         categoryType: vehicleCategory,
-  //       }),
-  //     });
+  const fetchVehicles = async () => {
+    try {
+      const response = await fetch(`${BaseURI}vehicles/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      const newVehicleList = data.map((item) => ({
+        // id: item._id, // Assuming _id is the unique identifier
+        vehicleName: item.name,
+        vehicleModelYear: item.model,
+        vehicleManufacturer: item.manufacturer,
+        vehicleRegisterNumberPlate: item.registerNumberPlate,
+        loadingCapacity: item.loadingCapacity,
+        vehicleCategoryType: item.categoryType,
+      }));
+      setVehicleList(newVehicleList);
+    } catch (error) {
+      console.error('Error fetching vehicles:', error);
+      setError('Failed to retrieve vehicle data.');
+      toast.show('Failed to retrieve vehicle data.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
+      });
+    }
+  };
 
-  //     const data = await response.json();
-  //     if (data.error) {
-  //       setError(data.error);
-  //       toast.show(`${data.error}`, {
-  //         type: "danger",
-  //         placement: "top",
-  //         duration: 2500,
-  //         offset: 30,
-  //         animationType: "zoom-in",
-  //       });
-  //     } else {
-  //       setError("");
-  //       toast.show("Vehicle added successfully", {
-  //         type: "success",
-  //         placement: "top",
-  //         duration: 2500,
-  //         offset: 30,
-  //         animationType: "zoom-in",
-  //       });
-  //       fetchVehicles(); // Refresh the list after adding
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding vehicle:", error);
-  //     setError("Failed to add vehicle.");
-  //     toast.show("Failed to add vehicle.", {
-  //       type: "danger",
-  //       placement: "top",
-  //       duration: 2500,
-  //       offset: 30,
-  //       animationType: "zoom-in",
-  //     });
-  //   }
-  // };
+  // Function to add a new vehicle
+  const addVehicle = async () => {
+    if (
+      !vehicleName ||
+      !vehicleModel ||
+      !vehicleManufacturer ||
+      !vehicleRegisterNumber ||
+      !loadingCapacity ||
+      !vehicleCategory
+    ) {
+      setError('Please enter data in all fields.');
+      toast.show('Please enter data in all fields.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
+      });
+      return;
+    }
+    try {
+      const response = await fetch(`${BaseURI}vehicles/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: vehicleName,
+          modelYear: vehicleModel,
+          manufacturer: vehicleManufacturer,
+          registerNumberPlate: vehicleRegisterNumber,
+          loadingCapacity: loadingCapacity,
+          categoryType: vehicleCategory,
+        }),
+      });
 
-  // // Function to delete a vehicle by ID
-  // const deleteVehicle = async (id) => {
-  //   try {
-  //     const response = await fetch(`${endpoint}vehicles/:id`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ registerNumberPlate: id }), // assuming 'registerNumberPlate' is unique
-  //     });
+      const data = await response.json();
+      if (data.error) {
+        setError(data.error);
+        toast.show(`${data.error}`, {
+          type: 'danger',
+          placement: 'top',
+          duration: 2500,
+          offset: 30,
+          animationType: 'zoom-in',
+        });
+      } else {
+        setError('');
+        toast.show('Vehicle added successfully', {
+          type: 'success',
+          placement: 'top',
+          duration: 2500,
+          offset: 30,
+          animationType: 'zoom-in',
+        });
+        fetchVehicles(); // Refresh the list after adding
+      }
+    } catch (error) {
+      console.error('Error adding vehicle:', error);
+      setError('Failed to add vehicle.');
+      toast.show('Failed to add vehicle.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
+      });
+    }
+  };
 
-  //     if (response.ok) {
-  //       toast.show("Vehicle deleted successfully", {
-  //         type: "success",
-  //         placement: "top",
-  //         duration: 2500,
-  //         offset: 30,
-  //         animationType: "zoom-in",
-  //       });
-  //       fetchVehicles(); // Refresh the list after deletion
-  //     } else {
-  //       console.error("Error deleting vehicle:", response);
-  //       setError("Failed to delete vehicle.");
-  //       toast.show("Failed to delete vehicle.", {
-  //         type: "danger",
-  //         placement: "top",
-  //         duration: 2500,
-  //         offset: 30,
-  //         animationType: "zoom-in",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error deleting vehicle:", error);
-  //     setError("An error occurred while deleting the vehicle.");
-  //     toast.show("An error occurred while deleting the vehicle.", {
-  //       type: "danger",
-  //       placement: "top",
-  //       duration: 2500,
-  //       offset: 30,
-  //       animationType: "zoom-in",
-  //     });
-  //   }
-  // };
+  // Function to delete a vehicle by ID
+  const deleteVehicle = async (id) => {
+    try {
+      const response = await fetch(`${BaseURI}vehicles/:id`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ registerNumberPlate: id }), // assuming 'registerNumberPlate' is unique
+      });
 
-  // Real one
-  // fetch(`${endpoint}/viewvehical`, {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // })
-  // .then((response) => response.json())
-  // .then((data) => {
-  //   const jsonArray = Array.from(Object.values(data));
-  //   const newVehicleList = jsonArray.map((item) => ({
-  //     // id: item.id,
-  //     vehicleName: item.V_name,
-  //     vehicleModel: item.V_model,
-  //     vehicleManufacturer: item.V_manufacturer,
-  //     vehicleRegisterNumber: item.V_number,
-  //     loadingCapacity: item.V_capacity,
-  //     vehicleCategory: item.V_category,
-  //   }));
-  //   setVehicleList(newVehicleList);
-  // });
+      if (response.ok) {
+        toast.show('Vehicle deleted successfully', {
+          type: 'success',
+          placement: 'top',
+          duration: 2500,
+          offset: 30,
+          animationType: 'zoom-in',
+        });
+        fetchVehicles(); // Refresh the list after deletion
+      } else {
+        console.error('Error deleting vehicle:', response);
+        setError('Failed to delete vehicle.');
+        toast.show('Failed to delete vehicle.', {
+          type: 'danger',
+          placement: 'top',
+          duration: 2500,
+          offset: 30,
+          animationType: 'zoom-in',
+        });
+      }
+    } catch (error) {
+      console.error('Error deleting vehicle:', error);
+      setError('An error occurred while deleting the vehicle.');
+      toast.show('An error occurred while deleting the vehicle.', {
+        type: 'danger',
+        placement: 'top',
+        duration: 2500,
+        offset: 30,
+        animationType: 'zoom-in',
+      });
+    }
+  };
 
-  // const addVehicle = () => {
-  //   if (
-  //     vehicleName === '' ||
-  //     vehicleModel === '' ||
-  //     vehicleManufacturer === '' ||
-  //     vehicleRegisterNumber === '' ||
-  //     loadingCapacity === '' ||
-  //     vehicleCategory === ''
+  fetch(`${BaseURI}/viewvehical`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const jsonArray = Array.from(Object.values(data));
+      const newVehicleList = jsonArray.map((item) => ({
+        // id: item.id,
+        vehicleName: item.V_name,
+        vehicleModel: item.V_model,
+        vehicleManufacturer: item.V_manufacturer,
+        vehicleRegisterNumber: item.V_number,
+        loadingCapacity: item.V_capacity,
+        vehicleCategory: item.V_category,
+      }));
+      setVehicleList(newVehicleList);
+    });
 
-  //   ) {
-  //     alert('Please enter data in all fields.');
-  //     return;
-  //   }
-  //   else{
-  //     const fdata = {
-  //       V_name: vehicleName ,
-  //       V_model: vehicleModel ,
-  //       V_manufacturer: vehicleManufacturer ,
-  //       V_number: vehicleRegisterNumber ,
-  //       V_capacity: loadingCapacity ,
-  //       V_category: vehicleCategory
-  //     }
-
-  //     fetch(`${endpoint}/addvehical`,{
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body : JSON.stringify(fdata)
-  //     })
-  //     .then(response => response.json()).then(
-  //       data=> {
-  //         if(data.error) {
-  //           console.log(data.error);
-  //         }
-  //         console.log(data);
-  //         fetch('${endpoint}/viewvehical', {
-  //           method: 'GET',
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           },
-  //         })
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           const jsonArray = Array.from(Object.values(data));
-  //           const newVehicleList = jsonArray.map((item) => ({
-  //             // id: item.id,
-  //             vehicleName: item.V_name,
-  //             vehicleModel: item.V_model,
-  //             vehicleManufacturer: item.V_manufacturer,
-  //             vehicleRegisterNumber: item.V_number,
-  //             loadingCapacity: item.V_capacity,
-  //             vehicleCategory: item.V_category,
-  //           }));
-  //           setVehicleList(newVehicleList);
-  //         });
-  //       }
-  //     )
-
-  //   }
-  // };
-
-  // const deleteVehicle = (id) => {
   //     const fdata = {
   //       V_number : id,
   //     }
 
-  //     fetch(`${endpoint}/deletevehical`, {
+  //     fetch(`${BaseURI}/deletevehical`, {
   //       method: 'DELETE',
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -260,7 +203,7 @@ const VehicleData = () => {
   //     })
   //       .then(() => {
 
-  //         fetch(`${endpoint}/viewvehical`, {
+  //         fetch(`${BaseURI}/viewvehical`, {
   //           method: 'GET',
   //           headers: {
   //             'Content-Type': 'application/json',
@@ -288,19 +231,8 @@ const VehicleData = () => {
 
   // };
 
-  // const handleDeleteVehicle = (id) => {
-  //   setVehicleList(vehicleList);
-  // };
-
-  const fetchVehicles = async () => {
-    try {
-      const response = await fetch(`${endpoint}/vehicles`);
-      if (!response.ok) throw new Error('Failed to fetch vehicles');
-      const data = await response.json();
-      setVehicles(data);
-    } catch (error) {
-      toast.error('Error fetching vehicles');
-    }
+  const handleDeleteVehicle = (id) => {
+    setVehicleList(vehicleList);
   };
 
   useEffect(() => {
@@ -310,7 +242,7 @@ const VehicleData = () => {
   // Create a new vehicle
   const createVehicle = async () => {
     try {
-      const response = await fetch(`${endpoint}/vehicles/create`, {
+      const response = await fetch(`${BaseURI}/vehicles/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -335,7 +267,7 @@ const VehicleData = () => {
   // Update vehicle
   const updateVehicle = async (id) => {
     try {
-      const response = await fetch(`${endpoint}/vehicles/${id}`, {
+      const response = await fetch(`${BaseURI}/vehicles/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -344,20 +276,6 @@ const VehicleData = () => {
       const updatedVehicle = await response.json();
       setVehicles(vehicles.map((v) => (v._id === id ? updatedVehicle : v)));
       toast.success('Vehicle updated successfully!');
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
-  // Delete vehicle
-  const deleteVehicle = async (id) => {
-    try {
-      const response = await fetch(`${endpoint}/vehicles/${id}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Failed to delete vehicle');
-      setVehicles(vehicles.filter((v) => v._id !== id));
-      toast.success('Vehicle deleted successfully!');
     } catch (error) {
       toast.error(error.message);
     }

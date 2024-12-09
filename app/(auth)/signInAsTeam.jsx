@@ -15,7 +15,8 @@ import {
 } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
 import { useGlobalContext } from '../../context/GlobalProvider';
-import { signInUser } from '../../api';
+import { signInAsUser } from '../../api';
+
 
 const SignInTeam = () => {
   const toast = useToast();
@@ -28,7 +29,7 @@ const SignInTeam = () => {
   const [error, setError] = useState('');
 
   React.useEffect(() => {
-    if (User) {
+    if (User && User.role === 'team') {
       router.replace('/(team)/');
     }
   }, [User]);
@@ -37,7 +38,7 @@ const SignInTeam = () => {
     if (email === '' || password === '') {
       setShowErrorMessage(true);
     } else {
-      const res = await signInUser(email, password);
+      const res = await signInAsUser(email, password);
 
       if (res) {
         startSession(res);
@@ -61,14 +62,11 @@ const SignInTeam = () => {
   };
 
   const validateEmail = (text) => {
-    // Email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsValidEmail(emailRegex.test(text));
     setEmail(text);
   };
-  const goBack = () => {
-    router.back();
-  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}

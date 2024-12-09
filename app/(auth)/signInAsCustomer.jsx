@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -14,22 +14,28 @@ import {
 } from 'react-native';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { useToast } from 'react-native-toast-notifications';
-// import {  signInAsCustomer } from '../../api';
+import { signInAsUser } from '../../api';
 
-const SignInCustomer = ({ navigation }) => {
+const SignInCustomer = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const {  startSession, } = useGlobalContext();
+  const { startSession, User } = useGlobalContext();
   const toast = useToast();
+
+  React.useEffect(() => {
+    if (User && User.role === 'customer') {
+      router.replace('/(home)/Home');
+    }
+  }, [User]);
 
   const handleSignIn = async () => {
     if (email === '' || password === '') {
       setShowErrorMessage(true);
     } else {
-      const res = await signInAsCustomer(email, password);
+      const res = await signInAsUser(email, password);
       console.log(res);
       if (res.error) {
         toast.show(res.error, { type: 'danger' });

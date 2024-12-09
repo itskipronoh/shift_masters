@@ -57,6 +57,8 @@ const SignUpCustomer = () => {
       role,
     });
 
+    console.log(res);
+
     if (res.error) {
       setError(res.error);
       toast.show(res.error, {

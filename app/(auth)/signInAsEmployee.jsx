@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import { useToast } from 'react-native-toast-notifications';
-import { signInUser } from '../../api';
+import { signInAsUser } from '../../api';
 
 const SignInEmployee = () => {
   const [email, setemail] = useState('');
@@ -29,7 +29,7 @@ const SignInEmployee = () => {
 
   React.useEffect(() => {
     if (User && User.role == 'admin') {
-      router.replace('(employee)/Home');
+      router.replace('/(employee)/Home');
     }
   }, [User]);
 
@@ -45,7 +45,7 @@ const SignInEmployee = () => {
       return;
     }
 
-    const res = await signInUser(email, password);
+    const res = await signInAsUser(email, password);
     console.log(res);
 
     if (res.error) {

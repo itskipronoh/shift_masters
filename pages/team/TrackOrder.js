@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Button,Pressable, Platform } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Pressable, Platform } from 'react-native';
 import MapView from 'react-native-maps';
 import {Marker} from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
@@ -14,9 +14,7 @@ const TrackingOrder = () => {
   const fromAddress = '123 Main St, City A';
   const toAddress = '456 Elm St, City B';
   useEffect(() => {
-    // Fetch vehicle location and remaining time data
-    // You can use your own logic or API calls here
-    // Mock data for demonstration purposes
+
     const vehicleData = {
       latitude: 37.7749,
       longitude: -122.4194,
@@ -61,7 +59,6 @@ const TrackingOrder = () => {
         {vehicleLocation && (
           <Marker coordinate={vehicleLocation} pinColor="#bf9000" />
         )}
-        {/* Polyline representing the route can be added here */}
       </MapView>
 
       <View style={styles.infoContainer}>
@@ -74,7 +71,7 @@ const TrackingOrder = () => {
         <Pressable style={({pressed}) => [
               styles.button,
               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-        ]} /*onPress={() => {navigation.replace('');}}*/>
+        ]} >
         <Text style={styles.textbutton}> Cancel Order </Text> 
       </Pressable>
       
@@ -159,10 +156,3 @@ const styles = StyleSheet.create({
 
 export default TrackingOrder;
 
-
-// <Pressable style={({pressed}) => [
-//               styles.button,
-//               pressed && {opacity: 1.8, backgroundColor:'#987200'},
-//         ]}  onPress={() => {navigation.navigate('Pending');}}>
-//         <Text style={styles.textbutton}> Go Back </Text> 
-// </Pressable>

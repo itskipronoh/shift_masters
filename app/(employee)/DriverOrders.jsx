@@ -1,18 +1,17 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { MaterialIcons } from '@expo/vector-icons'; // Import icons from Expo vector icons library
+import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import PendingOrders from '../../pages/employee/PendingOrdersDriver';
-import CompletedOrders from '../../pages/employee/CompletedOrdersDriver';
-import ViewOrderDetails from '../../pages/employee/ViewOrderDetails';
-import TrackingOrder from '../../pages/employee/TrackingOrder';
+import PendingOrders from '../../pages/team/PendingOrders';
+import CompletedOrders from '../../pages/team/OrdersCompleted';
+import ViewOrderDetails from '../../pages/team/ViewOrderDetails';
+
 const DriverOrders = () => {
-  //const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
 
   return (
-    <NavigationContainer independent={true}>
+    <>
       <Tab.Navigator
         shifting={true}
         tabBarOptions={{
@@ -27,7 +26,7 @@ const DriverOrders = () => {
           component={PendingOrders}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name='history' color={color} size={24} /> // Replace with your custom icon or remove the icon to hide it
+              <MaterialIcons name='history' color={color} size={24} />
             ),
             tabBarBadge: 'New',
             headerShown: false,
@@ -38,32 +37,12 @@ const DriverOrders = () => {
           component={CompletedOrders}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name='checkcircle' size={24} color={color} /> // Replace with your custom icon or remove the icon to hide it
-            ) /*tabBarBadge: 'New',*/,
+              <AntDesign name='checkcircle' size={24} color={color} /> 
+            ) ,
             headerShown: false,
           }}
         />
-        <Tab.Screen
-          name='Tracking'
-          component={TrackingOrder}
-          options={{
-            title: 'Order Tracking',
-            tabBarStyle: { display: 'none' },
-            tabBarButton: () => null,
-            tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name='local-shipping' color={color} size={18} /> // Replace with your custom icon or remove the icon to hide it
-            ) /*tabBarBadge: 'New',*/,
-            headerShown: true,
-            headerTitleAlign: 'center',
-            headerStyle: {
-              backgroundColor: '#8c6a00',
-            },
-            headerTintColor: '#000000',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
+
         <Tab.Screen
           name='Details'
           component={ViewOrderDetails}
@@ -72,8 +51,7 @@ const DriverOrders = () => {
             tabBarStyle: { display: 'none' },
             tabBarButton: () => null,
             tabBarIcon: ({ color, size }) => (
-              <AntDesign name='bars' size={18} color={color} /> // Replace with your custom icon or remove the icon to hide it
-            ) /*tabBarBadge: 'New',*/,
+              <AntDesign name='bars' size={18} color={color} /> ),
             headerShown: true,
             headerTitleAlign: 'center',
             headerStyle: {
@@ -86,7 +64,7 @@ const DriverOrders = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
+    </>
   );
 };
 

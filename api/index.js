@@ -19,9 +19,9 @@ export const apiCall = async (url, method, data, token) => {
   }
 };
 
-// sign in as customer
+// sign in users
 
-export const signInAsCustomer = async (email, password) => {
+export const signInAsUser = async (email, password) => {
   try {
     const response = await fetch(`${BaseURI}/auth/login`, {
       method: 'POST',
@@ -41,6 +41,27 @@ export const signInAsCustomer = async (email, password) => {
     console.error('Error:', error);
   }
 };
+
+// sign up users
+
+export const signUpUser = async (userData) => {
+  try {
+    const response = await fetch(`${BaseURI}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 
 //make order
 
