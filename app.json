@@ -21,7 +21,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.chebutul.shiftMasters"
+      // "package": "com.hezron.shiftMasters"
+       "package": "com.chebutul.shiftMasters"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,7 @@
     },
     "extra": {
       "eas": {
+        // "projectId": "c573c69e-1054-43f0-8791-e607d0a1906d"
         "projectId": "d932e141-c340-4391-842e-7a17b7391156"
       }
     }
