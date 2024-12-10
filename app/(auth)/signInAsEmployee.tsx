@@ -23,13 +23,13 @@ const SignInEmployee = () => {
   const [isValidemail, setIsValidemail] = useState(true);
   const [isPasswordEntered, setIsPasswordEntered] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const {  startSession, getSession } = useGlobalContext();
+  const { startSession, getSession } = useGlobalContext();
   const toast = useToast();
   const { User } = useGlobalContext();
 
   React.useEffect(() => {
     if (User && User.role == 'admin') {
-      router.replace('/(employee)/Home');
+      router.replace('(employee)/Home');
     }
   }, [User]);
 
@@ -39,7 +39,6 @@ const SignInEmployee = () => {
         type: 'error',
         placement: 'top',
         duration: 2500,
-        offset: 30,
         animationType: 'zoom-in',
       });
       return;
@@ -48,12 +47,11 @@ const SignInEmployee = () => {
     const res = await signInAsUser(email, password);
     console.log(res);
 
-    if (res.error) {
+    if (res?.error) {
       toast.show(res.error, {
         type: 'error',
         placement: 'top',
         duration: 2500,
-        offset: 30,
         animationType: 'zoom-in',
       });
       return;
@@ -62,12 +60,11 @@ const SignInEmployee = () => {
     if (res) {
       startSession(res);
       getSession();
-      router.replace('(employee)/Home');
+      router.navigate('/(employee)/Home');
       toast.show('Logged in successfully', {
         type: 'success',
         placement: 'top',
         duration: 2500,
-        offset: 30,
         animationType: 'zoom-in',
       });
     }
@@ -126,7 +123,7 @@ const SignInEmployee = () => {
         </Pressable>
         <TouchableOpacity
           style={styles.buttonForgotPassword}
-          onPress={() => router.push('forgotPassword')}
+          onPress={() => router.push('/forgotPassword')}
         >
           <Text style={styles.buttonForgotPassword}> Forgot Password? </Text>
         </TouchableOpacity>

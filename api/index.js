@@ -72,3 +72,8 @@ export const makeOrder = async (orderData, token) => {
 export const getAllOrders = async () => {
   return await apiCall(`/orders`, 'GET');
 };
+
+
+export const getAllUsers = async () => {
+  return await apiCall(`/auth/users`, 'GET');
+}
