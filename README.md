@@ -173,25 +173,27 @@ This project demonstrates the integration of **mobile application development, b
 git clone https://github.com/itskipronoh/shift-masters.git
 cd shift-masters
 
-Install Dependencies
+### Install Dependencies
 npm install
-Start the Development Server
+### Start the Development Server
 npm start
-Run the Mobile Application
+### Run the Mobile Application
 expo start
-Future Improvements
 
-Integration with payment systems (M-Pesa, card payments)
 
-Enhanced route optimization algorithms
+# Future Improvements
 
-Advanced AI analytics for logistics optimization
+1. Integration with payment systems (M-Pesa, card payments)
 
-Multi-city logistics support
+2. Enhanced route optimization algorithms
 
-<div align="center">
+3. Advanced AI analytics for logistics optimization
 
-Built with ❤️ using React Native and AI
+4. Multi-city logistics support
+
+#<div align="center">
+
+ Built with ❤️ using React Native and AI
 
 Made by @itskipronoh
 
