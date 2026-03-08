@@ -112,7 +112,7 @@ This project demonstrates the integration of **mobile application development, b
 
 <div align="center">
 
-![Shift Masters Architecture](./docs/architecture.png)
+![Shift Masters Architecture](./app/assets/ff.png)
 
 </div>
 
