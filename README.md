@@ -169,11 +169,13 @@ This project demonstrates the integration of **mobile application development, b
 
 ### Clone the Repository
 
-```bash
+
 git clone https://github.com/itskipronoh/shift-masters.git
 cd shift-masters
 
 ### Install Dependencies
+
+
 npm install
 ### Start the Development Server
 npm start
@@ -191,7 +193,7 @@ expo start
 
 4. Multi-city logistics support
 
-#<div align="center">
+# <div align="center">
 
  Built with ❤️ using React Native and AI
 
